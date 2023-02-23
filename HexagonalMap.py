@@ -4,6 +4,9 @@ from PySide6.QtWidgets import (
 
 from PySide6.QtGui import (
     QPixmap,
+    QPen,
+    QColor,
+    QPainter,
 )
 
 from PySide6.QtCore import (
@@ -12,6 +15,7 @@ from PySide6.QtCore import (
 
 from Geometry import (
     Hexagon,
+    Point,
 )
 
 class WidgetDessin(QLabel):
@@ -38,15 +42,25 @@ class WidgetHexagonalMap(WidgetDessin):
                 taille_h=400,
                 taille_v=400,
                 taille_hexa = 40,
+                couleur = QColor('black'),
+                epaisseur = 5,
+                trace_centre = False,
                 ):
         super().__init__(taille_h, taille_v)
+
+        # --- Set style
+        painter = QPainter(self.canevas)
+        pen = QPen()
+        pen.setWidth(epaisseur)
+        pen.setColor(couleur)
+        painter.setPen(pen)
 
         # --- Rayon du cercle circonscrit
         self.r_hexa = taille_hexa
 
         # --- Distance entre les centres
-        dist_deux_centres_h = taille_hexa*(2.0+2**0.5/3)
-        dist_deux_centres_v = taille_hexa*(2*(2**0.5)/3)
+        dist_deux_centres_h = 3*taille_hexa
+        dist_deux_centres_v = taille_hexa*(2*(3**0.5)/2)
 
         # --- Nombre d'hexagones à placer
         self.nb_hex_h = 1+int(2*self.h/dist_deux_centres_h)
@@ -56,7 +70,7 @@ class WidgetHexagonalMap(WidgetDessin):
         self.centres = {}
         self.centres[(0,0)] = (0.0,0.0)
         self.centres[(1,0)] = (
-            self.centres[(0,0)][0]+dist_deux_centres_h-taille_hexa,
+            self.centres[(0,0)][0]+0.5*dist_deux_centres_h,
             self.centres[(0,0)][1]+0.5*dist_deux_centres_v,
         )
         # --- Calcule les deux premières colonnes de centres
@@ -78,9 +92,28 @@ class WidgetHexagonalMap(WidgetDessin):
         self.hexs = {}
         for coord in self.centres:
             self.hexs[coord] = Hexagon(
-                centre=self.centres[coord],
+                centre=Point(*self.centres[coord]),
                 rayon=taille_hexa
             )
+        
+        # --- Trace les centres
+        if trace_centre : 
+            for coord,centre in self.centres.items():
+                painter.drawPoint(*centre)
+        
+        # --- Trace les côtés
+        for coord,hex in self.hexs.items():
+            sommets = hex.sommets()
+            for i in range(len(sommets)):
+                pt1 = sommets[i]
+                pt2 = sommets[(i+1)%6]
+                painter.drawLine(pt1.x,pt1.y,pt2.x,pt2.y)
+
+        
+
+        # --- Fin du tracé
+        painter.end()
+        self.setPixmap(self.canevas)
 
 
         
