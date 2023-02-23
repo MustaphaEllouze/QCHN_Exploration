@@ -109,8 +109,6 @@ class WidgetHexagonalMap(WidgetDessin):
                 pt2 = sommets[(i+1)%6]
                 painter.drawLine(pt1.x,pt1.y,pt2.x,pt2.y)
 
-        
-
         # --- Fin du tracé
         painter.end()
         self.setPixmap(self.canevas)
