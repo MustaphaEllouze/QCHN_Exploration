@@ -50,5 +50,6 @@ class Hexagon:
             for k in range(6)
         ]
 
-h = Hexagon(centre=Point(5,7),rayon=1.0)
-for elem in h.sommets() : print(elem)
+if __name__ == '__main__':
+    h = Hexagon(centre=Point(5,7),rayon=1.0)
+    for elem in h.sommets() : print(elem)
