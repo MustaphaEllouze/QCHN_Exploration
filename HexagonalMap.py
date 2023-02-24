@@ -1,5 +1,8 @@
 from PySide6.QtWidgets import (
     QLabel,
+    QGraphicsView,
+    QGraphicsScene,
+    QWidget,
 )
 
 from PySide6.QtGui import (
@@ -7,6 +10,7 @@ from PySide6.QtGui import (
     QPen,
     QColor,
     QPainter,
+    QBrush,
 )
 
 from PySide6.QtCore import (
@@ -18,42 +22,31 @@ from Geometry import (
     Point,
 )
 
-class WidgetDessin(QLabel):
-    """Crée un dessin vierge, surlequel on peut dessiner
-    """
+class WidgetHexMap(QWidget):
     def __init__(
-        self,
-        taille_h = 400,
-        taille_v = 400,          
+            self,
+            taille_h=480,
+            taille_v=600,
+            taille_hexa=40, 
+            couleur= QColor('black'),
+            epaisseur = 5,
     ):
-        """
-            taille_h (int, optional): Taille horizontale. Defaults to 400.
-            taille_v (int, optional): Taille verticale. Defaults to 400.
-        """
         super().__init__()
+
+        #Attributs
         self.h = taille_h
         self.v = taille_v
-        self.canevas = QPixmap(taille_h,taille_v)
-        self.canevas.fill(Qt.white)
-        self.setPixmap(self.canevas)
 
-class WidgetHexagonalMap(WidgetDessin):
-    def __init__(self,
-                taille_h=400,
-                taille_v=400,
-                taille_hexa = 40,
-                couleur = QColor('black'),
-                epaisseur = 5,
-                trace_centre = False,
-                ):
-        super().__init__(taille_h, taille_v)
+        # Les painters
+        self.pen = QPen(couleur)
+        self.pen.setWidth(epaisseur)
 
-        # --- Set style
-        painter = QPainter(self.canevas)
-        pen = QPen()
-        pen.setWidth(epaisseur)
-        pen.setColor(couleur)
-        painter.setPen(pen)
+        # Crée la scène
+        self.scene = QGraphicsScene()
+
+        # Crée la vue
+        self.view = QGraphicsView(self.scene,parent=self)
+        self.view.setGeometry(0,0,self.h,self.v)
 
         # --- Rayon du cercle circonscrit
         self.r_hexa = taille_hexa
@@ -96,35 +89,18 @@ class WidgetHexagonalMap(WidgetDessin):
                 rayon=taille_hexa
             )
         
-        # --- Trace les centres
-        if trace_centre : 
-            for coord,centre in self.centres.items():
-                painter.drawPoint(*centre)
-        
-        # --- Trace les côtés
+        # --- Trace les hexagones
         for coord,hex in self.hexs.items():
-            sommets = hex.sommets()
-            for i in range(len(sommets)):
-                pt1 = sommets[i]
-                pt2 = sommets[(i+1)%6]
-                painter.drawLine(pt1.x,pt1.y,pt2.x,pt2.y)
-
-        # --- Fin du tracé
-        painter.end()
-        self.setPixmap(self.canevas)
-
-
+            self.scene.addPolygon(hex.convert_to_polygon())
         
-
-    
 if __name__ == '__main__':
     import sys
     from PySide6.QtWidgets import QApplication
     
     app = QApplication(sys.argv)
-    a = WidgetHexagonalMap(
-        taille_h=200,
-        taille_v=400,
-        taille_hexa=40,
+    a = WidgetHexMap(
+        taille_h=1000,
+        taille_v=1000,
     )
-    print(a.__dict__)
+    a.show()
+    app.exec()

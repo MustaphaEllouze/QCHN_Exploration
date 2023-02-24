@@ -3,12 +3,17 @@ import sys
 from PySide6.QtCore import (
     QSize,
     Qt,
+    QPointF,
 )
 
 from PySide6.QtGui import (
     QAction,
     QPixmap,
     QColor,
+    QPolygonF,
+    QPen,
+    QBrush,
+    QFont,
 )
 
 from PySide6.QtWidgets import (
@@ -16,26 +21,27 @@ from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
     QLabel,
+    QGraphicsScene,
+    QGraphicsView,
 )
 
 from HexagonalMap import (
-    WidgetHexagonalMap
+    WidgetHexMap,
 )
+
+import math
 
 class MainWindow(QMainWindow):
     def __init__(
         self,
     ):
         super().__init__()
-        self.widget_dessin = WidgetHexagonalMap(
-            taille_h=1500,
-            taille_v=750,
+        self.hex_map = WidgetHexMap(
+            taille_h=720,
+            taille_v=480,
             taille_hexa=40,
-            couleur=QColor('black'),
-            epaisseur=3,
-            trace_centre=False,
         )
-        self.setCentralWidget(self.widget_dessin)
+        self.setCentralWidget(self.hex_map)
 
 
 if __name__ == '__main__':

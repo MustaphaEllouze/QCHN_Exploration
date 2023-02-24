@@ -4,6 +4,14 @@ from math import (
     pi,
 )
 
+from PySide6.QtCore import (
+    QPointF,
+)
+
+from PySide6.QtGui import (
+    QPolygonF,
+)
+
 class Point :
     """Représente un point
     """
@@ -49,7 +57,14 @@ class Hexagon:
             )
             for k in range(6)
         ]
+    
+    def convert_to_polygon(self):
+        polygon = QPolygonF()
+        for s in self.sommets():
+            polygon.append(QPointF(s.x,s.y))
+        return polygon
 
 if __name__ == '__main__':
     h = Hexagon(centre=Point(5,7),rayon=1.0)
     for elem in h.sommets() : print(elem)
+    print(h.convert_to_polygon())
