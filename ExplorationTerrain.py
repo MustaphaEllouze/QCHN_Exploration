@@ -12,6 +12,8 @@ class ExplorationTerrain :
             thirst=1.0,
             frost=0.0,
             magic_fatigue=0.0,
+            traversable=True,
+            detect_distance=1,
     ):
         self.name = name
         self.duration = duration
@@ -20,6 +22,8 @@ class ExplorationTerrain :
         self.thirst = thirst
         self.frost=frost
         self.magic_fatigue=magic_fatigue
+        self.traversable=traversable
+        self.detect_distance=detect_distance
 
         ExplorationTerrain.TERRAINS[name]=self
 
@@ -79,4 +83,49 @@ ExplorationTerrain.mountain = ExplorationTerrain(
     hunger=2.0,
     thirst=2.0,
     frost=1.0,
+)
+
+ExplorationTerrain.desert = ExplorationTerrain(
+    name='Desert',
+    duration=1.0,
+    fatigue=2.0,
+    hunger=1.0,
+    thirst=3.0,
+    magic_fatigue=3.0,
+)
+
+ExplorationTerrain.high_mountain = ExplorationTerrain(
+    name='Haute Montagne',
+    duration=3.0,
+    fatigue=4.0,
+    hunger=2.0,
+    thirst=1.0,
+    frost=2.0,
+)
+
+ExplorationTerrain.sea = ExplorationTerrain(
+    name='Mer',
+    duration=3.0,
+    fatigue=1.0,
+    hunger=1.0,
+    thirst=1.0,
+    traversable=False,
+)
+
+ExplorationTerrain.cristal = ExplorationTerrain(
+    name='Cristal',
+    duration=1.0,
+    fatigue=1.0,
+    hunger=1.0,
+    thirst=1.0,
+    traversable=False,
+)
+
+ExplorationTerrain.village = ExplorationTerrain(
+    name='Village',
+    duration=1.0,
+    fatigue=1.0,
+    hunger=1.0,
+    thirst=1.0,
+    detect_distance=2,
 )
