@@ -56,7 +56,6 @@ class ExplorationMap :
             hex_place=ExplorationPlace.PLACES_FROM_TAG[hex_place],
         )
 
-    
     def define_from_ref(
             self,
             ref_hex,
@@ -102,6 +101,15 @@ class ExplorationMap :
             direction=direction,
             hex_place=ExplorationPlace.PLACES_FROM_TAG[hex_place],
         )
+
+    def define_column(
+            self,
+            column_number=0,
+            starting_index=0,
+            hex_types=[],
+    ):
+        for j,coord in enumerate([(column_number,starting_index+i) for i in range(len(hex_types))]):
+            self.define_from_coord(coord=coord,hex_type=hex_types[j])
 
     def bounding_box(self):
         min_x = min([coord[0] for coord in self.hexs.keys()])
