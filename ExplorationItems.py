@@ -157,6 +157,17 @@ ExplorationTerrain.sea = ExplorationTerrain(
     height=0,
 )
 
+ExplorationTerrain.breach = ExplorationTerrain(
+    name='Plage',
+    tag_name='B ',
+    duration=1.0,
+    fatigue=1.0,
+    hunger=1.0,
+    thirst=1.0,
+    traversable=False,
+    height=0,
+)
+
 # ---------------------------------- DEFINITION DES LIEUX ADDITIONNELS ------------------------------
 
 ExplorationPlace.cristal = ExplorationPlace(

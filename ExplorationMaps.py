@@ -19,6 +19,7 @@ MOUNTAINS     ,M       = (ExplorationTerrain.mountain     ,ExplorationTerrain.mo
 DESERT        ,D       = (ExplorationTerrain.desert       ,ExplorationTerrain.desert.tag_name       )
 HIGH_MOUNTAIN ,HM      = (ExplorationTerrain.high_mountain,ExplorationTerrain.high_mountain.tag_name)
 SEA           ,S       = (ExplorationTerrain.sea          ,ExplorationTerrain.sea.tag_name          )
+BEACH         ,B       = (ExplorationTerrain.beach        ,ExplorationTerrain.beach.tag_name        )
 
 CRISTAL       ,C       = (ExplorationPlace.cristal        ,ExplorationPlace.cristal.tag_name        )
 VILLAGE       ,V       = (ExplorationPlace.village        ,ExplorationPlace.village.tag_name        )
