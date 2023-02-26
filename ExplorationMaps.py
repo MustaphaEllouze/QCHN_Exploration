@@ -22,19 +22,201 @@ SEA           ,S       = (ExplorationTerrain.sea          ,ExplorationTerrain.se
 
 CRISTAL       ,C       = (ExplorationPlace.cristal        ,ExplorationPlace.cristal.tag_name        )
 VILLAGE       ,V       = (ExplorationPlace.village        ,ExplorationPlace.village.tag_name        )
+CAVE          ,Ca      = (ExplorationPlace.cave           ,ExplorationPlace.cave.tag_name           )
 
 # ------------------- DEFINE MAPS ---------------------
 
 # SCENARIO 1
-map = ExplorationMap(
+map1 = ExplorationMap(
     'Scenario1',
     origin_hex=(0,0),
     origin_hex_type=ARID_PLAINS,
     origin_hex_place=VILLAGE,
 )
-map.define_from_coord_and_tag((-1,0),P,None)
-map.define_from_coord((-1,1),MOUNTAINS,None)
-map.define_from_ref((0,0),hex_type=MOUNTAINS,direction='SE')
 
-print(map.generate_numpy_like())
-print(map)
+columns_filled = {
+    (0,1)  : [
+        CLIFF,
+        ARID_PLAINS,
+        ARID_PLAINS,
+        PLAINS,
+        PLAINS,
+        CLIFF,
+        MOUNTAINS,
+        MOUNTAINS,
+        MOUNTAINS,
+        MOUNTAINS,
+        ],
+    (1,0)  : [
+        CLIFF,
+        CLIFF,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        RIVER,
+        CLIFF,
+        MOUNTAINS,
+        CLIFF,
+        ],
+    (2,1)  : [
+        CLIFF,
+        ARID_PLAINS,
+        PLAINS,
+        FOREST,
+        RIVER,
+        RIVER,
+        PLAINS,
+        CLIFF,
+        PLAINS,
+        FOREST,
+        ],   
+    (3,0)  : [
+        ARID_PLAINS,
+        ARID_PLAINS,
+        PLAINS,
+        RIVER,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+    ] ,
+    (4,1)  : [
+        ARID_PLAINS,
+        ARID_PLAINS,
+        PLAINS,
+        RIVER,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+    ],
+    (5,0)  : [
+        PLAINS,
+        PLAINS,
+        FOREST,
+        RIVER,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        RIVER,
+        RIVER,
+    ],
+    (6,1)  : [
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        RIVER,
+        FOREST,
+        RIVER,
+        RIVER,
+        FOREST,
+        RIVER
+    ],
+    (7,0)  : [
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        FOREST,
+        RIVER,
+        RIVER,
+        FOREST,
+        FOREST,
+        PLAINS,
+    ],
+    (-1,0) : [
+        CLIFF,
+        CLIFF,
+        PLAINS,
+        PLAINS,
+        FOREST,
+        CLIFF,
+        CLIFF,
+        MOUNTAINS,
+        MOUNTAINS,
+    ],
+    (-2,1) : [
+        CLIFF,
+        ARID_PLAINS,
+        PLAINS,
+        FOREST,
+        FOREST,
+        FOREST,
+        FOREST,
+        CLIFF,
+        MOUNTAINS,
+        MOUNTAINS,
+    ],
+    (-3,0) : [
+        CLIFF,
+        ARID_PLAINS,
+        PLAINS,
+        PLAINS,
+        FOREST,
+        FOREST,
+        FOREST,
+        CLIFF,
+        MOUNTAINS,
+    ],
+    (-4,1) : [
+        ARID_PLAINS,
+        ARID_PLAINS,
+        PLAINS,
+        PLAINS,
+        PLAINS,
+        FOREST,
+        FOREST,
+        CLIFF,
+        MOUNTAINS,
+        MOUNTAINS,
+    ],
+    (-5,0) : [
+        ARID_PLAINS,
+        PLAINS,
+        PLAINS,
+        FOREST,
+        FOREST,
+        FOREST,
+        PLAINS,
+        CLIFF,
+        MOUNTAINS,
+    ],
+    (-6,1) : [
+        ARID_PLAINS,
+        ARID_PLAINS,
+        PLAINS,
+        FOREST,
+        FOREST,
+        PLAINS,
+        PLAINS,
+        CLIFF,
+        MOUNTAINS,
+        MOUNTAINS,
+    ],
+    (-7,0) : [
+        PLAINS,
+        PLAINS,
+        FOREST,
+        FOREST,
+        PLAINS,
+        PLAINS,
+        FOREST,
+        PLAINS,
+        CLIFF,
+    ]
+}
+
+for column_info,hex_type in columns_filled.items():
+    map1.define_column(
+        column_number=column_info[0],
+        starting_index=column_info[1],
+        hex_types=hex_type,
+        reverse=True,
+    )
+
+map1.define_from_coord((1,5),hex_type=RIVER,hex_place=CAVE)
+
+print(map1)

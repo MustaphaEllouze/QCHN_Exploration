@@ -107,9 +107,39 @@ class ExplorationMap :
             column_number=0,
             starting_index=0,
             hex_types=[],
+            reverse=False,
     ):
-        for j,coord in enumerate([(column_number,starting_index+i) for i in range(len(hex_types))]):
+        if reverse : reverse_coef = -1
+        else: reverse_coef = 1
+
+        for j,coord in enumerate([(column_number,starting_index+i*reverse_coef) for i in range(len(hex_types))]):
             self.define_from_coord(coord=coord,hex_type=hex_types[j])
+    
+    def define_list_of_coords(
+            self,
+            list_of_coords = [],
+            hex_type=ExplorationTerrain.plains,
+            hex_place=None,
+    ):
+        for coord in list_of_coords:
+            self.define_from_coord(
+                coord=coord,
+                hex_type=hex_type,
+                hex_place=hex_place
+            )
+    
+    def define_list_of_coords_with_tag(
+            self,
+            list_of_coords=[],
+            hex_type=ExplorationTerrain.plains.tag_name,
+            hex_place=None,
+    ):
+        for coord in list_of_coords:
+            self.define_from_coord_and_tag(
+                coord=coord,
+                hex_type=hex_type,
+                hex_place=hex_place,
+            )
 
     def bounding_box(self):
         min_x = min([coord[0] for coord in self.hexs.keys()])

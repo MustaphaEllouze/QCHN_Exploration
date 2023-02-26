@@ -59,6 +59,7 @@ ExplorationTerrain.plains = ExplorationTerrain(
     fatigue=1.0,
     hunger=1.0,
     thirst=1.0,
+    height=0,
 )
 
 ExplorationTerrain.cliff = ExplorationTerrain(
@@ -68,6 +69,7 @@ ExplorationTerrain.cliff = ExplorationTerrain(
     fatigue=2.0,
     hunger=1.0,
     thirst=2.0,
+    height=1,
 )
 
 ExplorationTerrain.arid_plains = ExplorationTerrain(
@@ -77,6 +79,7 @@ ExplorationTerrain.arid_plains = ExplorationTerrain(
     fatigue=1.0,
     hunger=1.0,
     thirst=2.0,
+    height=0,
 )
 
 ExplorationTerrain.forest = ExplorationTerrain(
@@ -86,6 +89,7 @@ ExplorationTerrain.forest = ExplorationTerrain(
     fatigue=1.0,
     hunger=1.0,
     thirst=1.0,
+    height=0,
 )
 
 ExplorationTerrain.river = ExplorationTerrain(
@@ -95,6 +99,7 @@ ExplorationTerrain.river = ExplorationTerrain(
     fatigue=1.0,
     hunger=1.0,
     thirst=1.0,
+    height=0,
 )
 
 ExplorationTerrain.big_river = ExplorationTerrain(
@@ -105,6 +110,7 @@ ExplorationTerrain.big_river = ExplorationTerrain(
     hunger=1.0,
     thirst=1.0,
     frost=1.0,
+    height=0,
 )
 
 ExplorationTerrain.mountain = ExplorationTerrain(
@@ -115,6 +121,7 @@ ExplorationTerrain.mountain = ExplorationTerrain(
     hunger=2.0,
     thirst=2.0,
     frost=1.0,
+    height=2,
 )
 
 ExplorationTerrain.desert = ExplorationTerrain(
@@ -125,6 +132,7 @@ ExplorationTerrain.desert = ExplorationTerrain(
     hunger=1.0,
     thirst=3.0,
     magic_fatigue=3.0,
+    height=0,
 )
 
 ExplorationTerrain.high_mountain = ExplorationTerrain(
@@ -135,6 +143,7 @@ ExplorationTerrain.high_mountain = ExplorationTerrain(
     hunger=2.0,
     thirst=1.0,
     frost=2.0,
+    height=3,
 )
 
 ExplorationTerrain.sea = ExplorationTerrain(
@@ -145,6 +154,7 @@ ExplorationTerrain.sea = ExplorationTerrain(
     hunger=1.0,
     thirst=1.0,
     traversable=False,
+    height=0,
 )
 
 # ---------------------------------- DEFINITION DES LIEUX ADDITIONNELS ------------------------------
@@ -158,5 +168,11 @@ ExplorationPlace.cristal = ExplorationPlace(
 ExplorationPlace.village = ExplorationPlace(
     name='Village',
     tag_name='V ',
+    detect_distance=2,
+)
+
+ExplorationPlace.cave = ExplorationPlace(
+    name='Grotte',
+    tag_name='Ca',
     detect_distance=2,
 )
