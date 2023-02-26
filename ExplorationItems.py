@@ -50,7 +50,7 @@ class ExplorationPlace :
 # ---------------------------------- DEFINITION DES TERRAINS ------------------------------
 ExplorationTerrain.plains = ExplorationTerrain(
     name='Plaine',
-    tag_name='P',
+    tag_name='P ',
     duration=1.0,
     fatigue=1.0,
     hunger=1.0,
@@ -59,7 +59,7 @@ ExplorationTerrain.plains = ExplorationTerrain(
 
 ExplorationTerrain.cliff = ExplorationTerrain(
     name='Falaise',
-    tag_name='C',
+    tag_name='C ',
     duration=1.5,
     fatigue=2.0,
     hunger=1.0,
@@ -77,7 +77,7 @@ ExplorationTerrain.arid_plains = ExplorationTerrain(
 
 ExplorationTerrain.forest = ExplorationTerrain(
     name='Forêt',
-    tag_name='F',
+    tag_name='F ',
     duration=2.0,
     fatigue=1.0,
     hunger=1.0,
@@ -86,7 +86,7 @@ ExplorationTerrain.forest = ExplorationTerrain(
 
 ExplorationTerrain.river = ExplorationTerrain(
     name='Rivière',
-    tag_name='R',
+    tag_name='R ',
     duration=1.0,
     fatigue=1.0,
     hunger=1.0,
@@ -105,7 +105,7 @@ ExplorationTerrain.big_river = ExplorationTerrain(
 
 ExplorationTerrain.mountain = ExplorationTerrain(
     name='Montagne',
-    tag_name='M',
+    tag_name='M ',
     duration=2.0,
     fatigue=3.0,
     hunger=2.0,
@@ -115,7 +115,7 @@ ExplorationTerrain.mountain = ExplorationTerrain(
 
 ExplorationTerrain.desert = ExplorationTerrain(
     name='Desert',
-    tag_name='D',
+    tag_name='D ',
     duration=1.0,
     fatigue=2.0,
     hunger=1.0,
@@ -135,7 +135,7 @@ ExplorationTerrain.high_mountain = ExplorationTerrain(
 
 ExplorationTerrain.sea = ExplorationTerrain(
     name='Mer',
-    tag_name='S',
+    tag_name='S ',
     duration=3.0,
     fatigue=1.0,
     hunger=1.0,
@@ -147,12 +147,12 @@ ExplorationTerrain.sea = ExplorationTerrain(
 
 ExplorationPlace.cristal = ExplorationPlace(
     name='Cristal',
-    tag_name='C',
+    tag_name='C ',
     detect_distance=3,
 )
 
 ExplorationPlace.village = ExplorationPlace(
     name='Village',
-    tag_name='V',
+    tag_name='V ',
     detect_distance=2,
 )

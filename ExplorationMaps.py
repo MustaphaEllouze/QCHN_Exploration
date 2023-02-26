@@ -32,3 +32,9 @@ map = ExplorationMap(
     origin_hex_type=ARID_PLAINS,
     origin_hex_place=VILLAGE,
 )
+map.define_from_coord((-1,0),PLAINS,None)
+map.define_from_coord((-1,1),MOUNTAINS,None)
+map.define_from_ref((0,0),hex_type=MOUNTAINS,direction='SE')
+
+print(map.generate_numpy_like())
+print(map)

@@ -61,11 +61,11 @@ class ExplorationMap :
         elif direction == 'NE':
             decal = ( 1,-1)
         elif direction == 'SE':
-            decal = ( 1, 1)
+            decal = ( 1, 0)
         elif direction == 'NW':
             decal = (-1,-1)
         elif direction == 'SW':
-            decal = (-1,-1)
+            decal = (-1, 0)
         
         target_hex = (
             ref_hex[0]+decal[0],
@@ -75,6 +75,28 @@ class ExplorationMap :
         self.hexs[target_hex]=hex_type
         if not hex_place is None :
             self.places[target_hex]=hex_place 
+    
+    def bounding_box(self):
+        min_x = min([coord[0] for coord in self.hexs.keys()])
+        max_x = max([coord[0] for coord in self.hexs.keys()])
+        min_y = min([coord[1] for coord in self.hexs.keys()])
+        max_y = max([coord[1] for coord in self.hexs.keys()])
+        return min_x,max_x,min_y,max_y
+    
+    def generate_numpy_like(self):
+        min_x,max_x,min_y,max_y = self.bounding_box()
+        result = [['  ' for i in range((max_x-min_x+1))] for j in range((max_y-min_y+1))]
+        for coord,hex_type in self.hexs.items():
+            result[coord[1]-min_y][coord[0]-min_x]=hex_type.tag_name
+        return result
+    
+    def __str__(self):
+        result = ''
+        for ligne in self.generate_numpy_like():
+            for c in ligne:
+                result += c+';'
+            result += '\n'
+        return result
     
 
 class ExplorationGameManager:
@@ -90,6 +112,6 @@ if __name__ == '__main__':
         origin_hex_type=ExplorationTerrain.plains,
     )
     map.define_from_ref(map.origin_hex,ExplorationTerrain.plains,direction='S',hex_place=None)
-    map.define_from_coord((1,1),ExplorationTerrain.plains,hex_place=ExplorationTerrain.village)
+    map.define_from_coord((1,1),ExplorationTerrain.plains,hex_place=ExplorationPlace.village)
     map.define_from_ref((1,1),ExplorationTerrain.plains,direction='S',hex_place=None)
     print(map.__dict__)
