@@ -7,8 +7,11 @@ from ExplorationItems import (
     ExplorationPlace,
 )
 
-PLAINS = ExplorationTerrain.plains
-MOUNTAIN = ExplorationTerrain.mountain
+from ExplorationMaps import (
+    PLAINS,CLIFF,ARID_PLAINS,FOREST,RIVER,BIG_RIVER,
+    MOUNTAINS,DESERT,HIGH_MOUNTAIN,SEA,
+    CRISTAL,VILLAGE,
+)
 
 class ExplorationMap : 
     """Représente une carte
@@ -17,7 +20,7 @@ class ExplorationMap :
             self,
             name,
             origin_hex = (0,0),
-            origin_hex_type = ExplorationTerrain.plains,
+            origin_hex_type = PLAINS,
             origin_hex_place = None,
     ):
         
@@ -37,7 +40,7 @@ class ExplorationMap :
     def define_from_coord(
             self,
             coord,
-            hex_type=ExplorationTerrain.plains,
+            hex_type=PLAINS,
             hex_place=None,
     ):
         assert hex_place is None or type(hex_place) is ExplorationPlace
@@ -50,7 +53,7 @@ class ExplorationMap :
     def define_from_ref(
             self,
             ref_hex,
-            hex_type=ExplorationTerrain.plains,
+            hex_type=PLAINS,
             direction='N',
             hex_place=None,
     ):
@@ -90,9 +93,9 @@ if __name__ == '__main__':
     map = ExplorationMap(
         name='Scenario1',
         origin_hex=(0,0),
-        origin_hex_type=ExplorationTerrain.plains,
+        origin_hex_type=PLAINS,
     )
     map.define_from_ref(map.origin_hex,PLAINS,direction='S',hex_place=None)
-    map.define_from_coord((1,1),PLAINS,ExplorationPlace.village)
-    map.define_from_ref((1,1),MOUNTAIN,direction='S',hex_place=None)
+    map.define_from_coord((1,1),PLAINS,hex_place=VILLAGE)
+    map.define_from_ref((1,1),MOUNTAINS,direction='S',hex_place=None)
     print(map.__dict__)
