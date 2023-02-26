@@ -13,7 +13,7 @@ class ExplorationTerrain :
             frost=0.0,
             magic_fatigue=0.0,
             traversable=True,
-            detect_distance=1,
+            height=1,
     ):
         self.name = name
         self.duration = duration
@@ -23,10 +23,27 @@ class ExplorationTerrain :
         self.frost=frost
         self.magic_fatigue=magic_fatigue
         self.traversable=traversable
-        self.detect_distance=detect_distance
+        self.height=height
 
         ExplorationTerrain.TERRAINS[name]=self
 
+class ExplorationPlace : 
+    """Représente un lieu spécial (se superpose à un terrain)
+    """
+
+    PLACES = {}
+
+    def __init__(
+            self,
+            name,
+            detect_distance=1,
+    ):
+        self.name = name
+        self.detect_distance = detect_distance
+
+        ExplorationPlace.PLACES[name]=self
+
+# ---------------------------------- DEFINITION DES TERRAINS ------------------------------
 ExplorationTerrain.plains = ExplorationTerrain(
     name='Plaine',
     duration=1.0,
@@ -112,20 +129,14 @@ ExplorationTerrain.sea = ExplorationTerrain(
     traversable=False,
 )
 
-ExplorationTerrain.cristal = ExplorationTerrain(
+# ---------------------------------- DEFINITION DES LIEUX ADDITIONNELS ------------------------------
+
+ExplorationPlace.cristal = ExplorationPlace(
     name='Cristal',
-    duration=1.0,
-    fatigue=1.0,
-    hunger=1.0,
-    thirst=1.0,
-    traversable=False,
+    detect_distance=3,
 )
 
-ExplorationTerrain.village = ExplorationTerrain(
+ExplorationPlace.village = ExplorationPlace(
     name='Village',
-    duration=1.0,
-    fatigue=1.0,
-    hunger=1.0,
-    thirst=1.0,
     detect_distance=2,
 )
