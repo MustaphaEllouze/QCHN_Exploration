@@ -2,6 +2,7 @@ class ExplorationTerrain :
     """Représente un type de terrain différent pour le jeu
     """
     TERRAINS = {}
+    TERRAINS_FROM_TAG = {}
 
     def __init__(
             self,
@@ -28,12 +29,14 @@ class ExplorationTerrain :
         self.height=height
 
         ExplorationTerrain.TERRAINS[name]=self
+        ExplorationTerrain.TERRAINS_FROM_TAG[self.tag_name]=self
 
 class ExplorationPlace : 
     """Représente un lieu spécial (se superpose à un terrain)
     """
 
     PLACES = {}
+    PLACES_FROM_TAG = {}
 
     def __init__(
             self,
@@ -46,6 +49,7 @@ class ExplorationPlace :
         self.detect_distance = detect_distance
 
         ExplorationPlace.PLACES[name]=self
+        ExplorationPlace.PLACES_FROM_TAG[self.tag_name]=self
 
 # ---------------------------------- DEFINITION DES TERRAINS ------------------------------
 ExplorationTerrain.plains = ExplorationTerrain(
