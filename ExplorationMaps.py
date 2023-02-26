@@ -3,6 +3,12 @@ from ExplorationItems import (
     ExplorationPlace,
 )
 
+from ExplorationGame import (
+    ExplorationMap,
+)
+
+# ----------------- GLOBAL VARIABLES -------------------
+
 PLAINS = ExplorationTerrain.plains
 CLIFF = ExplorationTerrain.cliff
 ARID_PLAINS = ExplorationTerrain.arid_plains
@@ -16,3 +22,13 @@ SEA = ExplorationTerrain.sea
 
 CRISTAL = ExplorationPlace.cristal
 VILLAGE = ExplorationPlace.village
+
+# ------------------- DEFINE MAPS ---------------------
+
+# SCENARIO 1
+map = ExplorationMap(
+    'Scenario1',
+    origin_hex=(0,0),
+    origin_hex_type=ARID_PLAINS,
+    origin_hex_place=VILLAGE,
+)
