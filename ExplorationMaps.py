@@ -9,19 +9,19 @@ from ExplorationGame import (
 
 # ----------------- GLOBAL VARIABLES -------------------
 
-PLAINS = ExplorationTerrain.plains
-CLIFF = ExplorationTerrain.cliff
-ARID_PLAINS = ExplorationTerrain.arid_plains
-FOREST = ExplorationTerrain.forest
-RIVER = ExplorationTerrain.river
-BIG_RIVER = ExplorationTerrain.big_river
-MOUNTAINS = ExplorationTerrain.mountain
-DESERT = ExplorationTerrain.desert
-HIGH_MOUNTAIN = ExplorationTerrain.high_mountain
-SEA = ExplorationTerrain.sea
+PLAINS        ,P       = (ExplorationTerrain.plains       ,ExplorationTerrain.plains.tag_name       )
+CLIFF         ,C       = (ExplorationTerrain.cliff        ,ExplorationTerrain.cliff.tag_name        )
+ARID_PLAINS   ,AP      = (ExplorationTerrain.arid_plains  ,ExplorationTerrain.arid_plains.tag_name  )
+FOREST        ,F       = (ExplorationTerrain.forest       ,ExplorationTerrain.forest.tag_name       )
+RIVER         ,R       = (ExplorationTerrain.river        ,ExplorationTerrain.river.tag_name        )
+BIG_RIVER     ,BR      = (ExplorationTerrain.big_river    ,ExplorationTerrain.big_river.tag_name    )
+MOUNTAINS     ,M       = (ExplorationTerrain.mountain     ,ExplorationTerrain.mountain.tag_name     )
+DESERT        ,D       = (ExplorationTerrain.desert       ,ExplorationTerrain.desert.tag_name       )
+HIGH_MOUNTAIN ,HM      = (ExplorationTerrain.high_mountain,ExplorationTerrain.high_mountain.tag_name)
+SEA           ,S       = (ExplorationTerrain.sea          ,ExplorationTerrain.sea.tag_name          )
 
-CRISTAL = ExplorationPlace.cristal
-VILLAGE = ExplorationPlace.village
+CRISTAL       ,C       = (ExplorationPlace.cristal        ,ExplorationPlace.cristal.tag_name        )
+VILLAGE       ,V       = (ExplorationPlace.village        ,ExplorationPlace.village.tag_name        )
 
 # ------------------- DEFINE MAPS ---------------------
 
