@@ -42,6 +42,19 @@ class ExplorationMap :
         self.hexs[coord] = hex_type
         if not hex_place is None :
             self.places[coord]=hex_place 
+    
+    def define_from_coord_and_tag(
+            self,
+            coord,
+            hex_type=ExplorationTerrain.plains.tag_name,
+            hex_place=None,
+            
+    ):
+        self.define_from_coord(
+            coord=coord,
+            hex_type=ExplorationTerrain.TERRAINS_FROM_TAG[hex_type],
+            hex_place=ExplorationPlace.PLACES_FROM_TAG[hex_place],
+        )
 
     
     def define_from_ref(
@@ -76,6 +89,20 @@ class ExplorationMap :
         if not hex_place is None :
             self.places[target_hex]=hex_place 
     
+    def define_from_ref_and_tag(
+            self,
+            ref_hex,
+            hex_type='P',
+            direction='N',
+            hex_place=None,
+    ):
+        self.define_from_ref(
+            ref_hex=ref_hex,
+            hex_type=ExplorationTerrain.TERRAINS_FROM_TAG[hex_type],
+            direction=direction,
+            hex_place=ExplorationPlace.PLACES_FROM_TAG[hex_place],
+        )
+
     def bounding_box(self):
         min_x = min([coord[0] for coord in self.hexs.keys()])
         max_x = max([coord[0] for coord in self.hexs.keys()])
