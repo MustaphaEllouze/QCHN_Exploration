@@ -71,13 +71,17 @@ class ExplorationMap :
         elif direction == 'S':
             decal = ( 0, 1)
         elif direction == 'NE':
-            decal = ( 1,-1)
+            if ref_hex[0]%2==0 : decal = ( 1,-1)
+            else :               decal = ( 1, 0)
         elif direction == 'SE':
-            decal = ( 1, 0)
+            if ref_hex[0]%2==0 : decal = ( 1, 0)
+            else               : decal = ( 1, 1)
         elif direction == 'NW':
-            decal = (-1,-1)
+            if ref_hex[0]%2==0 : decal = (-1,-1)
+            else               : decal = (-1, 0)
         elif direction == 'SW':
-            decal = (-1, 0)
+            if ref_hex[0]%2==0 : decal = (-1, 0)
+            else               : decal = (-1, 1)
         
         target_hex = (
             ref_hex[0]+decal[0],
@@ -145,14 +149,24 @@ class ExplorationMap :
             self,
             target_hex_coord,
     ):
-        potentials_neighbours = [
-            (target_hex_coord[0]  ,target_hex_coord[1]-1),
-            (target_hex_coord[0]  ,target_hex_coord[1]+1),
-            (target_hex_coord[0]+1,target_hex_coord[1]-1),
-            (target_hex_coord[0]+1,target_hex_coord[1]  ),
-            (target_hex_coord[0]-1,target_hex_coord[1]-1),
-            (target_hex_coord[0]-1,target_hex_coord[1]  ),
-        ]
+        if target_hex_coord[0]%2 == 0 :
+            potentials_neighbours = [
+                (target_hex_coord[0]  ,target_hex_coord[1]-1),
+                (target_hex_coord[0]  ,target_hex_coord[1]+1),
+                (target_hex_coord[0]+1,target_hex_coord[1]-1),
+                (target_hex_coord[0]+1,target_hex_coord[1]  ),
+                (target_hex_coord[0]-1,target_hex_coord[1]-1),
+                (target_hex_coord[0]-1,target_hex_coord[1]  ),
+            ]
+        else:
+            potentials_neighbours = [
+                (target_hex_coord[0]  ,target_hex_coord[1]-1),
+                (target_hex_coord[0]  ,target_hex_coord[1]+1),
+                (target_hex_coord[0]+1,target_hex_coord[1]  ),
+                (target_hex_coord[0]+1,target_hex_coord[1]+1),
+                (target_hex_coord[0]-1,target_hex_coord[1]  ),
+                (target_hex_coord[0]-1,target_hex_coord[1]+1),
+            ]
         return [c for c in potentials_neighbours if c in self.hexs.keys()]
 
     def neighbours_at_range_X(
@@ -192,7 +206,17 @@ class ExplorationMap :
         return result
     
     def construct_visibility(self):
-        pass
+        self.visibility = {}
+        for coord in self.hexs.keys():
+            self.visibility[coord]=[]
+        
+        for coord,hex in self.hexs.items():
+            for visible_from_hex in self.neighbours_at_range_X(coord,range=hex.visibility_range):
+                self.visibility[visible_from_hex].append(coord)
+        
+
+        
+
 
 class ExplorationGameManager:
     """Gère toutes les règles du jeu et les calculs

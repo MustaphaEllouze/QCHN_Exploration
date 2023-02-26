@@ -16,6 +16,7 @@ class ExplorationTerrain :
             magic_fatigue=0.0,
             traversable=True,
             height=1,
+            visibility_range=1,
     ):
         self.name = name
         self.tag_name=tag_name
@@ -27,6 +28,7 @@ class ExplorationTerrain :
         self.magic_fatigue=magic_fatigue
         self.traversable=traversable
         self.height=height
+        self.visibility_range=visibility_range
 
         ExplorationTerrain.TERRAINS[name]=self
         ExplorationTerrain.TERRAINS_FROM_TAG[self.tag_name]=self
@@ -122,6 +124,7 @@ ExplorationTerrain.mountain = ExplorationTerrain(
     thirst=2.0,
     frost=1.0,
     height=2,
+    visibility_range=2,
 )
 
 ExplorationTerrain.desert = ExplorationTerrain(
@@ -144,6 +147,7 @@ ExplorationTerrain.high_mountain = ExplorationTerrain(
     thirst=1.0,
     frost=2.0,
     height=3,
+    visibility_range=3
 )
 
 ExplorationTerrain.sea = ExplorationTerrain(
