@@ -218,6 +218,7 @@ for column_info,hex_type in columns_filled.items():
         reverse=True,
     )
 
-map1.define_from_coord((1,5),hex_type=RIVER,hex_place=CAVE)
+map1.define_from_coord((1,-5),hex_type=RIVER,hex_place=CAVE)
 
 print(map1)
+print(len(map1.neighbours_at_range_X((-2,-2),2)))

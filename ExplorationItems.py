@@ -157,7 +157,7 @@ ExplorationTerrain.sea = ExplorationTerrain(
     height=0,
 )
 
-ExplorationTerrain.breach = ExplorationTerrain(
+ExplorationTerrain.beach = ExplorationTerrain(
     name='Plage',
     tag_name='B ',
     duration=1.0,

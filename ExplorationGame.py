@@ -141,6 +141,34 @@ class ExplorationMap :
                 hex_place=hex_place,
             )
 
+    def neighbours_of_hex(
+            self,
+            target_hex_coord,
+    ):
+        potentials_neighbours = [
+            (target_hex_coord[0]  ,target_hex_coord[1]-1),
+            (target_hex_coord[0]  ,target_hex_coord[1]+1),
+            (target_hex_coord[0]+1,target_hex_coord[1]-1),
+            (target_hex_coord[0]+1,target_hex_coord[1]  ),
+            (target_hex_coord[0]-1,target_hex_coord[1]-1),
+            (target_hex_coord[0]-1,target_hex_coord[1]  ),
+        ]
+        return [c for c in potentials_neighbours if c in self.hexs.keys()]
+
+    def neighbours_at_range_X(
+            self,
+            target_hex_coord,
+            range=1,
+    ):
+        if range == 1 :
+            return self.neighbours_of_hex(target_hex_coord)
+        else:
+            result = []
+            for neigh in self.neighbours_at_range_X(target_hex_coord,range=range-1):
+                result += self.neighbours_of_hex(neigh)
+            return list(set(result))
+            
+
     def bounding_box(self):
         min_x = min([coord[0] for coord in self.hexs.keys()])
         max_x = max([coord[0] for coord in self.hexs.keys()])
@@ -163,6 +191,8 @@ class ExplorationMap :
             result += '\n'
         return result
     
+    def construct_visibility(self):
+        pass
 
 class ExplorationGameManager:
     """Gère toutes les règles du jeu et les calculs
