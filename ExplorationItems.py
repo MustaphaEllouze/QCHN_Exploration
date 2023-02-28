@@ -1,8 +1,8 @@
 class ExplorationTerrain : 
     """Représente un type de terrain différent pour le jeu
     """
-    TERRAINS = {None:None}
-    TERRAINS_FROM_TAG = {None:None}
+    TERRAINS = {None:None}              # Tous les terrains définis          {self.name:self}
+    TERRAINS_FROM_TAG = {None:None}     # Tous les tags des terrains définis {self.tag_name:self}
 
     def __init__(
             self,
@@ -18,6 +18,22 @@ class ExplorationTerrain :
             height=1,
             visibility_range=1,
     ):
+        """Constructeur
+
+        Args:
+            name (str): Nom du terrain
+            tag_name (str): Tag du terrain
+            duration (float, optional): Durée de traversée du terrain. Defaults to 1.0.
+            fatigue (float, optional): Fatigue générée par la traversée du terrain. Defaults to 1.0.
+            hunger (float, optional): Faim générée par la traversée du terrain. Defaults to 1.0.
+            thirst (float, optional): Soif générée par la traversée du terrain. Defaults to 1.0.
+            frost (float, optional): Froid généré par la traversée du terrain. Defaults to 0.0.
+            magic_fatigue (float, optional): Magie consommée par la traversée du terrain. Defaults to 0.0.
+            traversable (bool, optional): True si le terrain est traversable, False sinon. Defaults to True.
+            height (int, optional): Hauteur du terrain (unité arbitraire relative). Defaults to 1.
+            visibility_range (int, optional): Portée de vue. Defaults to 1.
+        """
+        # --- Data-structure like
         self.name = name
         self.tag_name=tag_name
         self.duration = duration
@@ -30,6 +46,7 @@ class ExplorationTerrain :
         self.height=height
         self.visibility_range=visibility_range
 
+        # --- Ajout dans les attributs de classe
         ExplorationTerrain.TERRAINS[name]=self
         ExplorationTerrain.TERRAINS_FROM_TAG[self.tag_name]=self
 
@@ -37,8 +54,8 @@ class ExplorationPlace :
     """Représente un lieu spécial (se superpose à un terrain)
     """
 
-    PLACES = {None:None}
-    PLACES_FROM_TAG = {None:None}
+    PLACES = {None:None}                # Tous les endroits définis          {self.name:self}
+    PLACES_FROM_TAG = {None:None}       # Tous les tags des endroits définis {self.tag_name:self}
 
     def __init__(
             self,
@@ -46,10 +63,20 @@ class ExplorationPlace :
             tag_name,
             detect_distance=1,
     ):
+        """Constructeur
+
+        Args:
+            name (str): Nom de l'endroit
+            tag_name (_type_): Tag de l'endroit
+            detect_distance (int, optional): Distance de détection de l'endroit. Defaults to 1.
+        """
+
+        # --- Data-structure like
         self.name = name
         self.tag_name=tag_name
         self.detect_distance = detect_distance
 
+        # --- Ajout dans les attributs de classe
         ExplorationPlace.PLACES[name]=self
         ExplorationPlace.PLACES_FROM_TAG[self.tag_name]=self
 
