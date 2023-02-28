@@ -23,6 +23,8 @@ from Geometry import (
 )
 
 class WidgetHexMap(QWidget):
+    """Widget de carte hexagonale
+    """
     def __init__(
             self,
             taille_h=480,
@@ -31,6 +33,15 @@ class WidgetHexMap(QWidget):
             couleur= QColor('black'),
             epaisseur = 5,
     ):
+        """Constructeur
+
+        Args:
+            taille_h (int, optional): Taille horizontale. Defaults to 480.
+            taille_v (int, optional): Taille verticale. Defaults to 600.
+            taille_hexa (int, optional): Taille des hexagones (distance centre-sommet). Defaults to 40.
+            couleur (_type_, optional): Couleur de tracé. Defaults to QColor('black').
+            epaisseur (int, optional): Epaisseur du tracé. Defaults to 5.
+        """
         super().__init__()
 
         #Attributs
