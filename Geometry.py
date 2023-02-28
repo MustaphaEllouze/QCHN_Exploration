@@ -20,6 +20,12 @@ class Point :
         x,
         y,
     ):
+        """Constructeur
+
+        Args:
+            x (float): coordonnée x
+            y (float): coordonnée y
+        """
         self.x = x
         self.y = y
 
@@ -40,16 +46,28 @@ class Hexagon:
         centre=Point(0.0,0.0),
         rayon=1.0
     ):
+        """Constructeur
+
+        Args:
+            centre (Point, optional): Centre de l'hexagone. Defaults to Point(0.0,0.0).
+            rayon (float, optional): Rayoun du cercle circonscrit. Defaults to 1.0.
+        """
         self.centre = centre
         self.rayon=rayon
     
     def sommets(
         self,
     ):
+        """Retourne les points des sommets de l'hexagone
+
+        Returns:
+            list(Point): Sommets de l'hexagone
+        """
         if Hexagon.orientation == 'H'   : decal = 0.0
         elif Hexagon.orientation == 'V' : decal = pi/6.0
         else : raise Exception('Hexagon.orientation : invalid value')
 
+        # --- Variable de retour
         return [
             Point(
                 self.centre.x + cos(k*pi/3.0+decal) * self.rayon,
@@ -59,6 +77,11 @@ class Hexagon:
         ]
     
     def convert_to_polygon(self):
+        """Convertir l'Hexagon en PySide6.QtGui.QPolygonF
+
+        Returns:
+            _type_: _description_
+        """
         polygon = QPolygonF()
         for s in self.sommets():
             polygon.append(QPointF(s.x,s.y))
