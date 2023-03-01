@@ -1,54 +1,10 @@
-class Race:
-    RACES = {}
-    def __init__(
-            self,
-            name,
-            bonuses,
-    ):
-        self.bonuses = {
-            'STR':0,
-            'CON':0,
-            'INT':0,
-            'DEX':0,
-            'CHR':0,
-            'WIS':0,
-            'W':0,
-            'U':0,
-            'B':0,
-            'R':0,
-            'G':0,
-        }
-        for key,bonus in bonuses:
-            assert key in self.bonuses.keys()
-            self.bonuses[key]=bonus
+from Race import (
+     Race,
+)
 
-        Race.RACES[name]=self
-
-class Class:
-    CLASSES = {}
-    def __init__(
-            self,
-            name,
-            bonuses,
-    ):
-        self.bonuses = {
-                'STR':0,
-                'CON':0,
-                'INT':0,
-                'DEX':0,
-                'CHR':0,
-                'WIS':0,
-                'W':0,
-                'U':0,
-                'B':0,
-                'R':0,
-                'G':0,
-        }
-        for key,bonus in bonuses:
-                assert key in self.bonuses.keys()
-        self.bonuses[key]=bonus
-        self.bonuses = bonuses
-        Class.CLASSES[name]=self
+from Class import (
+     Class,
+)
 
 class Character:
     CHARACTERS = {}
@@ -98,4 +54,16 @@ class Character:
         Character.CHARACTERS[name]=self
 
 if __name__ == '__main__':
-        pass
+    test = Character(
+         name='Asfur',
+         race=Race.aven_INT,
+         classe=Class.rogue_CHR,
+         base_strength        = 11  ,
+         base_constitution    = 11  ,
+         base_intelligence    = 12  ,
+         base_dexterity       = 14  ,
+         base_charisma        = 14  ,
+         base_wisdwom         = 11  ,
+    )
+    
+    print(test.__dict__)
