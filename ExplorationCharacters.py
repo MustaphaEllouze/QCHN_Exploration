@@ -30,6 +30,12 @@ class ExplorationCharacter(Character):
         self.MAX_FATIGUE       = 10 + self.MOD_CON + max(self.MOD_STR,self.MOD_DEX)
         self.MAX_FROST         = self.MOD_CON + 3
         self.MAX_MAGIC_FATIGUE = self.WIS - 3
+
+        self.CUR_HUNGER        = self.MAX_HUNGER       
+        self.CUR_THIRST        = self.MAX_THIRST       
+        self.CUR_FATIGUE       = self.MAX_FATIGUE      
+        self.CUR_FROST         = self.MAX_FROST        
+        self.CUR_MAGIC_FATIGUE = self.MAX_MAGIC_FATIGUE
         
 
 class ExplorationGroup:
