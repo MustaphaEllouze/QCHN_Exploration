@@ -41,9 +41,14 @@ class ExplorationCharacter(Character):
 class ExplorationGroup:
     def __init__(
             self,
-            exploration_characters,
+            name:str,
+            exploration_characters:list,
     ):
-        pass
+        for character in exploration_characters :
+            assert type(character) is ExplorationCharacter
+        
+        self.name = name
+        self.characters = exploration_characters
 
 
 if __name__ == '__main__':

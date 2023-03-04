@@ -11,4 +11,8 @@ from ExplorationCharacters import (
 class ExplorationGameManager:
     """Gère toutes les règles du jeu et les calculs
     """
-    pass
+    def __init__(
+            self,
+            exploration_group:ExplorationGroup,
+    ):
+        pass

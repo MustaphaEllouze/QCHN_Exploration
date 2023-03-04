@@ -219,8 +219,4 @@ for column_info,hex_type in columns_filled.items():
     )
 
 map1.define_from_coord((1,-5),hex_type=RIVER,hex_place=CAVE)
-
-print(map1)
-
 map1.construct_visibility()
-print(map1.visibility[(0,-6)])
