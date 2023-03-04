@@ -3,7 +3,7 @@ from ExplorationItems import (
     ExplorationPlace,
 )
 
-from ExplorationGame import (
+from ExplorationMaps import (
     ExplorationMap,
 )
 

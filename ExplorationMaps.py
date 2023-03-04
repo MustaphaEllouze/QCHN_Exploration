@@ -341,13 +341,6 @@ class ExplorationMap :
             for visible_from_hex in self.neighbours_at_range_X(coord,range=hex.visibility_range):
                 self.visibility[visible_from_hex].append(coord)
         
-
-class ExplorationGameManager:
-    """Gère toutes les règles du jeu et les calculs
-    """
-    pass
-
-
 if __name__ == '__main__':
     map = ExplorationMap(
         name='Scenario1',
