@@ -342,9 +342,6 @@ class ExplorationMap :
                 self.visibility[visible_from_hex].append(coord)
         
 
-        
-
-
 class ExplorationGameManager:
     """Gère toutes les règles du jeu et les calculs
     """
