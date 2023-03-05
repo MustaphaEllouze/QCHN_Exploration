@@ -21,11 +21,12 @@ class ExplorationGame:
             exploration_group:ExplorationGroup,
             exploration_map:ExplorationMap,
             hour:EDateTime,
+            starting_point:tuple=(0,0),
     ):
         self.group = exploration_group
         self.map = exploration_map
         self.time = hour
-        self.starting_point = self.map.origin_hex
+        self.starting_point = starting_point
         self.current_point = self.starting_point
 
         self.revealed_hexs = {coord:False for coord in self.map.hexs.keys()}
