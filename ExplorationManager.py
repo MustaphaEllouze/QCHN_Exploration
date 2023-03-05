@@ -30,10 +30,12 @@ class ExplorationGameManager:
     """
     
     IMAGE_PATH = {
-        ExplorationTerrain.arid_plains : 'images\\AridPlains_clean.png',
-        ExplorationTerrain.plains      : 'images\\plains.png',
-        ExplorationTerrain.cliff       : 'images\\cliff.png',
+        ExplorationTerrain.arid_plains  : 'images\\AridPlains_clean.png',
+        ExplorationTerrain.plains       : 'images\\plains.png',
+        ExplorationTerrain.cliff        : 'images\\cliff.png',
         ExplorationTerrain.forest       : 'images\\forest.png',
+        ExplorationTerrain.mountain     : 'images\\mountains.png',
+        ExplorationTerrain.high_mountain: 'images\\high_mountains.png',
     }
 
     def __init__(
@@ -142,13 +144,12 @@ if __name__ == '__main__':
         exploration_group=group,
         exploration_map=map1,
         starting_point=(0,0),
-        corresponding_map_point=(4,4)
+        corresponding_map_point=(10,10)
     )
 
     manager.begin_game()
     manager.go_to_direction(direction='N')
-    manager.go_to_direction(direction='NW')
-    manager.go_to_direction(direction='NW')
-    manager.go_to_direction(direction='NW')
+    manager.go_to_direction(direction='N')
+    manager.go_to_direction(direction='N')
 
     app.exec()
