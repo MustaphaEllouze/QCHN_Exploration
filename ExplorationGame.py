@@ -54,13 +54,12 @@ class ExplorationGame:
             ref_hex=self.current_point,
             direction=direction,
         )
-        print('Enduring current terrain')
+        assert target_hex in self.accessible_hexs()
+        
         self.group.traverse_terrain(self.current_terrain())
 
-        print('Passing time')
         self.time.pass_hours(self.current_terrain().duration)
 
-        print('Going to hex '+str(target_hex))
         self.current_point=target_hex
 
 
