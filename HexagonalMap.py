@@ -28,8 +28,10 @@ class WidgetHexMap(QWidget):
     """
     def __init__(
             self,
-            taille_h=480,
-            taille_v=600,
+            taille_h_scene=480,
+            taille_v_scene=600,
+            taille_h_view=480,
+            taille_v_view=600,
             taille_hexa=40, 
             couleur= QColor('black'),
             epaisseur = 5,
@@ -46,8 +48,10 @@ class WidgetHexMap(QWidget):
         super().__init__()
 
         #Attributs
-        self.h = taille_h
-        self.v = taille_v
+        self.h = taille_h_scene
+        self.v = taille_v_scene
+        self.h_view = taille_h_view
+        self.v_view = taille_v_view
 
         # Les painters
         self.pen = QPen(couleur)
@@ -58,7 +62,7 @@ class WidgetHexMap(QWidget):
 
         # Crée la vue
         self.view = QGraphicsView(self.scene,parent=self)
-        self.view.setGeometry(0,0,self.h,self.v)
+        self.view.setGeometry(0,0,self.h_view,self.v_view)
 
         # --- Rayon du cercle circonscrit
         self.r_hexa = taille_hexa
@@ -139,8 +143,10 @@ if __name__ == '__main__':
     
     app = QApplication(sys.argv)
     a = WidgetHexMap(
-        taille_h=1000,
-        taille_v=1000,
+        taille_h_scene=2000,
+        taille_v_scene=2000,
+        taille_h_view=750,
+        taille_v_view=750,
     )
     a.draw_hex_from_coord((0,0))
     a.draw_image_inside_hex((0,0),'images\\AridPlains_clean.png')

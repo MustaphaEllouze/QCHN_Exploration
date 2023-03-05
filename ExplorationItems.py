@@ -17,6 +17,7 @@ class ExplorationTerrain :
             traversable=True,
             height=1,
             visibility_range=1,
+            can_see_surroundings=True,
     ):
         """Constructeur
 
@@ -32,6 +33,7 @@ class ExplorationTerrain :
             traversable (bool, optional): True si le terrain est traversable, False sinon. Defaults to True.
             height (int, optional): Hauteur du terrain (unité arbitraire relative). Defaults to 1.
             visibility_range (int, optional): Portée de vue. Defaults to 1.
+            can_see_surroundings (bool, optional): Dicte si les environs directs sont visibles. Defaults to True.
         """
         # --- Data-structure like
         self.name = name
@@ -45,6 +47,7 @@ class ExplorationTerrain :
         self.traversable=traversable
         self.height=height
         self.visibility_range=visibility_range
+        self.can_see_surroundings = can_see_surroundings
 
         # --- Ajout dans les attributs de classe
         ExplorationTerrain.TERRAINS[name]=self
@@ -119,6 +122,7 @@ ExplorationTerrain.forest = ExplorationTerrain(
     hunger=1.0,
     thirst=1.0,
     height=0,
+    can_see_surroundings=False,
 )
 
 ExplorationTerrain.river = ExplorationTerrain(
