@@ -87,6 +87,42 @@ class ExplorationMap :
             hex_place=ExplorationPlace.PLACES_FROM_TAG[hex_place],
         )
 
+    def get_neighbour_from_direction(
+            self,
+            ref_hex,
+            direction='N',
+
+    ):
+        assert direction in ['N','S','NE','SE','NW','SW']
+
+        # --- Calcul de la coordonnée du target_hex
+        # Attention, le calcul diffère en fonction de la colonne choisie
+        if direction == 'N':
+            decal = ( 0,-1)
+        elif direction == 'S':
+            decal = ( 0, 1)
+        elif direction == 'NE':
+            if ref_hex[0]%2==0 : decal = ( 1,-1)
+            else :               decal = ( 1, 0)
+        elif direction == 'SE':
+            if ref_hex[0]%2==0 : decal = ( 1, 0)
+            else               : decal = ( 1, 1)
+        elif direction == 'NW':
+            if ref_hex[0]%2==0 : decal = (-1,-1)
+            else               : decal = (-1, 0)
+        elif direction == 'SW':
+            if ref_hex[0]%2==0 : decal = (-1, 0)
+            else               : decal = (-1, 1)
+                
+        # --- Calcul des coordonnées
+        target_hex = (
+            ref_hex[0]+decal[0],
+            ref_hex[1]+decal[1],
+        )
+
+        return target_hex
+
+
     def define_from_ref(
             self,
             ref_hex,
@@ -108,28 +144,9 @@ class ExplorationMap :
         assert hex_place is None or type(hex_place) is ExplorationPlace
 
         # --- Calcul de la coordonnée du target_hex
-        # Attention, le calcul diffère en fonction de la colonne choisie
-        if direction == 'N':
-            decal = ( 0,-1)
-        elif direction == 'S':
-            decal = ( 0, 1)
-        elif direction == 'NE':
-            if ref_hex[0]%2==0 : decal = ( 1,-1)
-            else :               decal = ( 1, 0)
-        elif direction == 'SE':
-            if ref_hex[0]%2==0 : decal = ( 1, 0)
-            else               : decal = ( 1, 1)
-        elif direction == 'NW':
-            if ref_hex[0]%2==0 : decal = (-1,-1)
-            else               : decal = (-1, 0)
-        elif direction == 'SW':
-            if ref_hex[0]%2==0 : decal = (-1, 0)
-            else               : decal = (-1, 1)
-        
-        # --- Calcul des coordonnées
-        target_hex = (
-            ref_hex[0]+decal[0],
-            ref_hex[1]+decal[1],
+        target_hex = self.get_neighbour_from_direction(
+            ref_hex=ref_hex,
+            direction=direction,
         )
 
         # --- Définition de l'hex cible dans les attributs d'instance

@@ -3,6 +3,10 @@ from ExplorationCharacters import (
     ExplorationCharacter,
 )
 
+from ExplorationItems import (
+    ExplorationTerrain,
+)
+
 from ExplorationMaps import(
     ExplorationMap,
 )
@@ -27,8 +31,37 @@ class ExplorationGame:
         self.revealed_hexs = {coord:False for coord in self.map.hexs.keys()}
         self.revealed_hexs[self.starting_point]=True
     
+    def terrain_at_coord(
+            self,
+            coord:tuple,
+    )->ExplorationTerrain:
+        return self.map.hexs[coord]
+
+    def current_terrain(
+            self,
+    )->ExplorationTerrain:
+        return self.terrain_at_coord(self.current_point)
+
     def accessible_hexs(self):
-        return [elem for elem in self.map.neighbours_of_hex(self.current_point) if self.map.hexs[elem].traversable]
+        return [elem for elem in self.map.neighbours_of_hex(self.current_point) if self.terrain_at_coord(elem).traversable]
+
+    def go_to_direction(
+            self,
+            direction='N',
+    ):
+        assert direction in ['N','S','NE','NW','SE','SW']
+        target_hex = self.map.get_neighbour_from_direction(
+            ref_hex=self.current_point,
+            direction=direction,
+        )
+        print('Enduring current terrain')
+        self.group.traverse_terrain(self.current_terrain())
+
+        print('Passing time')
+        self.time.pass_hours(self.current_terrain().duration)
+
+        print('Going to hex '+str(target_hex))
+        self.current_point=target_hex
 
 
 if __name__ == '__main__':
@@ -57,6 +90,8 @@ if __name__ == '__main__':
         exploration_map=map1,
         hour=h,
     )
+
+    a.go_to_direction(direction='N')
 
     print(char1.__dict__)
 

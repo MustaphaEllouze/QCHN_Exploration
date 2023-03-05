@@ -10,6 +10,10 @@ from Class import (
     Class,
 )
 
+from ExplorationItems import (
+    ExplorationTerrain,
+)
+
 class ExplorationCharacter(Character):
     def __init__(
             self,
@@ -36,6 +40,16 @@ class ExplorationCharacter(Character):
         self.CUR_FATIGUE       = self.MAX_FATIGUE      
         self.CUR_FROST         = self.MAX_FROST        
         self.CUR_MAGIC_FATIGUE = self.MAX_MAGIC_FATIGUE
+    
+    def traverse_terrain(
+            self,
+            terrain:ExplorationTerrain,
+    ):
+        self.CUR_HUNGER  -= terrain.hunger
+        self.CUR_THIRST  -= terrain.thirst
+        self.CUR_FATIGUE -= terrain.fatigue
+        self.CUR_FROST   -= terrain.frost
+        self.MAX_FATIGUE -= terrain.fatigue  
         
 
 class ExplorationGroup:
@@ -49,6 +63,13 @@ class ExplorationGroup:
         
         self.name = name
         self.characters = exploration_characters
+    
+    def traverse_terrain(
+            self,
+            terrain:ExplorationTerrain,
+    ):
+        for character in self.characters:
+            character.traverse_terrain(terrain)
 
 
 if __name__ == '__main__':
