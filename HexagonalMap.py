@@ -15,6 +15,7 @@ from PySide6.QtGui import (
 
 from PySide6.QtCore import (
     Qt,
+    QPointF,
 )
 
 from Geometry import (
@@ -99,10 +100,38 @@ class WidgetHexMap(QWidget):
                 centre=Point(*self.centres[coord]),
                 rayon=taille_hexa
             )
-        
+    
+    def draw_hexs(self):
         # --- Trace les hexagones
         for coord,hex in self.hexs.items():
             self.scene.addPolygon(hex.convert_to_polygon())
+    
+    def draw_hex_from_coord(
+            self,
+            coord,
+    ):
+        assert coord in self.hexs.keys()
+        self.scene.addPolygon(self.hexs[coord].convert_to_polygon())
+    
+    def draw_image_inside_hex(
+            self,
+            coord:tuple,
+            image_path:str,
+    ):
+        d_cercle_inscrit = self.r_hexa*(3**0.5)
+        pixmap = QPixmap(image_path).scaled(
+            d_cercle_inscrit, 
+            d_cercle_inscrit, 
+            Qt.IgnoreAspectRatio,
+            Qt.SmoothTransformation)
+
+        p = QPointF(
+            self.centres[coord][0]-0.5*d_cercle_inscrit,
+            self.centres[coord][1]-0.5*d_cercle_inscrit,
+        )
+        image_placed = self.scene.addPixmap(pixmap)
+        image_placed.setPos(p)
+        
         
 if __name__ == '__main__':
     import sys
@@ -113,5 +142,7 @@ if __name__ == '__main__':
         taille_h=1000,
         taille_v=1000,
     )
+    a.draw_hex_from_coord((0,0))
+    a.draw_image_inside_hex((0,0),'images\\AridPlains_clean.png')
     a.show()
     app.exec()

@@ -7,12 +7,21 @@ from ExplorationCharacters import (
     ExplorationGroup,
 )
 
+from ExplorationGame import (
+    ExplorationGame,
+)
+
+from HexagonalMap import (
+    WidgetHexMap,
+)
+
 
 class ExplorationGameManager:
-    """Gère toutes les règles du jeu et les calculs
+    """Donne les ordres aux objets déja définis
     """
     def __init__(
             self,
-            exploration_group:ExplorationGroup,
+            managed_game:ExplorationGame,
+            managed_widget:WidgetHexMap,
     ):
         pass
