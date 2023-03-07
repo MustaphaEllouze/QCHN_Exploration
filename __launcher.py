@@ -20,6 +20,7 @@ from Utility import (
     EDateTime,
 )
 
+
 app = QApplication(sys.argv)
 window = ExplorationGame(
             map=map1,

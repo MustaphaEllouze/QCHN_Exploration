@@ -23,6 +23,10 @@ from PySide6.QtWidgets import (
     QLabel,
     QGraphicsScene,
     QGraphicsView,
+    QVBoxLayout,
+    QHBoxLayout,
+    QTabWidget,
+    QSizePolicy,
 )
 
 from HexagonalMap import (
@@ -64,6 +68,25 @@ class ExplorationGame(QMainWindow):
         epaisseur=1,
     ):
         super().__init__()
+
+        # ------ WIDGET PARENT ----------
+        # Widget virtuel 
+        # -------------------------------
+        self.widget_central = QWidget()
+        self.setCentralWidget(self.widget_central)
+        self.layout_H = QHBoxLayout()
+        self.layout_V1 = QVBoxLayout()
+        self.layout_V2 = QVBoxLayout()
+        self.layout_V3 = QVBoxLayout()
+        self.layout_H.addLayout(self.layout_V1)
+        self.layout_H.addLayout(self.layout_V2)
+        self.layout_H.addLayout(self.layout_V3)
+        self.widget_central.setLayout(self.layout_H)
+
+        # ------ WIDGET CENTRAL ---------
+        # Interface de jeu
+        # -------------------------------
+
         self.main_hex_map_widget = WidgetHexMap(
             taille_h_scene=taille_h_scene,
             taille_v_scene=taille_v_scene,
@@ -83,14 +106,19 @@ class ExplorationGame(QMainWindow):
             corresponding_map_point=corresponding_map_point,
         )
         
-        self.setCentralWidget(self.main_hex_map_widget)
+        self.layout_V2.addWidget(self.game_manager.managed_widget)
+
+        # ------ WIDGET GAUCHE ---------
+        # Interface de description des personnages
+        # -------------------------------
+        self.tab = QTabWidget()
+        self.tab.setTabPosition(QTabWidget.West)
+        self.tab.setMovable(True)
+        for character in group.characters:
+            self.tab.addTab(QLabel(character.name),character.name)
+        self.layout_V1.addWidget(self.tab)
+        self.tab.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Ignored)
+
     
     def _begin_game(self):
         self.game_manager.begin_game()
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = ExplorationGame()
-    window.show()
-    app.exec()
