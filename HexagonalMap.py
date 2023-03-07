@@ -34,7 +34,8 @@ class WidgetHexMap(QWidget):
             taille_v_view=600,
             taille_hexa=40, 
             couleur= QColor('black'),
-            epaisseur = 5,
+            couleur_secondaire=QColor('red'),
+            epaisseur = 1,
     ):
         """Constructeur
 
@@ -56,6 +57,8 @@ class WidgetHexMap(QWidget):
         # Les painters
         self.pen = QPen(couleur)
         self.pen.setWidth(epaisseur)
+        self.pen_secondaire=QPen(couleur_secondaire)
+        self.pen_secondaire.setWidth(epaisseur)
 
         # Crée la scène
         self.scene = QGraphicsScene()
@@ -105,17 +108,26 @@ class WidgetHexMap(QWidget):
                 rayon=taille_hexa
             )
     
-    def draw_hexs(self):
+    def draw_hexs(self,secondary_pen=False):
+        if secondary_pen:
+            pen_to_use = self.pen_secondaire
+        else:
+            pen_to_use = self.pen
         # --- Trace les hexagones
         for coord,hex in self.hexs.items():
-            self.scene.addPolygon(hex.convert_to_polygon())
+            self.scene.addPolygon(hex.convert_to_polygon(),pen=pen_to_use)
     
     def draw_hex_from_coord(
             self,
             coord,
+            secondary_pen=False,
     ):
+        if secondary_pen:
+            pen_to_use = self.pen_secondaire
+        else:
+            pen_to_use = self.pen
         assert coord in self.hexs.keys()
-        self.scene.addPolygon(self.hexs[coord].convert_to_polygon())
+        self.scene.addPolygon(self.hexs[coord].convert_to_polygon(),pen=pen_to_use)
     
     def draw_image_inside_hex(
             self,

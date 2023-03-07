@@ -29,6 +29,10 @@ from HexagonalMap import (
     WidgetHexMap,
 )
 
+from ExplorationManager import(
+    ExplorationGameManager,
+)
+
 import math
 
 class MainWindow(QMainWindow):

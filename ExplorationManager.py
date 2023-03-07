@@ -36,6 +36,11 @@ class ExplorationGameManager:
         ExplorationTerrain.forest       : 'images\\forest.png',
         ExplorationTerrain.mountain     : 'images\\mountains.png',
         ExplorationTerrain.high_mountain: 'images\\high_mountains.png',
+        ExplorationTerrain.beach        : 'images\\beach.png',
+        ExplorationTerrain.big_river    : 'images\\big_river.png',
+        ExplorationTerrain.desert       : 'images\\desert.png',
+        ExplorationTerrain.river        : 'images\\river.png',
+        ExplorationTerrain.sea          : 'images\\sea.png',
     }
 
     def __init__(
@@ -64,10 +69,25 @@ class ExplorationGameManager:
         self.managed_widget = managed_widget
 
         self.revealed_hexes = []
+        self.visited_hexes = []
+
+    def retrace_visited(
+            self
+    ):
+        for hex_coord in self.visited_hexes:
+            coord_widget = (
+                    hex_coord[0]+self.decalage_x,
+                    hex_coord[1]+self.decalage_y
+                )
+            self.managed_widget.draw_hex_from_coord(
+                coord=coord_widget,
+                secondary_pen=False,
+            )
 
     def reveal_hex(
             self,
             coord,
+            secondary_pen=False,
     ):
         if not coord in self.revealed_hexes : 
             coord_widget = (
@@ -75,7 +95,8 @@ class ExplorationGameManager:
                     coord[1]+self.decalage_y
                 )
             self.managed_widget.draw_hex_from_coord(
-                coord=coord_widget
+                coord=coord_widget,
+                secondary_pen=secondary_pen,
             )
             self.managed_widget.draw_image_inside_hex(
                 coord=coord_widget,
@@ -87,10 +108,12 @@ class ExplorationGameManager:
     def begin_game(
         self,
     ):
+        self.visited_hexes.append(self.managed_game.starting_point)
         self.reveal_hex(self.managed_game.starting_point)
         if self.managed_game.current_terrain().can_see_surroundings :
             for hex_coord in self.managed_game.map.visibility[self.managed_game.current_point]:
-                self.reveal_hex(hex_coord)
+                if hex_coord not in self.revealed_hexes : self.reveal_hex(hex_coord,secondary_pen=True)
+        self.retrace_visited()
     
     def go_to_direction(
             self,
@@ -99,10 +122,12 @@ class ExplorationGameManager:
         assert direction in ['N','S','NE','NW','SE','SW']
 
         self.managed_game.go_to_direction(direction=direction)
+        self.visited_hexes.append(self.managed_game.current_point)
         self.reveal_hex(self.managed_game.current_point)
         if self.managed_game.current_terrain().can_see_surroundings :
             for hex_coord in self.managed_game.map.visibility[self.managed_game.current_point]:
-                self.reveal_hex(hex_coord)
+                if hex_coord not in self.revealed_hexes : self.reveal_hex(hex_coord,secondary_pen=True)
+        self.retrace_visited()
 
 
         
@@ -111,6 +136,7 @@ class ExplorationGameManager:
 if __name__ == '__main__':
     import sys
     from PySide6.QtWidgets import QApplication
+    from PySide6.QtGui import QColor
     
     app = QApplication(sys.argv)
     a = WidgetHexMap(
@@ -118,6 +144,8 @@ if __name__ == '__main__':
         taille_v_scene=2000,
         taille_h_view=750,
         taille_v_view=750,
+        couleur=QColor('black'),
+        couleur_secondaire=QColor('red')
     )
     a.show()
     
@@ -149,7 +177,7 @@ if __name__ == '__main__':
 
     manager.begin_game()
     manager.go_to_direction(direction='N')
+    manager.go_to_direction(direction='NW')
+    manager.go_to_direction(direction='NW')
     manager.go_to_direction(direction='N')
-    manager.go_to_direction(direction='N')
-
     app.exec()
