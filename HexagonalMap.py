@@ -136,13 +136,13 @@ class WidgetHexMap(QWidget):
     ):
         d_cercle_inscrit = self.r_hexa*(3**0.5)
         pixmap = QPixmap(image_path).scaled(
-            d_cercle_inscrit, 
+            2*self.r_hexa, 
             d_cercle_inscrit, 
             Qt.IgnoreAspectRatio,
             Qt.SmoothTransformation)
 
         p = QPointF(
-            self.centres[coord][0]-0.5*d_cercle_inscrit,
+            self.centres[coord][0]-self.r_hexa,
             self.centres[coord][1]-0.5*d_cercle_inscrit,
         )
         image_placed = self.scene.addPixmap(pixmap)
