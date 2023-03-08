@@ -28,6 +28,7 @@ from PySide6.QtWidgets import (
     QTabWidget,
     QSizePolicy,
     QFrame,
+    QPushButton,
 )
 
 from HexagonalMap import (
@@ -74,10 +75,14 @@ class ExplorationGame(QMainWindow):
     ):
         super().__init__()
 
+        self.setWindowTitle('Exploration - JDR')
+
         # ------ PARAMETRES GENERAUX ----
         self.width_layoutv1 = 350
         self.width_layoutv3 = 200
         self.resize(QSize(self.width_layoutv1+taille_h_view+self.width_layoutv3+50,taille_v_view))
+        self.setMinimumHeight(taille_v_view)
+        self.setMinimumWidth(self.width_layoutv1+taille_h_view+self.width_layoutv3+50)
 
         # ------ WIDGET PARENT ----------
         # Widget virtuel 
@@ -116,7 +121,14 @@ class ExplorationGame(QMainWindow):
             corresponding_map_point=corresponding_map_point,
         )
         
-        self.layout_V2.addWidget(self.game_manager.managed_widget)
+        self.layout_V2.addWidget(self.game_manager.managed_widget.view)
+
+        self.layout_V2_H = QHBoxLayout()
+        self.widget_layout_V2_H = QWidget()
+        self.widget_layout_V2_H.setLayout(self.layout_V2_H)
+        self.layout_V2.addWidget(self.widget_layout_V2_H)
+        self.layout_V2_H.addWidget(QPushButton('Zoom In'))
+        self.layout_V2_H.addWidget(QPushButton('Zoom Out'))
 
         # ------ WIDGET GAUCHE ---------
         # Interface de description des personnages

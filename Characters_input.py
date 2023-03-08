@@ -76,10 +76,10 @@ GROUP1 = ExplorationGroup(
     name='GROUPE 1',
     exploration_characters=[
         VIKRAM,
-        CHEESY_SWING,
         PENNE,
         BLURP,
         BEDOMAI,
+        CHEESY_SWING,
     ]
 )
 

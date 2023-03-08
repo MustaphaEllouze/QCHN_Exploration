@@ -16,6 +16,7 @@ from PySide6.QtGui import (
 from PySide6.QtCore import (
     Qt,
     QPointF,
+    QRectF,
 )
 
 from Geometry import (
@@ -65,7 +66,7 @@ class WidgetHexMap(QWidget):
 
         # Crée la vue
         self.view = QGraphicsView(self.scene,parent=self)
-        self.view.setGeometry(0,0,self.h_view,self.v_view)
+        # self.view.setGeometry(0,0,self.h_view,self.v_view)
 
         # --- Rayon du cercle circonscrit
         self.r_hexa = taille_hexa

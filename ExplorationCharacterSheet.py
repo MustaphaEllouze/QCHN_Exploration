@@ -37,6 +37,7 @@ class ExplorationCharacterSheet(QWidget):
             self.largeur-40, 
             Qt.IgnoreAspectRatio,
             Qt.SmoothTransformation))
+        self.image.setFixedHeight(self.largeur-40)
         self._layout.addWidget(QLabel(self.character.name))
         self._layout.addWidget(self.image)
         self._layout.addWidget(QLabel(f'Fatigue : {self.character.CUR_FATIGUE}\\{self.character.MAX_FATIGUE}'))
