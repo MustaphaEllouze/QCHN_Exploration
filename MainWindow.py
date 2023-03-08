@@ -123,12 +123,48 @@ class ExplorationGame(QMainWindow):
         
         self.layout_V2.addWidget(self.game_manager.managed_widget.view)
 
-        self.layout_V2_H = QHBoxLayout()
-        self.widget_layout_V2_H = QWidget()
-        self.widget_layout_V2_H.setLayout(self.layout_V2_H)
-        self.layout_V2.addWidget(self.widget_layout_V2_H)
-        self.layout_V2_H.addWidget(QPushButton('Zoom In'))
-        self.layout_V2_H.addWidget(QPushButton('Zoom Out'))
+        self.layout_V2_H1 = QHBoxLayout()
+        self.widget_layout_V2_H1 = QWidget()
+        self.widget_layout_V2_H1.setLayout(self.layout_V2_H1)
+        self.layout_V2.addWidget(self.widget_layout_V2_H1)
+        self.zoom_in_button = QPushButton('Zoom')
+        self.zoom_in_button.clicked.connect(self.game_manager.managed_widget.zoom_in)
+        self.zoom_out_button = QPushButton('Dézoom')
+        self.zoom_out_button.clicked.connect(self.game_manager.managed_widget.zoom_out)
+        self.layout_V2_H1.addWidget(self.zoom_in_button)
+        self.layout_V2_H1.addWidget(self.zoom_out_button)
+
+        self.layout_V2_H2 = QHBoxLayout()
+        self.widget_layout_V2_H2 = QWidget()
+        self.widget_layout_V2_H2.setLayout(self.layout_V2_H2)
+        self.layout_V2.addWidget(self.widget_layout_V2_H2)
+        self.rot_ahor_button = QPushButton('Rot. Anti Horaire')
+        self.rot_hor_button = QPushButton('Rot. Horaire')
+        self.image_rose = QLabel()
+        self.images_rose_cycle = [
+            'images\\others\\rose_vents_clean_0deg.png',
+            'images\\others\\rose_vents_clean_30deg.png',
+            'images\\others\\rose_vents_clean_60deg.png',
+            'images\\others\\rose_vents_clean_90deg.png',
+            'images\\others\\rose_vents_clean_120deg.png',
+            'images\\others\\rose_vents_clean_150deg.png',
+            'images\\others\\rose_vents_clean_180deg.png',
+            'images\\others\\rose_vents_clean_210deg.png',
+            'images\\others\\rose_vents_clean_240deg.png',
+            'images\\others\\rose_vents_clean_270deg.png',
+            'images\\others\\rose_vents_clean_300deg.png',
+            'images\\others\\rose_vents_clean_330deg.png',
+        ]
+        self.images_rose_cycle_index = 0
+        self.set_image_rose_cycle()
+        
+        self.rot_ahor_button.clicked.connect(self.game_manager.managed_widget.rotate_anti_horaire)
+        self.rot_ahor_button.clicked.connect(self.image_rose_cycle_anti)
+        self.rot_hor_button.clicked.connect(self.game_manager.managed_widget.rotate_horaire)
+        self.rot_hor_button.clicked.connect(self.image_rose_cycle)
+        self.layout_V2_H2.addWidget(self.rot_ahor_button)
+        self.layout_V2_H2.addWidget(self.rot_hor_button)
+        self.layout_V2_H2.addWidget(self.image_rose)
 
         # ------ WIDGET GAUCHE ---------
         # Interface de description des personnages
@@ -175,6 +211,22 @@ class ExplorationGame(QMainWindow):
         line = QFrame()
         line.setFrameShape(QFrame.HLine)
         return line
+
+    def set_image_rose_cycle(self):
+        self.image_rose.setPixmap(QPixmap(self.images_rose_cycle[self.images_rose_cycle_index]).scaled(
+        100, 
+        100, 
+        Qt.IgnoreAspectRatio,
+        Qt.SmoothTransformation))
+    
+    def image_rose_cycle(self):
+        self.images_rose_cycle_index = (self.images_rose_cycle_index-1)%(len(self.images_rose_cycle))
+        self.set_image_rose_cycle()
+
+
+    def image_rose_cycle_anti(self):
+        self.images_rose_cycle_index = (self.images_rose_cycle_index+1)%(len(self.images_rose_cycle))
+        self.set_image_rose_cycle()
    
     def _begin_game(self):
         self.game_manager.begin_game()

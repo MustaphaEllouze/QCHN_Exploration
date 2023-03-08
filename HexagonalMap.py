@@ -148,6 +148,18 @@ class WidgetHexMap(QWidget):
         )
         image_placed = self.scene.addPixmap(pixmap)
         image_placed.setPos(p)
+    
+    def zoom_in(self):
+        self.view.scale(1.1,1.1)
+
+    def zoom_out(self):
+        self.view.scale(0.9,0.9)
+    
+    def rotate_horaire(self):
+        self.view.rotate(30)
+
+    def rotate_anti_horaire(self):
+        self.view.rotate(-30)
         
         
 if __name__ == '__main__':
