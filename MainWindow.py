@@ -29,6 +29,7 @@ from PySide6.QtWidgets import (
     QSizePolicy,
     QFrame,
     QPushButton,
+    QGridLayout,
 )
 
 from HexagonalMap import (
@@ -195,22 +196,82 @@ class ExplorationGame(QMainWindow):
         self.layout_V3.addWidget(self.right_widget)
 
         # Jour
-        self.layout_v3_sub.addWidget(QLabel(f'Jour : {self.game_manager.managed_game.time.day}'))
+        self.display_jour = QLabel()
+        self.layout_v3_sub.addWidget(self.display_jour)
 
         self.layout_v3_sub.addWidget(ExplorationGame.h_line())
         
         # Heure
-        self.layout_v3_sub.addWidget(QLabel(f'Heure : {self.game_manager.managed_game.time.str_without_day()}'))
+        self.display_heure = QLabel()
+        self.layout_v3_sub.addWidget(self.display_heure)
         
         self.layout_v3_sub.addWidget(ExplorationGame.h_line())
     
         # Current hex
-        self.layout_v3_sub.addWidget(QLabel(f'Terrain : {self.game_manager.managed_game.current_terrain().name}'))
+        self.display_current_hex = QLabel()
+        self.layout_v3_sub.addWidget(self.display_current_hex)
+        self.layout_v3_sub.addWidget(ExplorationGame.h_line())
+
+        # Direction action
+        self.direction_widget = QWidget()
+        self.layout_v3_sub.addWidget(self.direction_widget)
+        self.grid_direction = QGridLayout()
+        self.direction_widget.setLayout(self.grid_direction)
+        self.N  = QPushButton('N')
+        self.N.clicked.connect(self.go_to_N)
+        self.S  = QPushButton('S')
+        self.S.clicked.connect(self.go_to_S)
+        self.NE = QPushButton('NE')
+        self.NE.clicked.connect(self.go_to_NE)
+        self.NW = QPushButton('NW')
+        self.NW.clicked.connect(self.go_to_NW)
+        self.SE = QPushButton('SE')
+        self.SE.clicked.connect(self.go_to_SE)
+        self.SW = QPushButton('SW')
+        self.SW.clicked.connect(self.go_to_SW)
+        self.grid_direction.addWidget(self.N,0,1)
+        self.grid_direction.addWidget(self.S,3,1)
+        self.grid_direction.addWidget(self.NE,1,2)
+        self.grid_direction.addWidget(self.NW,1,0)
+        self.grid_direction.addWidget(self.SE,2,2)
+        self.grid_direction.addWidget(self.SW,2,0)
+
+
 
     def h_line():
         line = QFrame()
         line.setFrameShape(QFrame.HLine)
         return line
+
+    def update_widgets(self):
+        self.display_jour.setText(f'Jour : {int(self.game_manager.managed_game.time.day)}')
+        self.display_heure.setText(f'Heure : {self.game_manager.managed_game.time.str_without_day()}')
+        self.display_current_hex.setText(f'Terrain : {self.game_manager.managed_game.current_terrain().name}')
+
+    def go_to_N(self):
+        self.game_manager.go_to_direction('N')
+        self.update_widgets()
+
+    def go_to_S(self):
+        self.game_manager.go_to_direction('S')
+        self.update_widgets()
+
+    def go_to_NW(self):
+        self.game_manager.go_to_direction('NW')
+        self.update_widgets()
+
+    def go_to_NE(self):
+        self.game_manager.go_to_direction('NE')
+        self.update_widgets()
+
+    def go_to_SW(self):
+        self.game_manager.go_to_direction('SW')
+        self.update_widgets()
+
+    def go_to_SE(self):
+        self.game_manager.go_to_direction('SE')
+        self.update_widgets()
+
 
     def set_image_rose_cycle(self):
         self.image_rose.setPixmap(QPixmap(self.images_rose_cycle[self.images_rose_cycle_index]).scaled(
@@ -230,3 +291,4 @@ class ExplorationGame(QMainWindow):
    
     def _begin_game(self):
         self.game_manager.begin_game()
+        self.update_widgets()
