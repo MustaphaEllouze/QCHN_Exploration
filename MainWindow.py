@@ -45,6 +45,10 @@ from ExplorationCharacters import (
     ExplorationGroup,
 )
 
+from ExplorationCharacterSheet import (
+    ExplorationCharacterSheet,
+)
+
 from Utility import (
     EDateTime,
 )
@@ -68,6 +72,10 @@ class ExplorationGame(QMainWindow):
         epaisseur=1,
     ):
         super().__init__()
+
+        # ------ PARAMETRES GENERAUX ----
+        self.width_layoutv1 = 350
+        self.resize(QSize(self.width_layoutv1+taille_h_view,taille_v_view))
 
         # ------ WIDGET PARENT ----------
         # Widget virtuel 
@@ -114,10 +122,20 @@ class ExplorationGame(QMainWindow):
         self.tab = QTabWidget()
         self.tab.setTabPosition(QTabWidget.West)
         self.tab.setMovable(True)
+        self.character_description = {}
         for character in group.characters:
-            self.tab.addTab(QLabel(character.name),character.name)
+            self.character_description[character.name] = ExplorationCharacterSheet(
+                character=character,
+                image_path=f'images\\characters\\{character.name}.png',
+                largeur=self.width_layoutv1
+            )
+            self.tab.addTab(self.character_description[character.name],character.name)
         self.layout_V1.addWidget(self.tab)
+        self.tab.setFixedWidth(self.width_layoutv1)
         self.tab.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Ignored)
+
+        
+        
 
     
     def _begin_game(self):

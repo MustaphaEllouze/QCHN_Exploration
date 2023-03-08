@@ -30,17 +30,17 @@ class ExplorationGameManager:
     """
     
     IMAGE_PATH = {
-        ExplorationTerrain.arid_plains  : 'images\\AridPlains_clean.png',
-        ExplorationTerrain.plains       : 'images\\plains.png',
-        ExplorationTerrain.cliff        : 'images\\cliff.png',
-        ExplorationTerrain.forest       : 'images\\forest.png',
-        ExplorationTerrain.mountain     : 'images\\mountains.png',
-        ExplorationTerrain.high_mountain: 'images\\high_mountains.png',
-        ExplorationTerrain.beach        : 'images\\beach.png',
-        ExplorationTerrain.big_river    : 'images\\big_river.png',
-        ExplorationTerrain.desert       : 'images\\desert.png',
-        ExplorationTerrain.river        : 'images\\river.png',
-        ExplorationTerrain.sea          : 'images\\sea.png',
+        ExplorationTerrain.arid_plains  : 'images\\hex_images\\AridPlains_clean.png',
+        ExplorationTerrain.plains       : 'images\\hex_images\\plains.png',
+        ExplorationTerrain.cliff        : 'images\\hex_images\\cliff.png',
+        ExplorationTerrain.forest       : 'images\\hex_images\\forest.png',
+        ExplorationTerrain.mountain     : 'images\\hex_images\\mountains.png',
+        ExplorationTerrain.high_mountain: 'images\\hex_images\\high_mountains.png',
+        ExplorationTerrain.beach        : 'images\\hex_images\\beach.png',
+        ExplorationTerrain.big_river    : 'images\\hex_images\\big_river.png',
+        ExplorationTerrain.desert       : 'images\\hex_images\\desert.png',
+        ExplorationTerrain.river        : 'images\\hex_images\\river.png',
+        ExplorationTerrain.sea          : 'images\\hex_images\\sea.png',
     }
 
     def __init__(
