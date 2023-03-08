@@ -49,6 +49,9 @@ class EDateTime :
         """
         self.pass_hours(minutes/60)
     
+    def str_without_day(self,):
+        return f'{str(int(self.hour)).zfill(2)}h{str(int(self.minutes)).zfill(2)}'
+
     def __str__(self):
         return f'Jour {int(self.day)} : {str(int(self.hour)).zfill(2)}h{str(int(self.minutes)).zfill(2)}'
 

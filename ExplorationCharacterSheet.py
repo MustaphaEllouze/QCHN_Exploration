@@ -33,8 +33,8 @@ class ExplorationCharacterSheet(QWidget):
         self._layout = QVBoxLayout()
         self.image = QLabel()
         self.image.setPixmap(QPixmap(image_path).scaled(
-            self.largeur, 
-            self.largeur, 
+            self.largeur-40, 
+            self.largeur-40, 
             Qt.IgnoreAspectRatio,
             Qt.SmoothTransformation))
         self._layout.addWidget(QLabel(self.character.name))
@@ -49,11 +49,11 @@ class ExplorationCharacterSheet(QWidget):
 
 if __name__ == '__main__':
     import sys
-    from Characters_input import (BEDOMAI)
+    from Characters_input import (BLURP)
     app = QApplication(sys.argv)
     window = ExplorationCharacterSheet(
-                character=BEDOMAI,
-                image_path=f'images\\characters\\{BEDOMAI.name}.png',
+                character=BLURP,
+                image_path=f'images\\characters\\{BLURP.name}.png',
                 largeur=350,
     )
     window.show()

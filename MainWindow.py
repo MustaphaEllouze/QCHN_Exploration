@@ -27,6 +27,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QTabWidget,
     QSizePolicy,
+    QFrame,
 )
 
 from HexagonalMap import (
@@ -75,7 +76,8 @@ class ExplorationGame(QMainWindow):
 
         # ------ PARAMETRES GENERAUX ----
         self.width_layoutv1 = 350
-        self.resize(QSize(self.width_layoutv1+taille_h_view,taille_v_view))
+        self.width_layoutv3 = 200
+        self.resize(QSize(self.width_layoutv1+taille_h_view+self.width_layoutv3+50,taille_v_view))
 
         # ------ WIDGET PARENT ----------
         # Widget virtuel 
@@ -134,9 +136,33 @@ class ExplorationGame(QMainWindow):
         self.tab.setFixedWidth(self.width_layoutv1)
         self.tab.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Ignored)
 
+        # ------ WIDGET DROITE ----------
+        # Informations diverses
+        # -------------------------------
         
-        
+        self.right_widget = QWidget()
+        self.layout_v3_sub = QVBoxLayout()
+        self.right_widget.setLayout(self.layout_v3_sub)
+        self.right_widget.setFixedWidth(self.width_layoutv3)
+        self.layout_V3.addWidget(self.right_widget)
 
+        # Jour
+        self.layout_v3_sub.addWidget(QLabel(f'Jour : {self.game_manager.managed_game.time.day}'))
+
+        self.layout_v3_sub.addWidget(ExplorationGame.h_line())
+        
+        # Heure
+        self.layout_v3_sub.addWidget(QLabel(f'Heure : {self.game_manager.managed_game.time.str_without_day()}'))
+        
+        self.layout_v3_sub.addWidget(ExplorationGame.h_line())
     
+        # Current hex
+        self.layout_v3_sub.addWidget(QLabel(f'Terrain : {self.game_manager.managed_game.current_terrain().name}'))
+
+    def h_line():
+        line = QFrame()
+        line.setFrameShape(QFrame.HLine)
+        return line
+   
     def _begin_game(self):
         self.game_manager.begin_game()
