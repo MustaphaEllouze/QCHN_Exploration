@@ -54,19 +54,19 @@ class ExplorationCharacter(Character):
     ):
         if carac == 'HUNGER':
             self.CUR_HUNGER += n
-            self.CUR_HUNGER = min(self.CUR_HUNGER,self.MAX_HUNGER)
+            self.CUR_HUNGER = max(min(self.CUR_HUNGER,self.MAX_HUNGER),0)
         elif carac == 'THIRST':
             self.CUR_THIRST += n
-            self.CUR_THIRST = min(self.CUR_THIRST,self.MAX_THIRST)
+            self.CUR_THIRST = max(min(self.CUR_THIRST,self.MAX_THIRST),0)
         elif carac == 'FATIGUE':
             self.CUR_FATIGUE += n
-            self.CUR_FATIGUE = min(self.CUR_FATIGUE,self.MAX_FATIGUE)
+            self.CUR_FATIGUE = max(min(self.CUR_FATIGUE,self.MAX_FATIGUE),0)
         elif carac == 'FROST':
             self.CUR_FROST += n
-            self.CUR_FROST = min(self.CUR_FROST,self.MAX_FROST)
+            self.CUR_FROST = max(min(self.CUR_FROST,self.MAX_FROST),0)
         elif carac == 'MAGIC':
             self.CUR_MAGIC_FATIGUE += n
-            self.CUR_MAGIC_FATIGUE = min(self.CUR_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE)
+            self.CUR_MAGIC_FATIGUE = max(min(self.CUR_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE),0)
         else:
             raise Exception(f'{carac}:Not a caracteristic')
 
@@ -77,19 +77,19 @@ class ExplorationCharacter(Character):
     ):
         if carac == 'HUNGER':
             self.SHIELD_HUNGER += n
-            self.SHIELD_HUNGER = min(self.SHIELD_HUNGER,self.MAX_HUNGER)
+            self.SHIELD_HUNGER = max(min(self.SHIELD_HUNGER,self.MAX_HUNGER),0)
         elif carac == 'THIRST':
             self.SHIELD_THIRST += n
-            self.SHIELD_THIRST = min(self.SHIELD_THIRST,self.MAX_THIRST)
+            self.SHIELD_THIRST = max(min(self.SHIELD_THIRST,self.MAX_THIRST),0)
         elif carac == 'FATIGUE':
             self.SHIELD_FATIGUE += n
-            self.SHIELD_FATIGUE = min(self.SHIELD_FATIGUE,self.MAX_FATIGUE)
+            self.SHIELD_FATIGUE = max(min(self.SHIELD_FATIGUE,self.MAX_FATIGUE),0)
         elif carac == 'FROST':
             self.SHIELD_FROST += n
-            self.SHIELD_FROST = min(self.SHIELD_FROST,self.MAX_FROST)
+            self.SHIELD_FROST = max(min(self.SHIELD_FROST,self.MAX_FROST),0)
         elif carac == 'MAGIC':
             self.SHIELD_MAGIC_FATIGUE += n
-            self.SHIELD_MAGIC_FATIGUE = min(self.SHIELD_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE)
+            self.SHIELD_MAGIC_FATIGUE = max(min(self.SHIELD_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE),0)
         else:
             raise Exception(f'{carac}:Not a caracteristic')
 
