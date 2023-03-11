@@ -50,27 +50,32 @@ class ExplorationCharacterSheet(QWidget):
         self.w_fatigue = ProgressBar(
             max_value=self.character.MAX_FATIGUE,
             couleur_fond=couleur_fond,
-            couleur_rectangle=QColor(255,127,0,255)
+            couleur_rectangle=QColor(255,127,0,255),
+            shield_value=self.character.SHIELD_FATIGUE,
         )
         self.w_hunger = ProgressBar(
             max_value=self.character.MAX_HUNGER,
             couleur_fond=couleur_fond,
-            couleur_rectangle=QColor(255,0,0,255)
+            couleur_rectangle=QColor(255,0,0,255),
+            shield_value=self.character.SHIELD_HUNGER,
         )
         self.w_thirst = ProgressBar(
             max_value=self.character.MAX_THIRST,
             couleur_fond=couleur_fond,
-            couleur_rectangle=QColor(100,100,255,255)
+            couleur_rectangle=QColor(100,100,255,255),
+            shield_value=self.character.SHIELD_THIRST,
         )
         self.w_frost = ProgressBar(
             max_value=self.character.MAX_FROST,
             couleur_fond=couleur_fond,
-            couleur_rectangle=QColor(200,200,255,255)
+            couleur_rectangle=QColor(200,200,255,255),
+            shield_value=self.character.SHIELD_FROST,
         )
         self.w_magic = ProgressBar(
             max_value=self.character.MAX_MAGIC_FATIGUE,
             couleur_fond=couleur_fond,
-            couleur_rectangle=QColor(127,175,55,255)
+            couleur_rectangle=QColor(127,175,55,255),
+            shield_value=self.character.SHIELD_MAGIC_FATIGUE,
         )
 
         self._layout.addWidget(QLabel('Fatigue'))

@@ -51,11 +51,32 @@ class ExplorationCharacter(Character):
             self,
             terrain:ExplorationTerrain,
     ):
-        self.CUR_HUNGER  -= terrain.hunger
-        self.CUR_THIRST  -= terrain.thirst
-        self.CUR_FATIGUE -= terrain.fatigue
-        self.CUR_FROST   -= terrain.frost
-        self.CUR_MAGIC_FATIGUE -= terrain.magic_fatigue  
+
+        #HUNGER
+        self.SHIELD_HUNGER -= terrain.hunger
+        remaining_hunger = -min(self.SHIELD_HUNGER,0)
+        self.CUR_HUNGER -= remaining_hunger
+        self.SHIELD_HUNGER = max(self.SHIELD_HUNGER,0)
+        # THIRST
+        self.SHIELD_THIRST -= terrain.thirst
+        remaining_thirst = -min(self.SHIELD_THIRST,0)
+        self.CUR_THIRST -= remaining_thirst
+        self.SHIELD_THIRST = max(self.SHIELD_THIRST,0)
+        # FATIGUE
+        self.SHIELD_FATIGUE -= terrain.fatigue
+        remaining_fatigue = -min(self.SHIELD_FATIGUE,0)
+        self.CUR_FATIGUE -= remaining_fatigue
+        self.SHIELD_FATIGUE = max(self.SHIELD_FATIGUE,0)
+        # FROST
+        self.SHIELD_FROST -= terrain.frost
+        remaining_frost = -min(self.SHIELD_FROST,0)
+        self.CUR_FROST -= remaining_frost
+        self.SHIELD_FROST = max(self.SHIELD_FROST,0)
+        # MAGIC_FATIGUE
+        self.SHIELD_MAGIC_FATIGUE -= terrain.magic_fatigue
+        remaining_magic = -min(self.SHIELD_MAGIC_FATIGUE,0)
+        self.CUR_MAGIC_FATIGUE -= remaining_magic
+        self.SHIELD_MAGIC_FATIGUE = max(self.SHIELD_MAGIC_FATIGUE,0)
     
     def grant_shield(
             self,

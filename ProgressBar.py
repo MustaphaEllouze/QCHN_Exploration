@@ -31,7 +31,8 @@ class ProgressBar(QWidget):
             ecart_texte = 0.17,
             couleur_fond=QColor('black'),
             couleur_rectangle=QColor('red'),
-            font='Times',
+            nom_font='Helvetica',
+            shield_value=0,
             *args,
             **kwargs,
     ):
@@ -46,6 +47,8 @@ class ProgressBar(QWidget):
         self.max_value = max_value
         self.couleur_rectangle = couleur_rectangle
         self.current_value = self.max_value
+        self.nom_font=nom_font
+        self.shield_value=shield_value
         self.setFixedHeight(self._height)
     
     def paintEvent(self,e):
@@ -67,39 +70,61 @@ class ProgressBar(QWidget):
                                 )
         
         font = painter.font()
-        font.setFamily('Helvetica')
-        font.setPointSize(20)
+        font.setFamily(self.nom_font)
+        font.setPointSize(17)
         painter.setFont(font)
         
         # Rectangles
         d_width = painter.device().width()
         long_rect = ((1-self.ecart_texte)*d_width-2*self.padding-(self.max_value-1)*self.ler)/self.max_value
-        centres = [self.padding+0.5*long_rect+(k-1)*(long_rect+self.ler) for k in range(1,int(self.current_value+1))]
+        centres = [self.padding+0.5*long_rect+(k-1)*(long_rect+self.ler) for k in range(1,int(self.max_value+1))]
         
 
         for i,c in enumerate(centres) :
-            r,g,b,a =self.couleur_rectangle.getRgb()
-            r_set = r*(0.2+0.8*(i/(self.max_value-1)))
-            g_set = g*(0.2+0.8*(i/(self.max_value-1)))
-            b_set = b*(0.2+0.8*(i/(self.max_value-1)))
-            brush_rect = QBrush()
-            brush_rect.setColor(QColor(r_set,g_set,b_set,a))
-            brush_rect.setStyle(Qt.SolidPattern)
-            painter.setBrush(brush_rect)
-            painter.drawRoundedRect(
-                             c-long_rect/2,
-                             self.padding,
-                             long_rect,
-                             painter.device().height()-2*self.padding,
-                             self.rounded_edges/2,
-                             self.rounded_edges/2,
-                             )
+            if i<self.current_value:
+                r,g,b,a =self.couleur_rectangle.getRgb()
+                r_set = r*(0.2+0.8*(i/(self.max_value-1)))
+                g_set = g*(0.2+0.8*(i/(self.max_value-1)))
+                b_set = b*(0.2+0.8*(i/(self.max_value-1)))
+                brush_rect = QBrush()
+                brush_rect.setColor(QColor(r_set,g_set,b_set,a))
+                brush_rect.setStyle(Qt.SolidPattern)
+                painter.setBrush(brush_rect)
+                painter.drawRoundedRect(
+                                c-long_rect/2,
+                                self.padding,
+                                long_rect,
+                                painter.device().height()-2*self.padding,
+                                self.rounded_edges/2,
+                                self.rounded_edges/2,
+                                )
+                r_set_s = min(255,r*(0.5+0.5*(i/(self.max_value-1)))+20)
+                g_set_s = min(255,g*(0.5+0.5*(i/(self.max_value-1)))+20)
+                b_set_s = min(255,b*(0.5+0.5*(i/(self.max_value-1)))+20)
+                pen_shield = QPen()
+                pen_shield.setColor(QColor(r_set_s,g_set_s,b_set_s,a))
+                painter.setPen(pen_shield)
+                painter.drawRoundedRect(
+                                c-long_rect/2,
+                                self.padding,
+                                long_rect,
+                                painter.device().height()-2*self.padding,
+                                self.rounded_edges/2,
+                                self.rounded_edges/2,
+                                )
+            if i<self.shield_value:
+                painter.setPen(QColor(255,255,255,255))
+                painter.drawText(
+                    c-long_rect/2+self.padding,
+                    painter.device().height()/1.4,
+                    'B',
+                )
 
         # Texte
         if self.current_value == self.max_value:
             to_print = 'MAX'
         else : 
-            to_print = str(self.current_value)
+            to_print = f'{int(self.current_value)}/{self.max_value}'
         pen = QPen(self.couleur_rectangle)
         painter.setPen(pen)
         painter.drawText(
@@ -128,6 +153,11 @@ class ProgressBar(QWidget):
         self.current_value = n
         self.update()
     
+    def set_shield_value(self,n):
+        assert 0<=n<=self.max_value
+        self.shield_value = n
+        self.update()
+    
 if __name__ == '__main__':
     import sys
     from PySide6.QtWidgets import QApplication
@@ -136,5 +166,6 @@ if __name__ == '__main__':
     a = ProgressBar(
         couleur_rectangle=QColor(125,97,255,255),
     )
+    a.set_shield_value(1)
     a.show()
     app.exec()

@@ -261,6 +261,12 @@ class ExplorationGame(QMainWindow):
             self.character_description[character.name].w_thirst.set_current_value(character.CUR_THIRST)
             self.character_description[character.name].w_frost.set_current_value(character.CUR_FROST)
             self.character_description[character.name].w_magic.set_current_value(character.CUR_MAGIC_FATIGUE)
+            
+            self.character_description[character.name].w_fatigue.set_shield_value(character.SHIELD_FATIGUE)
+            self.character_description[character.name].w_hunger.set_shield_value(character.SHIELD_HUNGER)
+            self.character_description[character.name].w_thirst.set_shield_value(character.SHIELD_THIRST)
+            self.character_description[character.name].w_frost.set_shield_value(character.SHIELD_FROST)
+            self.character_description[character.name].w_magic.set_shield_value(character.SHIELD_MAGIC_FATIGUE)
 
     def go_to_N(self):
         self.game_manager.go_to_direction('N')
