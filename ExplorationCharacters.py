@@ -40,6 +40,12 @@ class ExplorationCharacter(Character):
         self.CUR_FATIGUE       = self.MAX_FATIGUE      
         self.CUR_FROST         = self.MAX_FROST        
         self.CUR_MAGIC_FATIGUE = self.MAX_MAGIC_FATIGUE
+
+        self.SHIELD_HUNGER        = 0
+        self.SHIELD_THIRST        = 0
+        self.SHIELD_FATIGUE       = 0
+        self.SHIELD_FROST         = 0
+        self.SHIELD_MAGIC_FATIGUE = 0
     
     def traverse_terrain(
             self,
@@ -49,7 +55,25 @@ class ExplorationCharacter(Character):
         self.CUR_THIRST  -= terrain.thirst
         self.CUR_FATIGUE -= terrain.fatigue
         self.CUR_FROST   -= terrain.frost
-        self.MAX_FATIGUE -= terrain.fatigue  
+        self.CUR_MAGIC_FATIGUE -= terrain.magic_fatigue  
+    
+    def grant_shield(
+            self,
+            caracteristic:str,
+            shield_amount=0,
+    ):
+        if caracteristic == 'HUNGER':
+            self.SHIELD_HUNGER += shield_amount
+        elif caracteristic == 'THIRST':
+            self.SHIELD_THIRST += shield_amount
+        elif caracteristic == 'FATIGUE':
+            self.SHIELD_FATIGUE += shield_amount
+        elif caracteristic == 'FROST':
+            self.SHIELD_FROST += shield_amount
+        elif caracteristic == 'MAGIC':
+            self.SHIELD_MAGIC_FATIGUE += shield_amount
+        else:
+            raise Exception(f'{caracteristic}:Not a caracteristic')
         
 
 class ExplorationGroup:
