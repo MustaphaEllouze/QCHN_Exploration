@@ -128,9 +128,6 @@ class ExplorationGameManager:
             for hex_coord in self.managed_game.map.visibility[self.managed_game.current_point]:
                 if hex_coord not in self.revealed_hexes : self.reveal_hex(hex_coord,secondary_pen=True)
         self.retrace_visited()
-
-
-        
         
 
 if __name__ == '__main__':

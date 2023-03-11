@@ -188,6 +188,12 @@ class ExplorationGame(QMainWindow):
                 image_path=f'images\\characters\\{character.name}.png',
                 largeur=self.width_layoutv1-100
             )
+            self.character_description[character.name].fatigue_widget.add_car.clicked.connect(
+                lambda x=character: character.change_carac(n=1,carac='FATIGUE')
+            )
+            self.character_description[character.name].fatigue_widget.add_car.clicked.connect(
+                self.update_widgets
+            )
             self.tab.addTab(self.character_description[character.name],character.name)
         self.layout_V1.addWidget(self.tab)
         self.tab.setFixedWidth(self.width_layoutv1)
@@ -257,6 +263,7 @@ class ExplorationGame(QMainWindow):
         self.display_current_hex.setText(f'Terrain : {self.game_manager.managed_game.current_terrain().name}')
         for character in self.game_manager.managed_game.group.characters:
             self.character_description[character.name].w_fatigue.set_current_value(character.CUR_FATIGUE)
+            print(character.CUR_FATIGUE)
             self.character_description[character.name].w_hunger.set_current_value(character.CUR_HUNGER)
             self.character_description[character.name].w_thirst.set_current_value(character.CUR_THIRST)
             self.character_description[character.name].w_frost.set_current_value(character.CUR_FROST)

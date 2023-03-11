@@ -47,6 +47,53 @@ class ExplorationCharacter(Character):
         self.SHIELD_FROST         = 0
         self.SHIELD_MAGIC_FATIGUE = 0
     
+    def change_carac(
+            self,
+            n:int,
+            carac:str
+    ):
+        if carac == 'HUNGER':
+            self.CUR_HUNGER += n
+            self.CUR_HUNGER = min(self.CUR_HUNGER,self.MAX_HUNGER)
+        elif carac == 'THIRST':
+            self.CUR_THIRST += n
+            self.CUR_THIRST = min(self.CUR_THIRST,self.MAX_THIRST)
+        elif carac == 'FATIGUE':
+            print(self.name,carac,n)
+            self.CUR_FATIGUE += n
+            self.CUR_FATIGUE = min(self.CUR_FATIGUE,self.MAX_FATIGUE)
+        elif carac == 'FROST':
+            self.CUR_FROST += n
+            self.CUR_FROST = min(self.CUR_FROST,self.MAX_FROST)
+        elif carac == 'MAGIC':
+            self.CUR_MAGIC_FATIGUE += n
+            self.CUR_MAGIC_FATIGUE = min(self.CUR_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE)
+        else:
+            raise Exception(f'{carac}:Not a caracteristic')
+
+    def change_shield(
+            self,
+            n:int,
+            carac:str
+    ):
+        if carac == 'HUNGER':
+            self.SHIELD_HUNGER += n
+            self.SHIELD_HUNGER = min(self.SHIELD_HUNGER,self.MAX_HUNGER)
+        elif carac == 'THIRST':
+            self.SHIELD_THIRST += n
+            self.SHIELD_THIRST = min(self.SHIELD_THIRST,self.MAX_THIRST)
+        elif carac == 'FATIGUE':
+            self.SHIELD_FATIGUE += n
+            self.SHIELD_FATIGUE = min(self.SHIELD_FATIGUE,self.MAX_FATIGUE)
+        elif carac == 'FROST':
+            self.SHIELD_FROST += n
+            self.SHIELD_FROST = min(self.SHIELD_FROST,self.MAX_FROST)
+        elif carac == 'MAGIC':
+            self.SHIELD_MAGIC_FATIGUE += n
+            self.SHIELD_MAGIC_FATIGUE = min(self.SHIELD_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE)
+        else:
+            raise Exception(f'{carac}:Not a caracteristic')
+
     def traverse_terrain(
             self,
             terrain:ExplorationTerrain,
