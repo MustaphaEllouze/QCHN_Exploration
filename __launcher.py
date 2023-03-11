@@ -40,7 +40,7 @@ window = ExplorationGame(
             map=map1,
             group=GROUP1,
             starting_point=(0,0),
-            corresponding_map_point=(10,10),
+            corresponding_map_point=(7,7),
             couleur=couleur
         )
 window._begin_game()

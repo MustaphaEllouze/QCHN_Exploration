@@ -241,12 +241,14 @@ class ExplorationMap :
     def neighbours_of_hex(
             self,
             target_hex_coord,
+            direction_only=False,
     ):
         """Retourne l'ensemble des coordonénes des voisins de l'hex
         NOTE : Uniquement ceux définis
 
         Args:
             target_hex_coord (int,int): Hex dont on veut connaître les voisins
+            direction_onlt (bool, optional) : Si True, la fonction renvoie les directions au lieu des coords
 
         Returns:
             list(int,int): Coordonnées des hexs voisins
@@ -271,8 +273,13 @@ class ExplorationMap :
                 (target_hex_coord[0]-1,target_hex_coord[1]+1),
             ]
         
-        # --- Variable de retour
-        return [c for c in potentials_neighbours if c in self.hexs.keys()]
+        if not direction_only : 
+            # --- Variable de retour
+            return [c for c in potentials_neighbours if c in self.hexs.keys()]
+        else :
+            directions = ['N','S','NE','SE','NW','SW']
+            return [directions[i] for i,c in enumerate(potentials_neighbours) if c in self.hexs.keys()]
+            
 
     def neighbours_at_range_X(
             self,

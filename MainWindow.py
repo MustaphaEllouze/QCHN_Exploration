@@ -267,6 +267,7 @@ class ExplorationGame(QMainWindow):
             self.character_description[character.name].w_thirst.set_shield_value(character.SHIELD_THIRST)
             self.character_description[character.name].w_frost.set_shield_value(character.SHIELD_FROST)
             self.character_description[character.name].w_magic.set_shield_value(character.SHIELD_MAGIC_FATIGUE)
+        self.freeze_direction_buttons()
 
     def go_to_N(self):
         self.game_manager.go_to_direction('N')
@@ -291,6 +292,23 @@ class ExplorationGame(QMainWindow):
     def go_to_SE(self):
         self.game_manager.go_to_direction('SE')
         self.update_widgets()
+    
+    def freeze_direction_buttons(self):
+        directions = self.game_manager.managed_game.map.neighbours_of_hex(self.game_manager.managed_game.current_point,direction_only=True)
+        dir_buttons = {
+            'N':self.N,
+            'S':self.S,
+            'NW':self.NW,
+            'SW':self.SW,
+            'NE':self.NE,
+            'SE':self.SE,
+        }
+        for direction in ['N','S','NW','SW','NE','SE']:
+            if direction not in directions:
+                dir_buttons[direction].setDisabled(True)
+            else:
+                dir_buttons[direction].setEnabled(True)
+
 
 
     def set_image_rose_cycle(self):
