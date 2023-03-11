@@ -50,9 +50,13 @@ class ProgressBar(QWidget):
     
     def paintEvent(self,e):
         painter = QPainter(self)
+
+        pen_fond = QPen()
+        pen_fond.setColor(self.couleur_fond)
         brush_fond = QBrush()
         brush_fond.setColor(self.couleur_fond)
         brush_fond.setStyle(Qt.SolidPattern)
+        painter.setPen(pen_fond)
         painter.setBrush(brush_fond)
         painter.drawRoundedRect(0,
                                 0,

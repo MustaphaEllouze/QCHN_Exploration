@@ -14,6 +14,7 @@ from PySide6.QtGui import (
     QPen,
     QBrush,
     QFont,
+    QIcon,
 )
 
 from PySide6.QtWidgets import (
@@ -73,17 +74,24 @@ class ExplorationGame(QMainWindow):
         couleur=QColor('black'),
         couleur_secondaire=QColor('red'),
         epaisseur=1,
+        height_progress_bar=50,
     ):
         super().__init__()
 
         self.setWindowTitle('Exploration - JDR')
+        self.setWindowIcon(QIcon('images\\hex_images\\high_mountains.png'))
 
         # ------ PARAMETRES GENERAUX ----
-        self.width_layoutv1 = 350
+        self.width_layoutv1 = 425
         self.width_layoutv3 = 200
-        self.resize(QSize(self.width_layoutv1+taille_h_view+self.width_layoutv3+50,taille_v_view))
-        self.setMinimumHeight(taille_v_view)
-        self.setMinimumWidth(self.width_layoutv1+taille_h_view+self.width_layoutv3+50)
+        self.mini_height = max(
+                taille_v_view,
+                self.width_layoutv1+5*height_progress_bar+200,
+            )
+        self.mini_width = self.width_layoutv1+taille_h_view+self.width_layoutv3+50
+        self.resize(QSize(self.mini_width,self.mini_height))
+        self.setMinimumHeight(self.mini_height)
+        self.setMinimumWidth(self.mini_width)
 
         # ------ WIDGET PARENT ----------
         # Widget virtuel 

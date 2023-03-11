@@ -7,6 +7,7 @@ from PySide6.QtWidgets import (
 
 from PySide6.QtGui import (
     QPixmap,
+    QColor,
 )
 
 from ExplorationCharacters import (
@@ -17,6 +18,10 @@ from PySide6.QtCore import (
     Qt,
 )
 
+from ProgressBar import (
+    ProgressBar,
+)
+
 
 class ExplorationCharacterSheet(QWidget):
 
@@ -25,6 +30,7 @@ class ExplorationCharacterSheet(QWidget):
             character:ExplorationCharacter,
             image_path:str,
             largeur:int,
+            couleur_fond=QColor(0,0,0,0),
             parent=None,
     ):
         super().__init__(parent=parent)
@@ -40,11 +46,36 @@ class ExplorationCharacterSheet(QWidget):
         self.image.setFixedHeight(self.largeur-40)
         self._layout.addWidget(QLabel(self.character.name))
         self._layout.addWidget(self.image)
-        self._layout.addWidget(QLabel(f'Fatigue : {self.character.CUR_FATIGUE}\\{self.character.MAX_FATIGUE}'))
-        self._layout.addWidget(QLabel(f'Faim : {self.character.CUR_HUNGER}\\{self.character.MAX_HUNGER}'))
-        self._layout.addWidget(QLabel(f'Soif : {self.character.CUR_THIRST}\\{self.character.MAX_THIRST}'))
-        self._layout.addWidget(QLabel(f'Froid : {self.character.CUR_FROST}\\{self.character.MAX_FROST}'))
-        self._layout.addWidget(QLabel(f'Endurance magique : {self.character.CUR_MAGIC_FATIGUE}\\{self.character.MAX_MAGIC_FATIGUE}'))
+        self._layout.addWidget(QLabel('Fatigue'))
+        self._layout.addWidget(ProgressBar(
+            max_value=self.character.MAX_FATIGUE,
+            couleur_fond=couleur_fond,
+            couleur_rectangle=QColor(255,127,0,255)
+        ))
+        self._layout.addWidget(QLabel('Faim'))
+        self._layout.addWidget(ProgressBar(
+            max_value=self.character.MAX_HUNGER,
+            couleur_fond=couleur_fond,
+            couleur_rectangle=QColor(255,0,0,255)
+        ))
+        self._layout.addWidget(QLabel('Soif'))
+        self._layout.addWidget(ProgressBar(
+            max_value=self.character.MAX_THIRST,
+            couleur_fond=couleur_fond,
+            couleur_rectangle=QColor(100,100,255,255)
+        ))
+        self._layout.addWidget(QLabel('Froid'))
+        self._layout.addWidget(ProgressBar(
+            max_value=self.character.MAX_FROST,
+            couleur_fond=couleur_fond,
+            couleur_rectangle=QColor(200,200,255,255)
+        ))
+        self._layout.addWidget(QLabel('Endurance magique'))
+        self._layout.addWidget(ProgressBar(
+            max_value=self.character.MAX_MAGIC_FATIGUE,
+            couleur_fond=couleur_fond,
+            couleur_rectangle=QColor(127,175,55,255)
+        ))
         self.setLayout(self._layout)
 
 
