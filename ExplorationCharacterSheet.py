@@ -39,7 +39,15 @@ class ProgressBarExtended(QWidget):
         self.setLayout(self._layout)
         self._layout.setContentsMargins(0,0,0,0)
         self._layout.setSpacing(0)
-        self._layout.addWidget(QLabel(name_cara),1)
+
+        self._layout_name_and_freeze = QHBoxLayout()
+        self._layout.addLayout(self._layout_name_and_freeze,1)
+        self._layout_name_and_freeze.addWidget(QLabel(name_cara))
+
+        self.freeze_but = QPushButton('Freeze')
+        self.unfreeze_but = QPushButton('Unfreeze')
+        self._layout_name_and_freeze.addWidget(self.freeze_but)
+        self._layout_name_and_freeze.addWidget(self.unfreeze_but)
 
         self._layout_no_label = QHBoxLayout()
         self._layout_no_label.setContentsMargins(0,0,0,0)
@@ -100,7 +108,15 @@ class ExplorationCharacterSheet(QWidget):
             Qt.SmoothTransformation))
         self.image.setAlignment(Qt.AlignCenter)
         self.image.setFixedHeight(self.largeur-40)
-        self._layout.addWidget(QLabel(self.character.name))
+        self._layout_name_and_freeze = QHBoxLayout()
+        self._layout.addLayout(self._layout_name_and_freeze)
+        self._layout_name_and_freeze.addWidget(QLabel(self.character.name))
+        
+        self.freeze_but = QPushButton('Freeze')
+        self.unfreeze_but = QPushButton('Unfreeze')
+        self._layout_name_and_freeze.addWidget(self.freeze_but)
+        self._layout_name_and_freeze.addWidget(self.unfreeze_but)
+
         self._layout.addWidget(self.image)
 
         self.w_fatigue = ProgressBar(
