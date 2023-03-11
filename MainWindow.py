@@ -82,11 +82,11 @@ class ExplorationGame(QMainWindow):
         self.setWindowIcon(QIcon('images\\hex_images\\high_mountains.png'))
 
         # ------ PARAMETRES GENERAUX ----
-        self.width_layoutv1 = 425
+        self.width_layoutv1 = 525
         self.width_layoutv3 = 200
         self.mini_height = max(
                 taille_v_view,
-                self.width_layoutv1+5*height_progress_bar+200,
+                self.width_layoutv1+5*height_progress_bar+300,
             )
         self.mini_width = self.width_layoutv1+taille_h_view+self.width_layoutv3+50
         self.resize(QSize(self.mini_width,self.mini_height))
@@ -186,7 +186,7 @@ class ExplorationGame(QMainWindow):
             self.character_description[character.name] = ExplorationCharacterSheet(
                 character=character,
                 image_path=f'images\\characters\\{character.name}.png',
-                largeur=self.width_layoutv1
+                largeur=self.width_layoutv1-100
             )
             self.tab.addTab(self.character_description[character.name],character.name)
         self.layout_V1.addWidget(self.tab)
