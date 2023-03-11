@@ -64,14 +64,19 @@ class ExplorationCharacter(Character):
     ):
         if caracteristic == 'HUNGER':
             self.SHIELD_HUNGER += shield_amount
+            self.SHIELD_HUNGER = min(self.SHIELD_HUNGER,self.MAX_HUNGER)
         elif caracteristic == 'THIRST':
             self.SHIELD_THIRST += shield_amount
+            self.SHIELD_THIRST = min(self.SHIELD_THIRST,self.MAX_THIRST)
         elif caracteristic == 'FATIGUE':
             self.SHIELD_FATIGUE += shield_amount
+            self.SHIELD_FATIGUE = min(self.SHIELD_FATIGUE,self.MAX_FATIGUE)
         elif caracteristic == 'FROST':
             self.SHIELD_FROST += shield_amount
+            self.SHIELD_FROST = min(self.SHIELD_FROST,self.MAX_FROST)
         elif caracteristic == 'MAGIC':
             self.SHIELD_MAGIC_FATIGUE += shield_amount
+            self.SHIELD_MAGIC_FATIGUE = min(self.SHIELD_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE)
         else:
             raise Exception(f'{caracteristic}:Not a caracteristic')
         
