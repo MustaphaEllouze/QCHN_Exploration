@@ -32,10 +32,16 @@ class ProgressBarExtended(QWidget):
             self,
             progress_bar:ProgressBar,
             name_cara:str,
+            name_affich:str,
+            character:ExplorationCharacter,
             *args,
             **kwargs,
     ):  
         super().__init__(*args,**kwargs)
+
+        self.progress_bar = progress_bar
+
+        self.character = character
 
         self._layout = QVBoxLayout()
         self.setLayout(self._layout)
@@ -44,7 +50,7 @@ class ProgressBarExtended(QWidget):
 
         self._layout_name_and_freeze = QHBoxLayout()
         self._layout.addLayout(self._layout_name_and_freeze,1)
-        self._layout_name_and_freeze.addWidget(QLabel(name_cara))
+        self._layout_name_and_freeze.addWidget(QLabel(name_affich))
 
         self.freeze_but = QPushButton('Freeze')
         self.unfreeze_but = QPushButton('Unfreeze')
@@ -80,6 +86,26 @@ class ProgressBarExtended(QWidget):
         self.sub_shield = QPushButton('-1 B.')
         self._layout_second_buttons.addWidget(self.add_shield)
         self._layout_second_buttons.addWidget(self.sub_shield)
+
+        self.freeze_but.clicked.connect(lambda x : self.freeze_but.setDisabled(True))
+        self.freeze_but.clicked.connect(lambda x : self.unfreeze_but.setEnabled(True))
+        self.unfreeze_but.clicked.connect(lambda x : self.unfreeze_but.setDisabled(True))
+        self.unfreeze_but.clicked.connect(lambda x : self.freeze_but.setEnabled(True))
+
+        self.freeze_but.clicked.connect(partial(character.set_freeze_state_carac,name_cara,True))
+        self.unfreeze_but.clicked.connect(partial(character.set_freeze_state_carac,name_cara,False))
+
+        
+        self.add_car.clicked.connect(lambda x : self.character.change_carac(1,name_cara))
+        self.add_car.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
+        self.sub_car.clicked.connect(lambda x : self.character.change_carac(-1,name_cara))
+        self.sub_car.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
+        self.add_shield.clicked.connect(lambda x : self.character.change_shield(1,name_cara))
+        self.add_shield.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
+        self.sub_shield.clicked.connect(lambda x : self.character.change_shield(-1,name_cara))
+        self.sub_shield.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
+        self.freeze_but.clicked.connect(partial(self.character.set_freeze_state_carac,name_cara,True))
+        self.unfreeze_but.clicked.connect(partial(self.character.set_freeze_state_carac,name_cara,False))
 
         self.add_car.setFixedWidth(50)
         self.sub_car.setFixedWidth(50)
@@ -162,62 +188,42 @@ class ExplorationCharacterSheet(QWidget):
 
         self.fatigue_widget = ProgressBarExtended(
             progress_bar = self.w_fatigue,
-            name_cara='Fatigue',
+            name_cara='FATIGUE',
+            name_affich='Fatigue',
+            character=self.character,
         )
-        self.fatigue_widget.freeze_but.clicked.connect(partial(character.set_freeze_state_carac,'FATIGUE',True))
-        self.fatigue_widget.unfreeze_but.clicked.connect(partial(character.set_freeze_state_carac,'FATIGUE',False))
-        self.fatigue_widget.freeze_but.clicked.connect(lambda x : self.fatigue_widget.freeze_but.setDisabled(True))
-        self.fatigue_widget.freeze_but.clicked.connect(lambda x : self.fatigue_widget.unfreeze_but.setEnabled(True))
-        self.fatigue_widget.unfreeze_but.clicked.connect(lambda x : self.fatigue_widget.unfreeze_but.setDisabled(True))
-        self.fatigue_widget.unfreeze_but.clicked.connect(lambda x : self.fatigue_widget.freeze_but.setEnabled(True))
         self._layout.addWidget(self.fatigue_widget)
 
         self.hunger_widget = ProgressBarExtended(
             progress_bar = self.w_hunger,
-            name_cara='Faim',
+            name_cara='HUNGER',
+            name_affich='Faim',
+            character=self.character,
         )
-        self.hunger_widget.freeze_but.clicked.connect(partial(character.set_freeze_state_carac,'HUNGER',True))
-        self.hunger_widget.unfreeze_but.clicked.connect(partial(character.set_freeze_state_carac,'HUNGER',False))
-        self.hunger_widget.freeze_but.clicked.connect(lambda x : self.hunger_widget.freeze_but.setDisabled(True))
-        self.hunger_widget.freeze_but.clicked.connect(lambda x : self.hunger_widget.unfreeze_but.setEnabled(True))
-        self.hunger_widget.unfreeze_but.clicked.connect(lambda x : self.hunger_widget.unfreeze_but.setDisabled(True))
-        self.hunger_widget.unfreeze_but.clicked.connect(lambda x : self.hunger_widget.freeze_but.setEnabled(True))
         self._layout.addWidget(self.hunger_widget)
 
         self.thirst_widget = ProgressBarExtended(
             progress_bar = self.w_thirst,
-            name_cara='Soif',
+            name_cara='THIRST',
+            name_affich='Soif',
+            character=self.character,
         )
-        self.thirst_widget.freeze_but.clicked.connect(partial(character.set_freeze_state_carac,'THIRST',True))
-        self.thirst_widget.unfreeze_but.clicked.connect(partial(character.set_freeze_state_carac,'THIRST',False))
-        self.thirst_widget.freeze_but.clicked.connect(lambda x : self.thirst_widget.freeze_but.setDisabled(True))
-        self.thirst_widget.freeze_but.clicked.connect(lambda x : self.thirst_widget.unfreeze_but.setEnabled(True))
-        self.thirst_widget.unfreeze_but.clicked.connect(lambda x : self.thirst_widget.unfreeze_but.setDisabled(True))
-        self.thirst_widget.unfreeze_but.clicked.connect(lambda x : self.thirst_widget.freeze_but.setEnabled(True))
         self._layout.addWidget(self.thirst_widget)
 
         self.frost_widget = ProgressBarExtended(
             progress_bar = self.w_frost,
-            name_cara='Froid',
+            name_cara='FROST',
+            name_affich='Froid',
+            character=self.character,
         )
-        self.frost_widget.freeze_but.clicked.connect(partial(character.set_freeze_state_carac,'FROST',True))
-        self.frost_widget.unfreeze_but.clicked.connect(partial(character.set_freeze_state_carac,'FROST',False))
-        self.frost_widget.freeze_but.clicked.connect(lambda x : self.frost_widget.freeze_but.setDisabled(True))
-        self.frost_widget.freeze_but.clicked.connect(lambda x : self.frost_widget.unfreeze_but.setEnabled(True))
-        self.frost_widget.unfreeze_but.clicked.connect(lambda x : self.frost_widget.unfreeze_but.setDisabled(True))
-        self.frost_widget.unfreeze_but.clicked.connect(lambda x : self.frost_widget.freeze_but.setEnabled(True))
         self._layout.addWidget(self.frost_widget)
 
         self.magic_widget = ProgressBarExtended(
             progress_bar = self.w_magic,
-            name_cara='Endurance magique',
+            name_cara='MAGIC',
+            name_affich='Endurance magique',
+            character=self.character,
         )
-        self.magic_widget.freeze_but.clicked.connect(partial(character.set_freeze_state_carac,'MAGIC',True))
-        self.magic_widget.unfreeze_but.clicked.connect(partial(character.set_freeze_state_carac,'MAGIC',False))
-        self.magic_widget.freeze_but.clicked.connect(lambda x : self.magic_widget.freeze_but.setDisabled(True))
-        self.magic_widget.freeze_but.clicked.connect(lambda x : self.magic_widget.unfreeze_but.setEnabled(True))
-        self.magic_widget.unfreeze_but.clicked.connect(lambda x : self.magic_widget.unfreeze_but.setDisabled(True))
-        self.magic_widget.unfreeze_but.clicked.connect(lambda x : self.magic_widget.freeze_but.setEnabled(True))
         self._layout.addWidget(self.magic_widget)
 
         self.unfreeze_but.setDisabled(True)

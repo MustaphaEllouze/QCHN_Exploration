@@ -62,6 +62,36 @@ class ExplorationCharacter(Character):
         for carac in ['HUNGER','THIRST','FATIGUE','FROST','MAGIC'] : 
             self.set_freeze_state_carac(carac=carac,freeze_state=freeze_state)
     
+    def get_value_of_shield(
+            self,
+            carac:str,
+    ):
+        if carac == 'HUNGER':
+            return self.SHIELD_HUNGER
+        elif carac == 'THIRST':
+            return self.SHIELD_THIRST
+        elif carac == 'FATIGUE':
+            return self.SHIELD_FATIGUE
+        elif carac == 'FROST':
+            return self.SHIELD_FROST
+        elif carac == 'MAGIC':
+            return self.SHIELD_MAGIC_FATIGUE
+    
+    def get_value_of_cara(
+            self,
+            carac:str,
+    ):
+        if carac == 'HUNGER':
+            return self.CUR_HUNGER
+        elif carac == 'THIRST':
+            return self.CUR_THIRST
+        elif carac == 'FATIGUE':
+            return self.CUR_FATIGUE
+        elif carac == 'FROST':
+            return self.CUR_FROST
+        elif carac == 'MAGIC':
+            return self.CUR_MAGIC_FATIGUE
+
     def set_freeze_state_carac(
             self,
             carac:str,
