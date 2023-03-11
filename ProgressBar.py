@@ -74,7 +74,7 @@ class ProgressBar(QWidget):
         # Rectangles
         d_width = painter.device().width()
         long_rect = ((1-self.ecart_texte)*d_width-2*self.padding-(self.max_value-1)*self.ler)/self.max_value
-        centres = [self.padding+0.5*long_rect+(k-1)*(long_rect+self.ler) for k in range(1,self.current_value+1)]
+        centres = [self.padding+0.5*long_rect+(k-1)*(long_rect+self.ler) for k in range(1,int(self.current_value+1))]
         
 
         for i,c in enumerate(centres) :
@@ -121,6 +121,11 @@ class ProgressBar(QWidget):
     def regenerate(self,n):
         self.current_value += n
         self.current_value = min(self.current_value,self.max_value)
+        self.update()
+    
+    def set_current_value(self,n):
+        assert 0<=n<=self.max_value
+        self.current_value = n
         self.update()
     
 if __name__ == '__main__':

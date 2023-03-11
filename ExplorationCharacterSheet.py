@@ -46,36 +46,43 @@ class ExplorationCharacterSheet(QWidget):
         self.image.setFixedHeight(self.largeur-40)
         self._layout.addWidget(QLabel(self.character.name))
         self._layout.addWidget(self.image)
-        self._layout.addWidget(QLabel('Fatigue'))
-        self._layout.addWidget(ProgressBar(
+
+        self.w_fatigue = ProgressBar(
             max_value=self.character.MAX_FATIGUE,
             couleur_fond=couleur_fond,
             couleur_rectangle=QColor(255,127,0,255)
-        ))
-        self._layout.addWidget(QLabel('Faim'))
-        self._layout.addWidget(ProgressBar(
+        )
+        self.w_hunger = ProgressBar(
             max_value=self.character.MAX_HUNGER,
             couleur_fond=couleur_fond,
             couleur_rectangle=QColor(255,0,0,255)
-        ))
-        self._layout.addWidget(QLabel('Soif'))
-        self._layout.addWidget(ProgressBar(
+        )
+        self.w_thirst = ProgressBar(
             max_value=self.character.MAX_THIRST,
             couleur_fond=couleur_fond,
             couleur_rectangle=QColor(100,100,255,255)
-        ))
-        self._layout.addWidget(QLabel('Froid'))
-        self._layout.addWidget(ProgressBar(
+        )
+        self.w_frost = ProgressBar(
             max_value=self.character.MAX_FROST,
             couleur_fond=couleur_fond,
             couleur_rectangle=QColor(200,200,255,255)
-        ))
-        self._layout.addWidget(QLabel('Endurance magique'))
-        self._layout.addWidget(ProgressBar(
+        )
+        self.w_magic = ProgressBar(
             max_value=self.character.MAX_MAGIC_FATIGUE,
             couleur_fond=couleur_fond,
             couleur_rectangle=QColor(127,175,55,255)
-        ))
+        )
+
+        self._layout.addWidget(QLabel('Fatigue'))
+        self._layout.addWidget(self.w_fatigue)
+        self._layout.addWidget(QLabel('Faim'))
+        self._layout.addWidget(self.w_hunger)
+        self._layout.addWidget(QLabel('Soif'))
+        self._layout.addWidget(self.w_thirst)
+        self._layout.addWidget(QLabel('Froid'))
+        self._layout.addWidget(self.w_frost)
+        self._layout.addWidget(QLabel('Endurance magique'))
+        self._layout.addWidget(self.w_magic)
         self.setLayout(self._layout)
 
 

@@ -255,6 +255,12 @@ class ExplorationGame(QMainWindow):
         self.display_jour.setText(f'Jour : {int(self.game_manager.managed_game.time.day)}')
         self.display_heure.setText(f'Heure : {self.game_manager.managed_game.time.str_without_day()}')
         self.display_current_hex.setText(f'Terrain : {self.game_manager.managed_game.current_terrain().name}')
+        for character in self.game_manager.managed_game.group.characters:
+            self.character_description[character.name].w_fatigue.set_current_value(character.CUR_FATIGUE)
+            self.character_description[character.name].w_hunger.set_current_value(character.CUR_HUNGER)
+            self.character_description[character.name].w_thirst.set_current_value(character.CUR_THIRST)
+            self.character_description[character.name].w_frost.set_current_value(character.CUR_FROST)
+            self.character_description[character.name].w_magic.set_current_value(character.CUR_MAGIC_FATIGUE)
 
     def go_to_N(self):
         self.game_manager.go_to_direction('N')
