@@ -128,6 +128,22 @@ class ExplorationGameManager:
             for hex_coord in self.managed_game.map.visibility[self.managed_game.current_point]:
                 if hex_coord not in self.revealed_hexes : self.reveal_hex(hex_coord,secondary_pen=True)
         self.retrace_visited()
+    
+    def change_carac_of_character(
+            self,
+            character:ExplorationCharacter,
+            n:int,
+            carac:str,
+    ):
+        character.change_carac(n=n,carac=carac)
+    
+    def change_shield_of_character(
+            self,
+            character:ExplorationCharacter,
+            n:int,
+            carac:str,
+    ):
+        character.change_shield(n=n,carac=carac)
         
 
 if __name__ == '__main__':

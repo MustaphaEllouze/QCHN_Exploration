@@ -59,7 +59,6 @@ class ExplorationCharacter(Character):
             self.CUR_THIRST += n
             self.CUR_THIRST = min(self.CUR_THIRST,self.MAX_THIRST)
         elif carac == 'FATIGUE':
-            print(self.name,carac,n)
             self.CUR_FATIGUE += n
             self.CUR_FATIGUE = min(self.CUR_FATIGUE,self.MAX_FATIGUE)
         elif carac == 'FROST':
