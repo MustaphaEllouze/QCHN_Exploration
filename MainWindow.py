@@ -346,7 +346,28 @@ class ExplorationGame(QMainWindow):
         
         # Heure
         self.display_heure = QLabel()
-        self.layout_v3_sub.addWidget(self.display_heure)
+        self.layout_v3_sub_day = QHBoxLayout()
+        self.layout_v3_sub.addLayout(self.layout_v3_sub_day)
+        self.layout_v3_sub_day.addWidget(self.display_heure)
+        self.layout_v3_sub_day_buttons = QVBoxLayout()
+        self.layout_v3_sub_day.addLayout(self.layout_v3_sub_day_buttons)
+        self.button_recorver_1hour = QPushButton('- 1h')
+        self.button_recorver_15mn = QPushButton('- 15mn')
+        self.button_pass_15mn = QPushButton('+ 15mn')
+        self.button_pass_1hour = QPushButton('+ 1h')
+        self.layout_v3_sub_day_buttons.addWidget(self.button_recorver_1hour)
+        self.layout_v3_sub_day_buttons.addWidget(self.button_recorver_15mn)
+        self.layout_v3_sub_day_buttons.addWidget(self.button_pass_15mn)
+        self.layout_v3_sub_day_buttons.addWidget(self.button_pass_1hour)
+
+        self.button_recorver_1hour.clicked.connect(lambda x :self.game_manager.managed_game.time.go_back_hours(1))
+        self.button_recorver_1hour.clicked.connect(self.update_widgets)
+        self.button_recorver_15mn.clicked.connect(lambda x :self.game_manager.managed_game.time.go_back_minutes(15))
+        self.button_recorver_15mn.clicked.connect(self.update_widgets)
+        self.button_pass_15mn.clicked.connect(lambda x :self.game_manager.managed_game.time.pass_minutes(15))
+        self.button_pass_15mn.clicked.connect(self.update_widgets)
+        self.button_pass_1hour.clicked.connect(lambda x :self.game_manager.managed_game.time.pass_hours(1))
+        self.button_pass_1hour.clicked.connect(self.update_widgets)
         
         self.layout_v3_sub.addWidget(ExplorationGame.h_line())
     

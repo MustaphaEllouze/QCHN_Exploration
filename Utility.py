@@ -12,7 +12,7 @@ class EDateTime :
         self.day = int(jour_depart)
         self.hour = int(heure_depart)
         self.minutes=int((heure_depart-self.hour)*60)
-    
+
     def pass_hours(
             self,
             hours=0,
@@ -38,6 +38,24 @@ class EDateTime :
             self.hour -= 24.0
             self.day += 1
     
+    def go_back_hours(
+            self,
+            hours=0,
+    ):
+        days_to_recover = hours//24
+        hours_to_recover = hours%24
+        self.day -= days_to_recover
+        self.hour -= int(hours_to_recover)
+
+        self.minutes -= int((hours-int(hours))*60)
+
+        if (self.minutes<0.0):
+            self.minutes += 60.0
+            self.hour -= 1
+        if(self.hour<0.0):
+            self.hours += 24.0
+            self.day -=1
+    
     def pass_minutes(
             self,
             minutes=0,
@@ -48,6 +66,12 @@ class EDateTime :
             minutes (int, optional): Minutes to pass. Defaults to 0.
         """
         self.pass_hours(minutes/60)
+    
+    def go_back_minutes(
+            self,
+            minutes=0,
+    ):
+        self.go_back_hours(minutes/60)
     
     def str_without_day(self,):
         return f'{str(int(self.hour)).zfill(2)}h{str(int(self.minutes)).zfill(2)}'
@@ -64,4 +88,10 @@ if __name__ == '__main__':
     test.pass_minutes(42.5)
     print(test)
     test.pass_minutes(1234.5)
+    print(test)
+    test.go_back_minutes(24)
+    print(test)
+    test.go_back_minutes(60)
+    print(test)
+    test.go_back_minutes(6000)
     print(test)
