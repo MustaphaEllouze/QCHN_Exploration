@@ -103,7 +103,7 @@ class ProgressBarExtended(QWidget):
         self.sub_car.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
         self.add_shield.clicked.connect(lambda x : self.character.change_shield(1,name_cara))
         self.add_shield.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
-        self.sub_shield.clicked.connect(lambda x : self.character.consume_car_or_shield(1,name_cara))
+        self.sub_shield.clicked.connect(lambda x : self.character.change_shield(-1,name_cara))
         self.sub_shield.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
         self.sub_shield.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
         self.freeze_but.clicked.connect(partial(self.character.set_freeze_state_carac,name_cara,True))
