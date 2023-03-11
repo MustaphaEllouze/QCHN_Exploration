@@ -152,46 +152,58 @@ class ExplorationCharacter(Character):
                 self.SHIELD_MAGIC_FATIGUE += n
                 self.SHIELD_MAGIC_FATIGUE = max(min(self.SHIELD_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE),0)
 
-    def traverse_terrain(
+    def consume_car_or_shield(
             self,
-            terrain:ExplorationTerrain,
+            n:int,
+            carac:str,
     ):
         if not self.frozen:
-            if not self.FROZEN_HUNGER :
+            if carac == 'HUNGER' and not self.FROZEN_HUNGER :
                 #HUNGER
-                self.SHIELD_HUNGER -= terrain.hunger
+                self.SHIELD_HUNGER -= n
                 remaining_hunger = -min(self.SHIELD_HUNGER,0)
                 self.CUR_HUNGER -= remaining_hunger
                 self.SHIELD_HUNGER = max(self.SHIELD_HUNGER,0)
                 self.CUR_HUNGER = max(self.CUR_HUNGER,0)
-            if not self.FROZEN_THIRST :
+            if carac == 'THIRST' and not self.FROZEN_THIRST :
                 # THIRST
-                self.SHIELD_THIRST -= terrain.thirst
+                self.SHIELD_THIRST -= n
                 remaining_thirst = -min(self.SHIELD_THIRST,0)
                 self.CUR_THIRST -= remaining_thirst
                 self.SHIELD_THIRST = max(self.SHIELD_THIRST,0)
                 self.CUR_THIRST = max(self.CUR_THIRST,0)
-            if not self.FROZEN_FATIGUE:
+            if carac == 'FATIGUE' and not self.FROZEN_FATIGUE:
                 # FATIGUE
-                self.SHIELD_FATIGUE -= terrain.fatigue
+                self.SHIELD_FATIGUE -= n
                 remaining_fatigue = -min(self.SHIELD_FATIGUE,0)
                 self.CUR_FATIGUE -= remaining_fatigue
                 self.SHIELD_FATIGUE = max(self.SHIELD_FATIGUE,0)
                 self.CUR_FATIGUE = max(self.CUR_FATIGUE,0)
-            if not self.FROZEN_FROST:
+            if carac == 'FROST' and not self.FROZEN_FROST:
                 # FROST
-                self.SHIELD_FROST -= terrain.frost
+                self.SHIELD_FROST -= n
                 remaining_frost = -min(self.SHIELD_FROST,0)
                 self.CUR_FROST -= remaining_frost
                 self.SHIELD_FROST = max(self.SHIELD_FROST,0)
                 self.CUR_FROST = max(self.CUR_FROST,0)
-            if not self.FROZEN_MAGIC_FATIGUE:
+            if carac == 'MAGIC' and not self.FROZEN_MAGIC_FATIGUE:
                 # MAGIC_FATIGUE
-                self.SHIELD_MAGIC_FATIGUE -= terrain.magic_fatigue
+                self.SHIELD_MAGIC_FATIGUE -= n
                 remaining_magic = -min(self.SHIELD_MAGIC_FATIGUE,0)
                 self.CUR_MAGIC_FATIGUE -= remaining_magic
                 self.SHIELD_MAGIC_FATIGUE = max(self.SHIELD_MAGIC_FATIGUE,0)
                 self.CUR_MAGIC_FATIGUE = max(self.CUR_MAGIC_FATIGUE,0)
+
+
+    def traverse_terrain(
+            self,
+            terrain:ExplorationTerrain,
+    ):
+        self.consume_car_or_shield(terrain.fatigue,'FATIGUE')
+        self.consume_car_or_shield(terrain.hunger,'HUNGER')
+        self.consume_car_or_shield(terrain.thirst,'THIRST')
+        self.consume_car_or_shield(terrain.frost,'FROST')
+        self.consume_car_or_shield(terrain.magic_fatigue,'MAGIC')
         
 
 class ExplorationGroup:
