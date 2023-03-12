@@ -7,19 +7,38 @@ from Class import (
 )
 
 class Character:
+    
+    """Représente un personnage à partir de ses caractéristiques
+    """
+
+    # Contient toutes les instances
     CHARACTERS = {}
+
     def __init__(
             self,
-            name,
-            race,
-            classe,
-            base_strength,
-            base_constitution,
-            base_dexterity,
-            base_charisma,
-            base_wisdwom,
-            base_intelligence,
+            name:str,
+            race:Race,
+            classe:Class,
+            base_strength:int,
+            base_constitution:int,
+            base_dexterity:int,
+            base_charisma:int,
+            base_wisdwom:int,
+            base_intelligence:int,
     ):
+        """_summary_
+
+         Args:
+             name (str): _description_
+             race (Race): _description_
+             classe (Class): _description_
+             base_strength (int): _description_
+             base_constitution (int): _description_
+             base_dexterity (int): _description_
+             base_charisma (int): _description_
+             base_wisdwom (int): _description_
+             base_intelligence (int): _description_
+        """
         self.name = name
         self.race = race
         self.classe = classe
