@@ -113,12 +113,25 @@ class ProgressBar(QWidget):
                                 self.rounded_edges/2,
                                 )
             if i<self.shield_value:
-                painter.setPen(QColor(255,255,255,255))
-                painter.drawText(
-                    c-long_rect/2+self.padding,
-                    painter.device().height()/1.4,
-                    'B',
-                )
+                painter.setBrush(QBrush(QColor(255,255,255,130),Qt.Dense6Pattern))
+                painter.drawRoundedRect(
+                                c-long_rect/2,
+                                self.padding,
+                                long_rect,
+                                painter.device().height()-2*self.padding,
+                                self.rounded_edges/2,
+                                self.rounded_edges/2,
+                                )
+                
+                painter.setBrush(QBrush(QColor(255,255,255,130),Qt.Dense7Pattern))
+                painter.drawRoundedRect(
+                                c-long_rect/2,
+                                self.padding,
+                                long_rect,
+                                painter.device().height()-2*self.padding,
+                                self.rounded_edges/2,
+                                self.rounded_edges/2,
+                                )
 
         # Texte
         if self.current_value == self.max_value:
