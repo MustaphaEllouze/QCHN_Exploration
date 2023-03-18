@@ -20,6 +20,8 @@ from PySide6.QtCore import (
 
 
 class ProgressBar(QWidget):
+    """Widget pour afficher une barre de progression
+    """
 
     def __init__(
             self,
@@ -36,6 +38,20 @@ class ProgressBar(QWidget):
             *args,
             **kwargs,
     ):
+        """
+        Args:
+            max_value (int, optional): _description_. Defaults to 15.
+            rounded_edges (int, optional): _description_. Defaults to 12.
+            height (int, optional): _description_. Defaults to 50.
+            padding (int, optional): _description_. Defaults to 5.
+            larg_entre_rectangles (int, optional): _description_. Defaults to 3.
+            ecart_texte (float, optional): _description_. Defaults to 0.17.
+            couleur_fond (_type_, optional): _description_. Defaults to QColor('black').
+            couleur_rectangle (_type_, optional): _description_. Defaults to QColor('red').
+            nom_font (str, optional): _description_. Defaults to 'Helvetica'.
+            shield_value (int, optional): _description_. Defaults to 0.
+        """
+
         super(ProgressBar, self).__init__(*args,**kwargs)
 
         self.rounded_edges = rounded_edges
