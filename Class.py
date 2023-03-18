@@ -1,10 +1,27 @@
 class Class:
+    """Représente une classe de personnage
+
+        name            : str
+        bonuses         : dict(name:int)
+
+        Class.CLASSES   : dict(name:Class)
+    """
+
+    # Contient toutes les instances
     CLASSES = {}
+
     def __init__(
             self,
             name,
             bonuses,
     ):
+        """
+        Args:
+            name (str): Nom de la classe
+            bonuses (dict(str:int)): Bonus de classes
+        """
+
+        # Initialisation de tous les bonus
         self.bonuses = {
                 'STR':0,
                 'CON':0,
@@ -18,10 +35,13 @@ class Class:
                 'R':0,
                 'G':0,
         }
+
+        # Ecrasement des bonus définis dans la variable d'entrée
         for key,bonus in bonuses.items():
             assert key in self.bonuses.keys()
             self.bonuses[key]=bonus
-            
+        
+        # Ajout dans le conteneur
         Class.CLASSES[name]=self
 
 # --------------------------------------------- DEFINITION DES CLASSES

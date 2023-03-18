@@ -39,8 +39,7 @@ class Character:
             base_wisdwom:int,
             base_intelligence:int,
     ):
-        """_summary_
-
+        """
         Args:
             name (str): Nom du personnage
             race (Race): Race du personnage
