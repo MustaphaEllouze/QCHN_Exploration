@@ -9,7 +9,7 @@ from PySide6.QtGui import (
 )
 
 from MainWindow import(
-    ExplorationGame,
+    ExplorationInterface,
 )
 
 from ExplorationMaps_input import (
@@ -36,7 +36,7 @@ if darktheme :
 else:
     couleur = QColor('black')
 
-window = ExplorationGame(
+window = ExplorationInterface(
             map=map1,
             group=GROUP1,
             starting_point=(0,0),

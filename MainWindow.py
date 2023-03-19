@@ -67,7 +67,7 @@ from Utility import (
 )
 
 
-class ExplorationGame(QMainWindow):
+class ExplorationInterface(QMainWindow):
     def __init__(
         self,
         map:ExplorationMap,
@@ -225,7 +225,7 @@ class ExplorationGame(QMainWindow):
         self.display_jour.setFont(self._font)
         self.layout_v3_sub.addWidget(self.display_jour,Qt.AlignCenter)
 
-        self.layout_v3_sub.addWidget(ExplorationGame.h_line())
+        self.layout_v3_sub.addWidget(ExplorationInterface.h_line())
         
         # Heure
         self.display_heure = QLabel()
@@ -253,13 +253,13 @@ class ExplorationGame(QMainWindow):
         self.button_pass_1hour.clicked.connect(lambda x :self.game_manager.managed_game.time.pass_hours(1))
         self.button_pass_1hour.clicked.connect(self.update_widgets)
         
-        self.layout_v3_sub.addWidget(ExplorationGame.h_line())
+        self.layout_v3_sub.addWidget(ExplorationInterface.h_line())
     
         # Current hex
         self.display_current_hex = QLabel()
         self.display_current_hex.setFont(self._font)
         self.layout_v3_sub.addWidget(self.display_current_hex,Qt.AlignCenter)
-        self.layout_v3_sub.addWidget(ExplorationGame.h_line())
+        self.layout_v3_sub.addWidget(ExplorationInterface.h_line())
 
         # Direction action
         self.direction_widget = QWidget()
