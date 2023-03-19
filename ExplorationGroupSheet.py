@@ -55,18 +55,20 @@ class ExplorationGroupSheet(QWidget):
         self._layout.addLayout(self._grid,stretch=20)
 
         t0 = QLabel('Fatig.')
-        t1 = QLabel('Faim  ')
-        t2 = QLabel('Soif  ')
-        t3 = QLabel('Froid ')
+        t1 = QLabel('Faim')
+        t2 = QLabel('Soif')
+        t3 = QLabel('Froid')
         t4 = QLabel('End.M.')
 
         for t in [t0,t1,t2,t3,t4] : t.setFont(self._font_second)
 
-        self._grid.addWidget(t0,0,1)
-        self._grid.addWidget(t1,0,2)
-        self._grid.addWidget(t2,0,3)
-        self._grid.addWidget(t3,0,4)
-        self._grid.addWidget(t4,0,5)
+        self._grid.addWidget(t0,0,1,Qt.AlignCenter)
+        self._grid.addWidget(t1,0,2,Qt.AlignCenter)
+        self._grid.addWidget(t2,0,3,Qt.AlignCenter)
+        self._grid.addWidget(t3,0,4,Qt.AlignCenter)
+        self._grid.addWidget(t4,0,5,Qt.AlignCenter)
+
+        self._widgets = {}
 
         for i,character in enumerate(self.group.characters):
             w0 = QLabel(f'{character.name              }'                                )
@@ -77,6 +79,8 @@ class ExplorationGroupSheet(QWidget):
             w5 = QLabel(f'{character.CUR_MAGIC_FATIGUE } \\ {character.MAX_MAGIC_FATIGUE }')
 
             for w in [w0,w1,w2,w3,w4,w5]: w.setFont(self._font_tert)
+
+            self._widgets[character] = [w0,w1,w2,w3,w4,w5]
             
             self._grid.addWidget(w0,i+1,0,Qt.AlignCenter)
             self._grid.addWidget(w1,i+1,1,Qt.AlignCenter)
@@ -84,9 +88,20 @@ class ExplorationGroupSheet(QWidget):
             self._grid.addWidget(w3,i+1,3,Qt.AlignCenter)
             self._grid.addWidget(w4,i+1,4,Qt.AlignCenter)
             self._grid.addWidget(w5,i+1,5,Qt.AlignCenter)
-        
-        
+    
+    def update_widgets(self):
+        for character,list_w in self._widgets.items():
+            w1 = list_w[1]
+            w2 = list_w[2]
+            w3 = list_w[3]
+            w4 = list_w[4]
+            w5 = list_w[5]
 
+            w1.setText(f'{character.CUR_FATIGUE       } \\ {character.MAX_FATIGUE       }')
+            w2.setText(f'{character.CUR_HUNGER        } \\ {character.MAX_HUNGER        }')
+            w3.setText(f'{character.CUR_THIRST        } \\ {character.MAX_THIRST        }')
+            w4.setText(f'{character.CUR_FROST         } \\ {character.MAX_FROST         }')
+            w5.setText(f'{character.CUR_MAGIC_FATIGUE } \\ {character.MAX_MAGIC_FATIGUE }')
 
 if __name__ == '__main__':
     import sys
