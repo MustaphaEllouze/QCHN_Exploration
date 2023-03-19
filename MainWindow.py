@@ -31,6 +31,7 @@ from PySide6.QtWidgets import (
     QFrame,
     QPushButton,
     QGridLayout,
+    QToolBar,
 )
 
 from functools import (
@@ -55,6 +56,10 @@ from ExplorationCharacters import (
 
 from ExplorationCharacterSheet import (
     ExplorationCharacterSheet,
+)
+
+from ExplorationGroupSheet import (
+    ExplorationGroupSheet,
 )
 
 from Utility import (
@@ -197,6 +202,10 @@ class ExplorationGame(QMainWindow):
                 largeur=self.width_layoutv1-100
             )
             self.tab.addTab(self.character_description[character.name],character.name)
+            # ------ Monkey patching, il faudrait changer ce qui suit
+            for button in self.character_description[character.name].all_buttons:
+                button.clicked.connect(self.update_widgets)
+            # ------ Fin monkey-patching
         self.layout_V1.addWidget(self.tab)
         self.tab.setFixedWidth(self.width_layoutv1)
         self.tab.setSizePolicy(QSizePolicy.Fixed,QSizePolicy.Ignored)
@@ -276,6 +285,35 @@ class ExplorationGame(QMainWindow):
         self.grid_direction.addWidget(self.SE,2,2)
         self.grid_direction.addWidget(self.SW,2,0)
 
+        # -----------------------------------
+        # ----------- MENU BAR --------------
+        # -----------------------------------
+
+        toolbar = QToolBar()
+        self.addToolBar(toolbar)
+
+        self.show_summary = QAction('Résumé ', self)
+        self.show_summary.setStatusTip('Résumé des caractéristiques du groupe')
+        self.show_summary.setCheckable(True)
+        self.window_summary = None
+        
+        self.show_summary.triggered.connect(self.create_summary)
+
+        toolbar.addAction(self.show_summary)
+
+    def create_summary(self):
+        if self.window_summary is None : 
+            
+            self.window_summary = ExplorationGroupSheet(
+                group=self.game_manager.managed_game.group,
+                parent=None
+            )
+
+            self.window_summary.show()
+        else:
+            self.window_summary.hide()
+            self.window_summary = None
+
 
 
     def h_line():
@@ -300,6 +338,9 @@ class ExplorationGame(QMainWindow):
             self.character_description[character.name].w_frost.set_shield_value(character.SHIELD_FROST)
             self.character_description[character.name].w_magic.set_shield_value(character.SHIELD_MAGIC_FATIGUE)
         self.freeze_direction_buttons()
+
+        if not self.window_summary is None :
+            self.window_summary.update_widgets()
 
     def go_to_N(self):
         self.game_manager.go_to_direction('N')

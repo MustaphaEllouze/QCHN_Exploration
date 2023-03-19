@@ -226,6 +226,13 @@ class ExplorationCharacterSheet(QWidget):
         )
         self._layout.addWidget(self.magic_widget)
 
+        # --------- Ce qui suit est juste du monkey-patching, il faudrait le supprimer 
+        self.all_buttons = []
+        for w in [self.fatigue_widget,self.hunger_widget,self.thirst_widget,self.frost_widget,self.magic_widget]:
+            for button in [w.add_car,w.sub_car,w.add_shield,w.sub_shield]:
+                self.all_buttons.append(button)
+        # --------- Fin monkey-patching
+
         self.unfreeze_but.setDisabled(True)
         self.fatigue_widget.unfreeze_but.setDisabled(True)
         self.hunger_widget.unfreeze_but.setDisabled(True)
