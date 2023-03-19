@@ -72,11 +72,11 @@ class ExplorationGroupSheet(QWidget):
 
         for i,character in enumerate(self.group.characters):
             w0 = QLabel(f'{character.name              }'                                )
-            w1 = QLabel(f'{character.CUR_FATIGUE       } \\ {character.MAX_FATIGUE       }')
-            w2 = QLabel(f'{character.CUR_HUNGER        } \\ {character.MAX_HUNGER        }')
-            w3 = QLabel(f'{character.CUR_THIRST        } \\ {character.MAX_THIRST        }')
-            w4 = QLabel(f'{character.CUR_FROST         } \\ {character.MAX_FROST         }')
-            w5 = QLabel(f'{character.CUR_MAGIC_FATIGUE } \\ {character.MAX_MAGIC_FATIGUE }')
+            w1 = QLabel()
+            w2 = QLabel()
+            w3 = QLabel()
+            w4 = QLabel()
+            w5 = QLabel()
 
             for w in [w0,w1,w2,w3,w4,w5]: w.setFont(self._font_tert)
 
@@ -88,6 +88,8 @@ class ExplorationGroupSheet(QWidget):
             self._grid.addWidget(w3,i+1,3,Qt.AlignCenter)
             self._grid.addWidget(w4,i+1,4,Qt.AlignCenter)
             self._grid.addWidget(w5,i+1,5,Qt.AlignCenter)
+        
+        self.update_widgets()
     
     def update_widgets(self):
         for character,list_w in self._widgets.items():
@@ -97,11 +99,31 @@ class ExplorationGroupSheet(QWidget):
             w4 = list_w[4]
             w5 = list_w[5]
 
-            w1.setText(f'{character.CUR_FATIGUE       } \\ {character.MAX_FATIGUE       }')
-            w2.setText(f'{character.CUR_HUNGER        } \\ {character.MAX_HUNGER        }')
-            w3.setText(f'{character.CUR_THIRST        } \\ {character.MAX_THIRST        }')
-            w4.setText(f'{character.CUR_FROST         } \\ {character.MAX_FROST         }')
-            w5.setText(f'{character.CUR_MAGIC_FATIGUE } \\ {character.MAX_MAGIC_FATIGUE }')
+            w1.setText(f'{int(character.CUR_FATIGUE       )} \\ {int(character.MAX_FATIGUE       )}')
+            w2.setText(f'{int(character.CUR_HUNGER        )} \\ {int(character.MAX_HUNGER        )}')
+            w3.setText(f'{int(character.CUR_THIRST        )} \\ {int(character.MAX_THIRST        )}')
+            w4.setText(f'{int(character.CUR_FROST         )} \\ {int(character.MAX_FROST         )}')
+            w5.setText(f'{int(character.CUR_MAGIC_FATIGUE )} \\ {int(character.MAX_MAGIC_FATIGUE )}')
+
+            if character.CUR_FATIGUE <= character.MAX_FATIGUE/4                     : w1.setStyleSheet('color:red')
+            elif character.CUR_FATIGUE <= character.MAX_FATIGUE/2                   : w1.setStyleSheet('color:yellow')
+            else                                                                    : w1.setStyleSheet('')
+
+            if character.CUR_HUNGER <= character.MAX_HUNGER/4                       : w2.setStyleSheet('color:red')
+            elif character.CUR_HUNGER <= character.MAX_HUNGER/2                     : w2.setStyleSheet('color:yellow')
+            else                                                                    : w2.setStyleSheet('')
+
+            if character.CUR_THIRST <= character.MAX_THIRST/4                       : w3.setStyleSheet('color:red')
+            elif character.CUR_THIRST <= character.MAX_THIRST/2                     : w3.setStyleSheet('color:yellow')
+            else                                                                    : w3.setStyleSheet('')
+
+            if character.CUR_FROST <= character.MAX_FROST/4                         : w4.setStyleSheet('color:red')
+            elif character.CUR_FROST <= character.MAX_FROST/2                       : w4.setStyleSheet('color:yellow')
+            else                                                                    : w4.setStyleSheet('')
+
+            if character.CUR_MAGIC_FATIGUE <= character.MAX_MAGIC_FATIGUE/4         : w5.setStyleSheet('color:red')
+            elif character.CUR_MAGIC_FATIGUE <= character.MAX_MAGIC_FATIGUE/2       : w4.setStyleSheet('color:yellow')
+            else                                                                    : w5.setStyleSheet('')
 
 if __name__ == '__main__':
     import sys
