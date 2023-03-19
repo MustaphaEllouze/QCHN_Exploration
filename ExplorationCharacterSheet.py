@@ -233,6 +233,13 @@ class ExplorationCharacterSheet(QWidget):
         self.frost_widget.unfreeze_but.setDisabled(True)
         self.magic_widget.unfreeze_but.setDisabled(True)
 
+        
+        self.fatigue_widget.setMinimumHeight(85)
+        self.thirst_widget.setMinimumHeight(85)
+        self.hunger_widget.setMinimumHeight(85)
+        self.frost_widget.setMinimumHeight(85)
+        self.magic_widget.setMinimumHeight(85)
+
         self.setLayout(self._layout)
 
 

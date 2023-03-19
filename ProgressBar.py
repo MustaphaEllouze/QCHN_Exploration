@@ -27,7 +27,7 @@ class ProgressBar(QWidget):
             self,
             max_value=15,
             rounded_edges=12,
-            height=50,
+            height=30,
             padding = 5,
             larg_entre_rectangles = 3,
             ecart_texte = 0.17,
@@ -65,7 +65,7 @@ class ProgressBar(QWidget):
         self.current_value = self.max_value
         self.nom_font=nom_font
         self.shield_value=shield_value
-        self.setFixedHeight(self._height)
+        self.setMinimumHeight(self._height)
     
     def paintEvent(self,e):
         painter = QPainter(self)

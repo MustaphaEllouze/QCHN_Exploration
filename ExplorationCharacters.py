@@ -204,21 +204,26 @@ class ExplorationCharacter(Character):
             # Et idem pour chaque caractéristique
             # NOTE : On cap chaque caractéristique entre 0 et la valeur max
 
-            if carac == 'HUNGER' and not self.FROZEN_HUNGER:
-                self.CUR_HUNGER += n
-                self.CUR_HUNGER = max(min(self.CUR_HUNGER,self.MAX_HUNGER),0)
-            elif carac == 'THIRST' and not self.FROZEN_THIRST:
-                self.CUR_THIRST += n
-                self.CUR_THIRST = max(min(self.CUR_THIRST,self.MAX_THIRST),0)
-            elif carac == 'FATIGUE' and not self.FROZEN_FATIGUE:
-                self.CUR_FATIGUE += n
-                self.CUR_FATIGUE = max(min(self.CUR_FATIGUE,self.MAX_FATIGUE),0)
-            elif carac == 'FROST' and not self.FROZEN_FROST:
-                self.CUR_FROST += n
-                self.CUR_FROST = max(min(self.CUR_FROST,self.MAX_FROST),0)
-            elif carac == 'MAGIC' and not self.FROZEN_MAGIC_FATIGUE:
-                self.CUR_MAGIC_FATIGUE += n
-                self.CUR_MAGIC_FATIGUE = max(min(self.CUR_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE),0)
+            if carac == 'HUNGER':
+                if not self.FROZEN_HUNGER:
+                    self.CUR_HUNGER += n
+                    self.CUR_HUNGER = max(min(self.CUR_HUNGER,self.MAX_HUNGER),0)
+            elif carac == 'THIRST':
+                if not self.FROZEN_THIRST:
+                    self.CUR_THIRST += n
+                    self.CUR_THIRST = max(min(self.CUR_THIRST,self.MAX_THIRST),0)
+            elif carac == 'FATIGUE':
+                if not self.FROZEN_FATIGUE:
+                    self.CUR_FATIGUE += n
+                    self.CUR_FATIGUE = max(min(self.CUR_FATIGUE,self.MAX_FATIGUE),0)
+            elif carac == 'FROST':
+                if not self.FROZEN_FROST:
+                    self.CUR_FROST += n
+                    self.CUR_FROST = max(min(self.CUR_FROST,self.MAX_FROST),0)
+            elif carac == 'MAGIC':
+                if not self.FROZEN_MAGIC_FATIGUE:
+                    self.CUR_MAGIC_FATIGUE += n
+                    self.CUR_MAGIC_FATIGUE = max(min(self.CUR_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE),0)
             else:
                 raise Exception(f'in ExplorationCharacters.change_carac, {carac} not a characteristic')
 
@@ -240,21 +245,26 @@ class ExplorationCharacter(Character):
             # Et idem pour chaque caractéristique
             # NOTE : On cap chaque caractéristique entre 0 et la valeur max
 
-            if carac == 'HUNGER' and not self.FROZEN_HUNGER:
-                self.SHIELD_HUNGER += n
-                self.SHIELD_HUNGER = max(min(self.SHIELD_HUNGER,self.MAX_HUNGER),0)
-            elif carac == 'THIRST'and not self.FROZEN_THIRST:
-                self.SHIELD_THIRST += n
-                self.SHIELD_THIRST = max(min(self.SHIELD_THIRST,self.MAX_THIRST),0)
-            elif carac == 'FATIGUE'and not self.FROZEN_FATIGUE:
-                self.SHIELD_FATIGUE += n
-                self.SHIELD_FATIGUE = max(min(self.SHIELD_FATIGUE,self.MAX_FATIGUE),0)
-            elif carac == 'FROST'and not self.FROZEN_FROST:
-                self.SHIELD_FROST += n
-                self.SHIELD_FROST = max(min(self.SHIELD_FROST,self.MAX_FROST),0)
-            elif carac == 'MAGIC'and not self.FROZEN_MAGIC_FATIGUE:
-                self.SHIELD_MAGIC_FATIGUE += n
-                self.SHIELD_MAGIC_FATIGUE = max(min(self.SHIELD_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE),0)
+            if carac == 'HUNGER':
+                if not self.FROZEN_HUNGER:
+                    self.SHIELD_HUNGER += n
+                    self.SHIELD_HUNGER = max(min(self.SHIELD_HUNGER,self.MAX_HUNGER),0)
+            elif carac == 'THIRST':
+                if not self.FROZEN_THIRST:
+                    self.SHIELD_THIRST += n
+                    self.SHIELD_THIRST = max(min(self.SHIELD_THIRST,self.MAX_THIRST),0)
+            elif carac == 'FATIGUE':
+                if not self.FROZEN_FATIGUE:
+                    self.SHIELD_FATIGUE += n
+                    self.SHIELD_FATIGUE = max(min(self.SHIELD_FATIGUE,self.MAX_FATIGUE),0)
+            elif carac == 'FROST':
+                if not self.FROZEN_FROST:
+                    self.SHIELD_FROST += n
+                    self.SHIELD_FROST = max(min(self.SHIELD_FROST,self.MAX_FROST),0)
+            elif carac == 'MAGIC':
+                if not self.FROZEN_MAGIC_FATIGUE:
+                    self.SHIELD_MAGIC_FATIGUE += n
+                    self.SHIELD_MAGIC_FATIGUE = max(min(self.SHIELD_MAGIC_FATIGUE,self.MAX_MAGIC_FATIGUE),0)
             else:
                 raise Exception(f'in ExplorationCharacters.change_shield, {carac} not a characteristic')
 
@@ -275,45 +285,50 @@ class ExplorationCharacter(Character):
         # La fonction n'est pas appellée si le personnage est gelé
         if not self.FROZEN:
             
-            if carac == 'HUNGER' and not self.FROZEN_HUNGER :
-                #HUNGER
-                self.SHIELD_HUNGER -= n                         # On ôte n du bouclier
-                remaining_hunger = -min(self.SHIELD_HUNGER,0)   # On calcule si on est passé en négatif en bouclier
-                self.CUR_HUNGER -= remaining_hunger             # On enlève ce qui reste à la valeur courante
-                self.SHIELD_HUNGER = max(self.SHIELD_HUNGER,0)  # On remet le bouclier à 0 si on est passé en négatif
-                self.CUR_HUNGER = max(self.CUR_HUNGER,0)        # On remet la valeur courante à 0 si on est passé en négatif
+            if carac == 'HUNGER':
+                if not self.FROZEN_HUNGER : 
+                    #HUNGER
+                    self.SHIELD_HUNGER -= n                         # On ôte n du bouclier
+                    remaining_hunger = -min(self.SHIELD_HUNGER,0)   # On calcule si on est passé en négatif en bouclier
+                    self.CUR_HUNGER -= remaining_hunger             # On enlève ce qui reste à la valeur courante
+                    self.SHIELD_HUNGER = max(self.SHIELD_HUNGER,0)  # On remet le bouclier à 0 si on est passé en négatif
+                    self.CUR_HUNGER = max(self.CUR_HUNGER,0)        # On remet la valeur courante à 0 si on est passé en négatif
 
-            elif carac == 'THIRST' and not self.FROZEN_THIRST :
-                # THIRST
-                self.SHIELD_THIRST -= n
-                remaining_thirst = -min(self.SHIELD_THIRST,0)
-                self.CUR_THIRST -= remaining_thirst
-                self.SHIELD_THIRST = max(self.SHIELD_THIRST,0)
-                self.CUR_THIRST = max(self.CUR_THIRST,0)
+            elif carac == 'THIRST':
+                if not self.FROZEN_THIRST : 
+                    # THIRST
+                    self.SHIELD_THIRST -= n
+                    remaining_thirst = -min(self.SHIELD_THIRST,0)
+                    self.CUR_THIRST -= remaining_thirst
+                    self.SHIELD_THIRST = max(self.SHIELD_THIRST,0)
+                    self.CUR_THIRST = max(self.CUR_THIRST,0)
             
-            elif carac == 'FATIGUE' and not self.FROZEN_FATIGUE:
-                # FATIGUE
-                self.SHIELD_FATIGUE -= n
-                remaining_fatigue = -min(self.SHIELD_FATIGUE,0)
-                self.CUR_FATIGUE -= remaining_fatigue
-                self.SHIELD_FATIGUE = max(self.SHIELD_FATIGUE,0)
-                self.CUR_FATIGUE = max(self.CUR_FATIGUE,0)
+            elif carac == 'FATIGUE':
+                if not self.FROZEN_FATIGUE:
+                    # FATIGUE
+                    self.SHIELD_FATIGUE -= n
+                    remaining_fatigue = -min(self.SHIELD_FATIGUE,0)
+                    self.CUR_FATIGUE -= remaining_fatigue
+                    self.SHIELD_FATIGUE = max(self.SHIELD_FATIGUE,0)
+                    self.CUR_FATIGUE = max(self.CUR_FATIGUE,0)
             
-            elif carac == 'FROST' and not self.FROZEN_FROST:
-                # FROST
-                self.SHIELD_FROST -= n
-                remaining_frost = -min(self.SHIELD_FROST,0)
-                self.CUR_FROST -= remaining_frost
-                self.SHIELD_FROST = max(self.SHIELD_FROST,0)
-                self.CUR_FROST = max(self.CUR_FROST,0)
+            elif carac == 'FROST': 
+                if not self.FROZEN_FROST:
+                    # FROST
+                    self.SHIELD_FROST -= n
+                    remaining_frost = -min(self.SHIELD_FROST,0)
+                    self.CUR_FROST -= remaining_frost
+                    self.SHIELD_FROST = max(self.SHIELD_FROST,0)
+                    self.CUR_FROST = max(self.CUR_FROST,0)
             
-            elif carac == 'MAGIC' and not self.FROZEN_MAGIC_FATIGUE:
-                # MAGIC_FATIGUE
-                self.SHIELD_MAGIC_FATIGUE -= n
-                remaining_magic = -min(self.SHIELD_MAGIC_FATIGUE,0)
-                self.CUR_MAGIC_FATIGUE -= remaining_magic
-                self.SHIELD_MAGIC_FATIGUE = max(self.SHIELD_MAGIC_FATIGUE,0)
-                self.CUR_MAGIC_FATIGUE = max(self.CUR_MAGIC_FATIGUE,0)
+            elif carac == 'MAGIC':
+                if not self.FROZEN_MAGIC_FATIGUE:
+                    # MAGIC_FATIGUE
+                    self.SHIELD_MAGIC_FATIGUE -= n
+                    remaining_magic = -min(self.SHIELD_MAGIC_FATIGUE,0)
+                    self.CUR_MAGIC_FATIGUE -= remaining_magic
+                    self.SHIELD_MAGIC_FATIGUE = max(self.SHIELD_MAGIC_FATIGUE,0)
+                    self.CUR_MAGIC_FATIGUE = max(self.CUR_MAGIC_FATIGUE,0)
             
             else:
                 raise Exception(f'in ExplorationCharacters.consume_car_or_shield, {carac} not a characteristic')

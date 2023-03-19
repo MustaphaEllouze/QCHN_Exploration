@@ -78,7 +78,9 @@ class ExplorationGame(QMainWindow):
         couleur=QColor('black'),
         couleur_secondaire=QColor('red'),
         epaisseur=1,
-        height_progress_bar=50,
+        height_progress_bar=30,
+        taille_police=15,
+        police='Helvetica',
     ):
         super().__init__()
 
@@ -87,7 +89,7 @@ class ExplorationGame(QMainWindow):
 
         # ------ PARAMETRES GENERAUX ----
         self.width_layoutv1 = 525
-        self.width_layoutv3 = 200
+        self.width_layoutv3 = 300
         self.mini_height = max(
                 taille_v_view,
                 self.width_layoutv1+5*height_progress_bar+300,
@@ -96,6 +98,8 @@ class ExplorationGame(QMainWindow):
         self.resize(QSize(self.mini_width,self.mini_height))
         self.setMinimumHeight(self.mini_height)
         self.setMinimumWidth(self.mini_width)
+
+        self._font = QFont(police,taille_police)
 
         # ------ WIDGET PARENT ----------
         # Widget virtuel 
@@ -209,12 +213,14 @@ class ExplorationGame(QMainWindow):
 
         # Jour
         self.display_jour = QLabel()
-        self.layout_v3_sub.addWidget(self.display_jour)
+        self.display_jour.setFont(self._font)
+        self.layout_v3_sub.addWidget(self.display_jour,Qt.AlignCenter)
 
         self.layout_v3_sub.addWidget(ExplorationGame.h_line())
         
         # Heure
         self.display_heure = QLabel()
+        self.display_heure.setFont(self._font)
         self.layout_v3_sub_day = QHBoxLayout()
         self.layout_v3_sub.addLayout(self.layout_v3_sub_day)
         self.layout_v3_sub_day.addWidget(self.display_heure)
@@ -242,7 +248,8 @@ class ExplorationGame(QMainWindow):
     
         # Current hex
         self.display_current_hex = QLabel()
-        self.layout_v3_sub.addWidget(self.display_current_hex)
+        self.display_current_hex.setFont(self._font)
+        self.layout_v3_sub.addWidget(self.display_current_hex,Qt.AlignCenter)
         self.layout_v3_sub.addWidget(ExplorationGame.h_line())
 
         # Direction action
