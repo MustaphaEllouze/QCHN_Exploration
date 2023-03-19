@@ -114,8 +114,6 @@ class ProgressBarExtended(QWidget):
         self.add_shield.setFixedWidth(50)
         self.sub_shield.setFixedWidth(50)
                 
-
-
 class ExplorationCharacterSheet(QWidget):
 
     def __init__(
