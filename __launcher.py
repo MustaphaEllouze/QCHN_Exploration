@@ -13,7 +13,7 @@ from MainWindow import(
 )
 
 from ExplorationMaps_input import (
-    map1,
+    map1,map2,
 )
 
 from Characters_input import (
@@ -37,7 +37,7 @@ else:
     couleur = QColor('black')
 
 window = ExplorationInterface(
-            map=map1,
+            map=map2,
             group=GROUP1,
             starting_point=(0,0),
             corresponding_map_point=(25,25),
