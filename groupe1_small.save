@@ -1,0 +1,111 @@
+freeze_all | Vikram
+freeze_all | Penne
+freeze_all | Blurp
+go | N
+go | N
+go | N
+go | NE
+go | N
+go | S
+go | SW
+go | S
+go | S
+go | S
+hour | -1
+hour | -1
+hour | -1
+hour | -1
+hour | -1
+hour | -1
+hour | -1
+hour | -1
+hour | -1
+hour | -1
+go | N
+go | NW
+go | SW
+go | N
+go | N
+go | N
+go | N
+go | N
+go | NW
+go | SW
+go | SW
+go | SW
+go | NW
+go | SW
+go | SW
+go | SW
+go | NW
+go | N
+go | NE
+go | NE
+go | N
+go | N
+go | N
+go | NE
+go | N
+go | NE
+go | N
+go | N
+go | N
+go | NE
+go | NE
+unfreeze_all | Vikram
+unfreeze_all | Penne
+unfreeze_all | Blurp
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+cara | Penne HUNGER -1
+cara | Penne HUNGER -1
+cara | Penne HUNGER -1
+cara | Penne HUNGER -1
+cara | Penne FATIGUE -1
+cara | Penne THIRST -1
+cara | Penne THIRST -1
+cara | Vikram HUNGER -1
+cara | Vikram HUNGER -1
+cara | Vikram HUNGER -1
+cara | Vikram FATIGUE -1
+cara | Vikram FATIGUE -1
+cara | Vikram FATIGUE -1
+cara | Vikram THIRST -1
+cara | Vikram THIRST -1
+cara | Blurp HUNGER -1
+cara | Blurp HUNGER -1
+cara | Blurp FATIGUE -1
+cara | Blurp FATIGUE -1
+cara | Blurp THIRST -1
+cara | Blurp THIRST -1
