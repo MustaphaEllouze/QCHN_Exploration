@@ -317,3 +317,7 @@ class ExplorationInterface(QMainWindow):
     def _begin_game(self):
         self.game_manager.begin_game()
         self.update_widgets()
+    
+    def _reveal_all_map(self):
+        for hex in self.game_manager.managed_game.map.hexs:
+            self.game_manager.reveal_hex(hex)
