@@ -1124,5 +1124,8 @@ for column_info,hex_type in columns_filled.items():
         reverse=True,
     )
 
-map2.define_from_coord((1,-5),hex_type=RIVER,hex_place=CAVE)
+map2.define_from_coord((0,0),hex_type=ARID_PLAINS,hex_place=VILLAGE)
+map2.define_from_coord((-11,-5),hex_type=PLAINS,hex_place=VILLAGE)
+map2.define_from_coord((-5,-16),hex_type=PLAINS,hex_place=VILLAGE)
+map2.define_from_coord((7,-17),hex_type=PLAINS,hex_place=CRISTAL)
 map2.construct_visibility()

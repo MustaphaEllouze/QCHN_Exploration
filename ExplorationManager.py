@@ -58,6 +58,8 @@ class ExplorationGameManager:
         ExplorationTerrain.desert       : 'images\\hex_images\\desert_clean.png',
         ExplorationTerrain.river        : 'images\\hex_images\\river_clean.png',
         ExplorationTerrain.sea          : 'images\\hex_images\\sea_clean.png',
+        ExplorationPlace.village        : 'images\\others\\village_cursor.png',
+        ExplorationPlace.cristal        : 'images\\others\\cristal_cursor.png',
     }
 
     def __init__(
@@ -220,6 +222,13 @@ class ExplorationGameManager:
                 coord=coord_widget,
                 image_path=ExplorationGameManager.IMAGE_PATH[self.managed_game.terrain_at_coord(coord)]
             )
+
+            if not self.managed_game.place_at_coord(coord) is None :
+                self.managed_hex_map.draw_image_inside_hex(
+                    coord=coord_widget,
+                    image_path=ExplorationGameManager.IMAGE_PATH[self.managed_game.place_at_coord(coord)]
+                )
+
             self.revealed_hexes.append(coord)
 
         

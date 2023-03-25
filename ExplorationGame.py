@@ -5,6 +5,7 @@ from ExplorationCharacters import (
 
 from ExplorationItems import (
     ExplorationTerrain,
+    ExplorationPlace,
 )
 
 from ExplorationMaps import(
@@ -37,6 +38,15 @@ class ExplorationGame:
             coord:tuple,
     )->ExplorationTerrain:
         return self.map.hexs[coord]
+    
+    def place_at_coord(
+            self,
+            coord:tuple,
+    )->ExplorationPlace:
+        if coord in self.map.places : 
+            return self.map.places[coord]
+        else:
+            return None
 
     def current_terrain(
             self,
