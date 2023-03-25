@@ -94,7 +94,7 @@ class ExplorationInterface(QMainWindow):
 
         # ------ PARAMETRES GENERAUX ----
         self.width_layoutv1 = 525
-        self.width_layoutv3 = 300
+        self.width_layoutv3 = 325
         self.mini_height = min(
                 max(
                     taille_v_view,
@@ -222,6 +222,10 @@ class ExplorationInterface(QMainWindow):
         self.right_widget.setFixedWidth(self.width_layoutv3)
         self.layout_V3.addWidget(self.right_widget)
 
+        # Group Sheet
+        self.layout_v3_sub.addWidget(self.game_manager.managed_group_sheet)
+        self.layout_v3_sub.addWidget(ExplorationInterface.h_line())
+
         # Jour
         self.display_jour = self.game_manager.managed_day_widget
         self.display_jour.setFont(self._font)
@@ -272,7 +276,8 @@ class ExplorationInterface(QMainWindow):
         self.show_summary = QAction('Résumé ', self)
         self.show_summary.setStatusTip('Résumé des caractéristiques du groupe')
         self.show_summary.setCheckable(True)
-        self.window_summary_hidden = True
+        self.show_summary.setChecked(True)
+        self.window_summary_hidden = False
         
         self.show_summary.triggered.connect(self.create_summary)
 
