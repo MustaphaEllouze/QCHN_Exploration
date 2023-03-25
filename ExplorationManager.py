@@ -44,16 +44,16 @@ class ExplorationGameManager:
     
     IMAGE_PATH = {
         ExplorationTerrain.arid_plains  : 'images\\hex_images\\AridPlains_clean.png',
-        ExplorationTerrain.plains       : 'images\\hex_images\\plains.png',
-        ExplorationTerrain.cliff        : 'images\\hex_images\\cliff.png',
-        ExplorationTerrain.forest       : 'images\\hex_images\\forest.png',
-        ExplorationTerrain.mountain     : 'images\\hex_images\\mountains.png',
-        ExplorationTerrain.high_mountain: 'images\\hex_images\\high_mountains.png',
-        ExplorationTerrain.beach        : 'images\\hex_images\\beach.png',
-        ExplorationTerrain.big_river    : 'images\\hex_images\\big_river.png',
-        ExplorationTerrain.desert       : 'images\\hex_images\\desert.png',
-        ExplorationTerrain.river        : 'images\\hex_images\\river.png',
-        ExplorationTerrain.sea          : 'images\\hex_images\\sea.png',
+        ExplorationTerrain.plains       : 'images\\hex_images\\plains_clean.png',
+        ExplorationTerrain.cliff        : 'images\\hex_images\\cliff_clean.png',
+        ExplorationTerrain.forest       : 'images\\hex_images\\forest_clean.png',
+        ExplorationTerrain.mountain     : 'images\\hex_images\\mountain_clean.png',
+        ExplorationTerrain.high_mountain: 'images\\hex_images\\Hmountain_clean.png',
+        ExplorationTerrain.beach        : 'images\\hex_images\\beach_clean.png',
+        ExplorationTerrain.big_river    : 'images\\hex_images\\Briver_clean.png',
+        ExplorationTerrain.desert       : 'images\\hex_images\\desert_clean.png',
+        ExplorationTerrain.river        : 'images\\hex_images\\river_clean.png',
+        ExplorationTerrain.sea          : 'images\\hex_images\\sea_clean.png',
     }
 
     def __init__(
