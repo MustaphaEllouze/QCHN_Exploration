@@ -199,7 +199,7 @@ ExplorationTerrain.beach = ExplorationTerrain(
     fatigue=1.0,
     hunger=1.0,
     thirst=1.0,
-    traversable=False,
+    traversable=True,
     height=0,
 )
 
