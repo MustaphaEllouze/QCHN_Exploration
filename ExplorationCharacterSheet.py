@@ -38,10 +38,13 @@ class ProgressBarExtended(QWidget):
             name_cara:str,
             name_affich:str,
             character:ExplorationCharacter,
+            parent,
             *args,
             **kwargs,
     ):  
         super().__init__(*args,**kwargs)
+
+        self._parent = parent
 
         self.progress_bar = progress_bar
 
@@ -91,34 +94,30 @@ class ProgressBarExtended(QWidget):
         self._layout_second_buttons.addWidget(self.add_shield)
         self._layout_second_buttons.addWidget(self.sub_shield)
 
-        self.freeze_but.clicked.connect(lambda x : self.freeze_but.setDisabled(True))
-        self.freeze_but.clicked.connect(lambda x : self.unfreeze_but.setEnabled(True))
-        self.unfreeze_but.clicked.connect(lambda x : self.unfreeze_but.setDisabled(True))
-        self.unfreeze_but.clicked.connect(lambda x : self.freeze_but.setEnabled(True))
 
-        self.add_car.clicked.connect(lambda x : self.character.change_carac(1,name_cara))
-        self.add_car.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
+        self.add_car.clicked.connect(lambda : self.character.change_carac(1,name_cara))
         self.add_car.clicked.connect(lambda : ExplorationSave.log_action('cara',(character.name,name_cara,1)))
+        self.add_car.clicked.connect(self._parent.update_widgets)
 
-        self.sub_car.clicked.connect(lambda x : self.character.consume_car_or_shield(1,name_cara))
-        self.sub_car.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
-        self.sub_car.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
+        self.sub_car.clicked.connect(lambda : self.character.consume_car_or_shield(1,name_cara))
         self.sub_car.clicked.connect(lambda : ExplorationSave.log_action('cara',(character.name,name_cara,-1)))
+        self.sub_car.clicked.connect(self._parent.update_widgets)
 
-        self.add_shield.clicked.connect(lambda x : self.character.change_shield(1,name_cara))
-        self.add_shield.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
+        self.add_shield.clicked.connect(lambda : self.character.change_shield(1,name_cara))
         self.add_shield.clicked.connect(lambda : ExplorationSave.log_action('shi',(character.name,name_cara,1)))
+        self.add_shield.clicked.connect(self._parent.update_widgets)
 
-        self.sub_shield.clicked.connect(lambda x : self.character.change_shield(-1,name_cara))
-        self.sub_shield.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
-        self.sub_shield.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
+        self.sub_shield.clicked.connect(lambda : self.character.change_shield(-1,name_cara))
         self.sub_shield.clicked.connect(lambda : ExplorationSave.log_action('shi',(character.name,name_cara,-1)))
+        self.sub_shield.clicked.connect(self._parent.update_widgets)
 
         self.freeze_but.clicked.connect(partial(self.character.set_freeze_state_carac,name_cara,True))
         self.freeze_but.clicked.connect(lambda : ExplorationSave.log_action('freeze',(character.name,name_cara)))
+        self.freeze_but.clicked.connect(self._parent.update_widgets)
 
         self.unfreeze_but.clicked.connect(partial(self.character.set_freeze_state_carac,name_cara,False))
         self.unfreeze_but.clicked.connect(lambda : ExplorationSave.log_action('unfreeze',(character.name,name_cara)))
+        self.unfreeze_but.clicked.connect(self._parent.update_widgets)
 
         self.add_car.setFixedWidth(50)
         self.sub_car.setFixedWidth(50)
@@ -159,10 +158,8 @@ class ExplorationCharacterSheet(QWidget):
         self.unfreeze_but.clicked.connect(partial(character.set_freeze_state,False))
         self.unfreeze_but.clicked.connect(lambda : ExplorationSave.log_action('unfreeze_all',(character.name,)))
         
-        self.freeze_but.clicked.connect(lambda x : self.freeze_but.setDisabled(True))
-        self.freeze_but.clicked.connect(lambda x : self.unfreeze_but.setEnabled(True))
-        self.unfreeze_but.clicked.connect(lambda x : self.unfreeze_but.setDisabled(True))
-        self.unfreeze_but.clicked.connect(lambda x : self.freeze_but.setEnabled(True))
+        self.freeze_but.clicked.connect(self.update_widgets)
+        self.unfreeze_but.clicked.connect(self.update_widgets)
 
         self._layout_name_and_freeze.addWidget(self.freeze_but)
         self._layout_name_and_freeze.addWidget(self.unfreeze_but)
@@ -205,6 +202,7 @@ class ExplorationCharacterSheet(QWidget):
             name_cara='FATIGUE',
             name_affich='Fatigue',
             character=self.character,
+            parent=self,
         )
         self._layout.addWidget(self.fatigue_widget)
 
@@ -213,6 +211,7 @@ class ExplorationCharacterSheet(QWidget):
             name_cara='HUNGER',
             name_affich='Faim',
             character=self.character,
+            parent=self,
         )
         self._layout.addWidget(self.hunger_widget)
 
@@ -221,6 +220,7 @@ class ExplorationCharacterSheet(QWidget):
             name_cara='THIRST',
             name_affich='Soif',
             character=self.character,
+            parent=self,
         )
         self._layout.addWidget(self.thirst_widget)
 
@@ -229,6 +229,7 @@ class ExplorationCharacterSheet(QWidget):
             name_cara='FROST',
             name_affich='Froid',
             character=self.character,
+            parent=self,
         )
         self._layout.addWidget(self.frost_widget)
 
@@ -237,6 +238,7 @@ class ExplorationCharacterSheet(QWidget):
             name_cara='MAGIC',
             name_affich='Endurance magique',
             character=self.character,
+            parent=self,
         )
         self._layout.addWidget(self.magic_widget)
 
@@ -262,6 +264,37 @@ class ExplorationCharacterSheet(QWidget):
         self.magic_widget.setMinimumHeight(85)
 
         self.setLayout(self._layout)
+    
+    def update_widgets(self):
+        
+        matcher = {
+            self : self.character.FROZEN,
+            self.fatigue_widget : self.character.FROZEN_FATIGUE,
+            self.frost_widget : self.character.FROZEN_FROST,
+            self.hunger_widget : self.character.FROZEN_HUNGER,
+            self.thirst_widget : self.character.FROZEN_THIRST,
+            self.magic_widget : self.character.FROZEN_MAGIC_FATIGUE,
+        }
+
+        matcher2 = {
+            self.fatigue_widget : 'FATIGUE',
+            self.frost_widget : 'FROST',
+            self.hunger_widget : 'HUNGER',
+            self.thirst_widget : 'THIRST',
+            self.magic_widget : 'MAGIC',
+        }
+
+        for key,boolean in matcher.items():
+            if boolean : 
+                key.freeze_but.setDisabled(True)
+                key.unfreeze_but.setEnabled(True)
+            else:
+                key.freeze_but.setEnabled(True)
+                key.unfreeze_but.setDisabled(True)
+
+        for key,name_cara in matcher2.items() :
+            key.progress_bar.set_current_value(self.character.get_value_of_cara(name_cara))
+            key.progress_bar.set_shield_value(self.character.get_value_of_shield(name_cara))
 
 
 if __name__ == '__main__':

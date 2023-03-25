@@ -53,6 +53,7 @@ from ExplorationMaps import (
 
 from ExplorationCharacters import (
     ExplorationGroup,
+    ExplorationCharacter,
 )
 
 from ExplorationCharacterSheet import (
@@ -292,6 +293,11 @@ class ExplorationInterface(QMainWindow):
         self.save_button.setStatusTip('Sauver la partie')
         self.save_button.triggered.connect(self.save_game)
         toolbar.addAction(self.save_button)
+        
+        self.save_button = QAction('Charger partie', self)
+        self.save_button.setStatusTip('Charger la partie')
+        self.save_button.triggered.connect(self.load_game)
+        toolbar.addAction(self.save_button)
 
     def save_game(self):
         path_file,sucess = QInputDialog.getText(
@@ -301,7 +307,44 @@ class ExplorationInterface(QMainWindow):
         )
         if sucess :
             ExplorationSave.write_save(path_fichier=path_file)
-
+    
+    def load_game(self):
+        path_file,sucess = QInputDialog.getText(
+        self,
+        'Charger une partie',
+        'Entrer le chemin du fichier',
+        )
+        if sucess:
+            with open(f'{path_file}.save','r') as f:
+                ExplorationSave.write_mode = False
+                lines = f.readlines()
+                for line in lines:
+                    if '|' in line :
+                        fonction = line.split('|')[0].strip()
+                        arguments = line.strip().split('|')[1].split()
+                        ExplorationSave.already_logged(line,force=True)
+                        if fonction == 'cara':
+                            ExplorationCharacter.CHARACTERS[arguments[0]].change_carac(n=int(arguments[2]),carac=arguments[1])
+                        elif fonction == 'shi':
+                            ExplorationCharacter.CHARACTERS[arguments[0]].change_shield(n=int(arguments[2]),carac=arguments[1])
+                        elif fonction == 'freeze':
+                            ExplorationCharacter.CHARACTERS[arguments[0]].set_freeze_state_carac(carac=arguments[1],freeze_state=True)
+                        elif fonction == 'unfreeze':
+                            ExplorationCharacter.CHARACTERS[arguments[0]].set_freeze_state_carac(carac=arguments[1],freeze_state=False)
+                        elif fonction == 'freeze_all':
+                            ExplorationCharacter.CHARACTERS[arguments[0]].set_freeze_state(freeze_state=True)
+                        elif fonction == 'unfreeze_all':
+                            ExplorationCharacter.CHARACTERS[arguments[0]].set_freeze_state(freeze_state=False)
+                        elif fonction == 'hour':
+                            self.game_manager.managed_game.time.pass_hours(*arguments)
+                        elif fonction == 'minu':
+                            self.game_manager.managed_game.time.pass_minutes(*arguments)
+                        elif fonction == 'go':
+                            self.game_manager.go_to_direction(*arguments)
+                ExplorationSave.write_mode = True
+            
+            self.update_widgets()
+                    
     def create_summary(self):
         if self.window_summary_hidden:
             self.game_manager.managed_group_sheet.show()

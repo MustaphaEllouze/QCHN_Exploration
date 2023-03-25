@@ -195,6 +195,10 @@ class ExplorationGameManager:
         # Widget group Sheet
         self.managed_group_sheet.update_widgets()
 
+        # Whidget each sheet
+        for c,sheet in self.managed_character_sheets.items():
+            sheet.update_widgets()
+
         # Les boutons de direction 
         self.freeze_direction_buttons()
     
@@ -250,7 +254,7 @@ class ExplorationGameManager:
         self.retrace_visited()
 
         # Log 
-        ExplorationSave.log_action('go',direction)
+        ExplorationSave.log_action('go',(direction,))
     
     def change_carac_of_character(
             self,
