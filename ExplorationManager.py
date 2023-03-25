@@ -233,9 +233,15 @@ class ExplorationGameManager:
         self.managed_game.go_to_direction(direction=direction)
         self.visited_hexes.append(self.managed_game.current_point)
         self.reveal_hex(self.managed_game.current_point)
+        # Pour voir ce qu'il y a autour
         if self.managed_game.current_terrain().can_see_surroundings :
             for hex_coord in self.managed_game.map.visibility[self.managed_game.current_point]:
                 if hex_coord not in self.revealed_hexes : self.reveal_hex(hex_coord,secondary_pen=True)
+        # Pour voir les objets éloignés, même lors que les terrains sont distants
+        else:
+            for hex_coord in self.managed_game.map.visibility[self.managed_game.current_point]:
+                if hex_coord not in self.revealed_hexes and self.managed_game.terrain_at_coord(hex_coord).visibility_range>1 : 
+                    self.reveal_hex(hex_coord,secondary_pen=True)
         self.retrace_visited()
     
     def change_carac_of_character(
