@@ -135,7 +135,7 @@ class ExplorationInterface(QMainWindow):
             epaisseur=epaisseur,
         )
         self.game_manager = ExplorationGameManager(
-            managed_widget=self.main_hex_map_widget,
+            managed_hex_map=self.main_hex_map_widget,
             exploration_group=group,
             exploration_map=map,
             hour=start_hour,
@@ -143,16 +143,16 @@ class ExplorationInterface(QMainWindow):
             corresponding_map_point=corresponding_map_point,
         )
         
-        self.layout_V2.addWidget(self.game_manager.managed_widget.view)
+        self.layout_V2.addWidget(self.game_manager.managed_hex_map.view)
 
         self.layout_V2_H1 = QHBoxLayout()
         self.widget_layout_V2_H1 = QWidget()
         self.widget_layout_V2_H1.setLayout(self.layout_V2_H1)
         self.layout_V2.addWidget(self.widget_layout_V2_H1)
         self.zoom_in_button = QPushButton('Zoom')
-        self.zoom_in_button.clicked.connect(self.game_manager.managed_widget.zoom_in)
+        self.zoom_in_button.clicked.connect(self.game_manager.managed_hex_map.zoom_in)
         self.zoom_out_button = QPushButton('Dézoom')
-        self.zoom_out_button.clicked.connect(self.game_manager.managed_widget.zoom_out)
+        self.zoom_out_button.clicked.connect(self.game_manager.managed_hex_map.zoom_out)
         self.layout_V2_H1.addWidget(self.zoom_in_button)
         self.layout_V2_H1.addWidget(self.zoom_out_button)
 
@@ -180,9 +180,9 @@ class ExplorationInterface(QMainWindow):
         self.images_rose_cycle_index = 0
         self.set_image_rose_cycle()
         
-        self.rot_ahor_button.clicked.connect(self.game_manager.managed_widget.rotate_anti_horaire)
+        self.rot_ahor_button.clicked.connect(self.game_manager.managed_hex_map.rotate_anti_horaire)
         self.rot_ahor_button.clicked.connect(self.image_rose_cycle_anti)
-        self.rot_hor_button.clicked.connect(self.game_manager.managed_widget.rotate_horaire)
+        self.rot_hor_button.clicked.connect(self.game_manager.managed_hex_map.rotate_horaire)
         self.rot_hor_button.clicked.connect(self.image_rose_cycle)
         self.layout_V2_H2.addWidget(self.rot_ahor_button)
         self.layout_V2_H2.addWidget(self.rot_hor_button)
@@ -194,16 +194,12 @@ class ExplorationInterface(QMainWindow):
         self.tab = QTabWidget()
         self.tab.setTabPosition(QTabWidget.West)
         self.tab.setMovable(True)
-        self.character_description = {}
-        for character in group.characters:
-            self.character_description[character.name] = ExplorationCharacterSheet(
-                character=character,
-                image_path=f'images\\characters\\{character.name}.png',
-                largeur=self.width_layoutv1-100
-            )
-            self.tab.addTab(self.character_description[character.name],character.name)
+        
+        for character in self.game_manager.managed_game.group.characters :
+            tab_to_add = self.game_manager.managed_character_sheets[character.name]
+            self.tab.addTab(tab_to_add,character.name)
             # ------ Monkey patching, il faudrait changer ce qui suit
-            for button in self.character_description[character.name].all_buttons:
+            for button in tab_to_add.all_buttons:
                 button.clicked.connect(self.update_widgets)
             # ------ Fin monkey-patching
         self.layout_V1.addWidget(self.tab)
@@ -221,42 +217,29 @@ class ExplorationInterface(QMainWindow):
         self.layout_V3.addWidget(self.right_widget)
 
         # Jour
-        self.display_jour = QLabel()
+        self.display_jour = self.game_manager.managed_day_widget
         self.display_jour.setFont(self._font)
         self.layout_v3_sub.addWidget(self.display_jour,Qt.AlignCenter)
 
         self.layout_v3_sub.addWidget(ExplorationInterface.h_line())
         
         # Heure
-        self.display_heure = QLabel()
+        self.display_heure = self.game_manager.managed_hour_widget
         self.display_heure.setFont(self._font)
         self.layout_v3_sub_day = QHBoxLayout()
         self.layout_v3_sub.addLayout(self.layout_v3_sub_day)
         self.layout_v3_sub_day.addWidget(self.display_heure)
         self.layout_v3_sub_day_buttons = QVBoxLayout()
         self.layout_v3_sub_day.addLayout(self.layout_v3_sub_day_buttons)
-        self.button_recorver_1hour = QPushButton('- 1h')
-        self.button_recorver_15mn = QPushButton('- 15mn')
-        self.button_pass_15mn = QPushButton('+ 15mn')
-        self.button_pass_1hour = QPushButton('+ 1h')
-        self.layout_v3_sub_day_buttons.addWidget(self.button_recorver_1hour)
-        self.layout_v3_sub_day_buttons.addWidget(self.button_recorver_15mn)
-        self.layout_v3_sub_day_buttons.addWidget(self.button_pass_15mn)
-        self.layout_v3_sub_day_buttons.addWidget(self.button_pass_1hour)
-
-        self.button_recorver_1hour.clicked.connect(lambda x :self.game_manager.managed_game.time.go_back_hours(1))
-        self.button_recorver_1hour.clicked.connect(self.update_widgets)
-        self.button_recorver_15mn.clicked.connect(lambda x :self.game_manager.managed_game.time.go_back_minutes(15))
-        self.button_recorver_15mn.clicked.connect(self.update_widgets)
-        self.button_pass_15mn.clicked.connect(lambda x :self.game_manager.managed_game.time.pass_minutes(15))
-        self.button_pass_15mn.clicked.connect(self.update_widgets)
-        self.button_pass_1hour.clicked.connect(lambda x :self.game_manager.managed_game.time.pass_hours(1))
-        self.button_pass_1hour.clicked.connect(self.update_widgets)
+        self.layout_v3_sub_day_buttons.addWidget(self.game_manager.button_recorver_1hour)
+        self.layout_v3_sub_day_buttons.addWidget(self.game_manager.button_recorver_15mn)
+        self.layout_v3_sub_day_buttons.addWidget(self.game_manager.button_pass_15mn)
+        self.layout_v3_sub_day_buttons.addWidget(self.game_manager.button_pass_1hour)
         
         self.layout_v3_sub.addWidget(ExplorationInterface.h_line())
     
         # Current hex
-        self.display_current_hex = QLabel()
+        self.display_current_hex = self.game_manager.managed_terrain_widget
         self.display_current_hex.setFont(self._font)
         self.layout_v3_sub.addWidget(self.display_current_hex,Qt.AlignCenter)
         self.layout_v3_sub.addWidget(ExplorationInterface.h_line())
@@ -266,24 +249,12 @@ class ExplorationInterface(QMainWindow):
         self.layout_v3_sub.addWidget(self.direction_widget)
         self.grid_direction = QGridLayout()
         self.direction_widget.setLayout(self.grid_direction)
-        self.N  = QPushButton('N')
-        self.N.clicked.connect(self.go_to_N)
-        self.S  = QPushButton('S')
-        self.S.clicked.connect(self.go_to_S)
-        self.NE = QPushButton('NE')
-        self.NE.clicked.connect(self.go_to_NE)
-        self.NW = QPushButton('NW')
-        self.NW.clicked.connect(self.go_to_NW)
-        self.SE = QPushButton('SE')
-        self.SE.clicked.connect(self.go_to_SE)
-        self.SW = QPushButton('SW')
-        self.SW.clicked.connect(self.go_to_SW)
-        self.grid_direction.addWidget(self.N,0,1)
-        self.grid_direction.addWidget(self.S,3,1)
-        self.grid_direction.addWidget(self.NE,1,2)
-        self.grid_direction.addWidget(self.NW,1,0)
-        self.grid_direction.addWidget(self.SE,2,2)
-        self.grid_direction.addWidget(self.SW,2,0)
+        self.grid_direction.addWidget(self.game_manager.N,0,1)
+        self.grid_direction.addWidget(self.game_manager.S,3,1)
+        self.grid_direction.addWidget(self.game_manager.NE,1,2)
+        self.grid_direction.addWidget(self.game_manager.NW,1,0)
+        self.grid_direction.addWidget(self.game_manager.SE,2,2)
+        self.grid_direction.addWidget(self.game_manager.SW,2,0)
 
         # -----------------------------------
         # ----------- MENU BAR --------------
@@ -295,26 +266,19 @@ class ExplorationInterface(QMainWindow):
         self.show_summary = QAction('Résumé ', self)
         self.show_summary.setStatusTip('Résumé des caractéristiques du groupe')
         self.show_summary.setCheckable(True)
-        self.window_summary = None
+        self.window_summary_hidden = True
         
         self.show_summary.triggered.connect(self.create_summary)
 
         toolbar.addAction(self.show_summary)
 
     def create_summary(self):
-        if self.window_summary is None : 
-            
-            self.window_summary = ExplorationGroupSheet(
-                group=self.game_manager.managed_game.group,
-                parent=None
-            )
-
-            self.window_summary.show()
+        if self.window_summary_hidden:
+            self.game_manager.managed_group_sheet.show()
+            self.window_summary_hidden = False
         else:
-            self.window_summary.hide()
-            self.window_summary = None
-
-
+            self.game_manager.managed_group_sheet.hide()
+            self.window_summary_hidden = True
 
     def h_line():
         line = QFrame()
@@ -322,67 +286,7 @@ class ExplorationInterface(QMainWindow):
         return line
 
     def update_widgets(self):
-        self.display_jour.setText(f'Jour : {int(self.game_manager.managed_game.time.day)}')
-        self.display_heure.setText(f'Heure : {self.game_manager.managed_game.time.str_without_day()}')
-        self.display_current_hex.setText(f'Terrain : {self.game_manager.managed_game.current_terrain().name}')
-        for character in self.game_manager.managed_game.group.characters:
-            self.character_description[character.name].w_fatigue.set_current_value(character.CUR_FATIGUE)
-            self.character_description[character.name].w_hunger.set_current_value(character.CUR_HUNGER)
-            self.character_description[character.name].w_thirst.set_current_value(character.CUR_THIRST)
-            self.character_description[character.name].w_frost.set_current_value(character.CUR_FROST)
-            self.character_description[character.name].w_magic.set_current_value(character.CUR_MAGIC_FATIGUE)
-            
-            self.character_description[character.name].w_fatigue.set_shield_value(character.SHIELD_FATIGUE)
-            self.character_description[character.name].w_hunger.set_shield_value(character.SHIELD_HUNGER)
-            self.character_description[character.name].w_thirst.set_shield_value(character.SHIELD_THIRST)
-            self.character_description[character.name].w_frost.set_shield_value(character.SHIELD_FROST)
-            self.character_description[character.name].w_magic.set_shield_value(character.SHIELD_MAGIC_FATIGUE)
-        self.freeze_direction_buttons()
-
-        if not self.window_summary is None :
-            self.window_summary.update_widgets()
-
-    def go_to_N(self):
-        self.game_manager.go_to_direction('N')
-        self.update_widgets()
-
-    def go_to_S(self):
-        self.game_manager.go_to_direction('S')
-        self.update_widgets()
-
-    def go_to_NW(self):
-        self.game_manager.go_to_direction('NW')
-        self.update_widgets()
-
-    def go_to_NE(self):
-        self.game_manager.go_to_direction('NE')
-        self.update_widgets()
-
-    def go_to_SW(self):
-        self.game_manager.go_to_direction('SW')
-        self.update_widgets()
-
-    def go_to_SE(self):
-        self.game_manager.go_to_direction('SE')
-        self.update_widgets()
-    
-    def freeze_direction_buttons(self):
-        directions = self.game_manager.managed_game.map.neighbours_of_hex(self.game_manager.managed_game.current_point,direction_only=True)
-        dir_buttons = {
-            'N':self.N,
-            'S':self.S,
-            'NW':self.NW,
-            'SW':self.SW,
-            'NE':self.NE,
-            'SE':self.SE,
-        }
-        for direction in ['N','S','NW','SW','NE','SE']:
-            if direction not in directions:
-                dir_buttons[direction].setDisabled(True)
-            else:
-                dir_buttons[direction].setEnabled(True)
-
-
+        self.game_manager.update_managed_widgets()
 
     def set_image_rose_cycle(self):
         self.image_rose.setPixmap(QPixmap(self.images_rose_cycle[self.images_rose_cycle_index]).scaled(
@@ -394,7 +298,6 @@ class ExplorationInterface(QMainWindow):
     def image_rose_cycle(self):
         self.images_rose_cycle_index = (self.images_rose_cycle_index-1)%(len(self.images_rose_cycle))
         self.set_image_rose_cycle()
-
 
     def image_rose_cycle_anti(self):
         self.images_rose_cycle_index = (self.images_rose_cycle_index+1)%(len(self.images_rose_cycle))

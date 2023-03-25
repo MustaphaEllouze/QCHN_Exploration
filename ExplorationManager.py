@@ -1,3 +1,16 @@
+from PySide6.QtWidgets import (
+    QLabel,
+    QPushButton,
+)
+
+from ExplorationCharacterSheet import (
+    ExplorationCharacterSheet,
+)
+
+from ExplorationGroupSheet import (
+    ExplorationGroupSheet,
+)
+
 from ExplorationItems import(
     ExplorationTerrain,
     ExplorationPlace,
@@ -26,7 +39,7 @@ from Utility import (
 
 
 class ExplorationGameManager:
-    """Donne les ordres aux objets déja définis
+    """Donne les ordres aux objets et widgets déja définis
     """
     
     IMAGE_PATH = {
@@ -45,14 +58,16 @@ class ExplorationGameManager:
 
     def __init__(
             self,
-            managed_widget:WidgetHexMap,
+            managed_hex_map:WidgetHexMap,
             exploration_group:ExplorationGroup,
             exploration_map:ExplorationMap,
             hour:EDateTime=EDateTime(heure_depart=8,jour_depart=1),
             starting_point:tuple=(0,0),
             corresponding_map_point:tuple=(0,0),
+            width_character_sheets:int=500,
     ):
         
+        # ---------- Définition du coeur de jeu : ExplorationGame
         if (corresponding_map_point[0]-starting_point[0])%2==0:
             self.decalage_x = corresponding_map_point[0]-starting_point[0]
         else:
@@ -66,8 +81,73 @@ class ExplorationGameManager:
             starting_point=starting_point
         )
 
-        self.managed_widget = managed_widget
+        # ---------- Définition des widgets managés
+        
+        # Widget central - Carte
+        self.managed_hex_map = managed_hex_map
 
+        # Widgets de droite - Date et temps, terrains
+        self.managed_day_widget = QLabel()
+        self.managed_hour_widget = QLabel()
+        self.managed_terrain_widget = QLabel()
+
+        # Widgets de droite - Aller dans une direction
+        self.N  = QPushButton('N')
+        self.S  = QPushButton('S')
+        self.NE = QPushButton('NE')
+        self.NW = QPushButton('NW')
+        self.SE = QPushButton('SE')
+        self.SW = QPushButton('SW')
+
+        # Widget de droite - Boutons passage de temps
+        self.button_recorver_1hour = QPushButton('- 1h')
+        self.button_recorver_15mn = QPushButton('- 15mn')
+        self.button_pass_15mn = QPushButton('+ 15mn')
+        self.button_pass_1hour = QPushButton('+ 1h')
+
+        # Widget de gauche - ExplorationCharacterSheet
+        self.managed_character_sheets = {}
+        for character in self.managed_game.group.characters:
+            self.managed_character_sheets[character.name]=ExplorationCharacterSheet(
+                character=character,
+                image_path=f'images\\characters\\{character.name}.png',
+                largeur=width_character_sheets,
+            )
+        
+        # Widget résumé - ExplorationGroupSheet
+        self.managed_group_sheet = ExplorationGroupSheet(
+            group=self.managed_game.group,
+        )
+
+        # ---------- Connexion des Widgets
+
+        # Widgets de droite - Boutons temps
+        self.button_recorver_1hour.clicked.connect(lambda x :self.managed_game.time.go_back_hours(1))
+        self.button_recorver_15mn.clicked.connect (lambda x :self.managed_game.time.go_back_minutes(15))
+        self.button_pass_15mn.clicked.connect     (lambda x :self.managed_game.time.pass_minutes(15))
+        self.button_pass_1hour.clicked.connect    (lambda x :self.managed_game.time.pass_hours(1))
+
+        self.button_recorver_1hour.clicked.connect(self.update_managed_widgets)
+        self.button_recorver_15mn.clicked.connect (self.update_managed_widgets)
+        self.button_pass_15mn.clicked.connect     (self.update_managed_widgets)
+        self.button_pass_1hour.clicked.connect    (self.update_managed_widgets)
+
+        # Widget de droite - Aller dans une direction
+        self.N.clicked.connect(lambda :self.go_to_direction('N'))
+        self.S.clicked.connect(lambda :self.go_to_direction('S'))
+        self.NE.clicked.connect(lambda :self.go_to_direction('NE'))
+        self.NW.clicked.connect(lambda :self.go_to_direction('NW'))
+        self.SE.clicked.connect(lambda :self.go_to_direction('SE'))
+        self.SW.clicked.connect(lambda :self.go_to_direction('SW'))
+        
+        self.N.clicked.connect (self.update_managed_widgets)
+        self.S.clicked.connect (self.update_managed_widgets)
+        self.NE.clicked.connect(self.update_managed_widgets)
+        self.NW.clicked.connect(self.update_managed_widgets)
+        self.SE.clicked.connect(self.update_managed_widgets)
+        self.SW.clicked.connect(self.update_managed_widgets)
+
+        # ---------- Autres paramètres
         self.revealed_hexes = []
         self.visited_hexes = []
 
@@ -79,11 +159,40 @@ class ExplorationGameManager:
                     hex_coord[0]+self.decalage_x,
                     hex_coord[1]+self.decalage_y
                 )
-            self.managed_widget.draw_hex_from_coord(
+            self.managed_hex_map.draw_hex_from_coord(
                 coord=coord_widget,
                 secondary_pen=False,
             )
 
+    def update_managed_widgets(self):
+        # Time / Date / Terrain
+        self.managed_day_widget.setText(f'Jour : {int(self.managed_game.time.day)}')
+        self.managed_hour_widget.setText(f'Heure : {self.managed_game.time.str_without_day()}')
+        self.managed_terrain_widget.setText(f'Terrain : {self.managed_game.current_terrain().name}')
+
+        # Character sheets
+        for character in self.managed_game.group.characters:
+            self.managed_character_sheets[character.name].w_fatigue.set_current_value(character.CUR_FATIGUE)
+            self.managed_character_sheets[character.name].w_hunger.set_current_value(character.CUR_HUNGER)
+            self.managed_character_sheets[character.name].w_thirst.set_current_value(character.CUR_THIRST)
+            self.managed_character_sheets[character.name].w_frost.set_current_value(character.CUR_FROST)
+            self.managed_character_sheets[character.name].w_magic.set_current_value(character.CUR_MAGIC_FATIGUE)
+            
+            self.managed_character_sheets[character.name].w_fatigue.set_shield_value(character.SHIELD_FATIGUE)
+            self.managed_character_sheets[character.name].w_hunger.set_shield_value(character.SHIELD_HUNGER)
+            self.managed_character_sheets[character.name].w_thirst.set_shield_value(character.SHIELD_THIRST)
+            self.managed_character_sheets[character.name].w_frost.set_shield_value(character.SHIELD_FROST)
+            self.managed_character_sheets[character.name].w_magic.set_shield_value(character.SHIELD_MAGIC_FATIGUE)
+
+        # Widget group Sheet
+        self.managed_group_sheet.update_widgets()
+
+        # Les boutons de direction 
+        self.freeze_direction_buttons()
+
+    def freeze_direction_buttons(self):
+        pass
+    
     def reveal_hex(
             self,
             coord,
@@ -94,11 +203,11 @@ class ExplorationGameManager:
                     coord[0]+self.decalage_x,
                     coord[1]+self.decalage_y
                 )
-            self.managed_widget.draw_hex_from_coord(
+            self.managed_hex_map.draw_hex_from_coord(
                 coord=coord_widget,
                 secondary_pen=secondary_pen,
             )
-            self.managed_widget.draw_image_inside_hex(
+            self.managed_hex_map.draw_image_inside_hex(
                 coord=coord_widget,
                 image_path=ExplorationGameManager.IMAGE_PATH[self.managed_game.terrain_at_coord(coord)]
             )
@@ -144,6 +253,22 @@ class ExplorationGameManager:
             carac:str,
     ):
         character.change_shield(n=n,carac=carac)
+    
+    def freeze_direction_buttons(self):
+        directions = self.managed_game.map.neighbours_of_hex(self.managed_game.current_point,direction_only=True)
+        dir_buttons = {
+            'N':self.N,
+            'S':self.S,
+            'NW':self.NW,
+            'SW':self.SW,
+            'NE':self.NE,
+            'SE':self.SE,
+        }
+        for direction in ['N','S','NW','SW','NE','SE']:
+            if direction not in directions:
+                dir_buttons[direction].setDisabled(True)
+            else:
+                dir_buttons[direction].setEnabled(True)
         
 
 if __name__ == '__main__':
