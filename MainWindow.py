@@ -32,6 +32,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QGridLayout,
     QToolBar,
+    QInputDialog,
 )
 
 from functools import (
@@ -60,6 +61,10 @@ from ExplorationCharacterSheet import (
 
 from ExplorationGroupSheet import (
     ExplorationGroupSheet,
+)
+
+from ExplorationSave import (
+    ExplorationSave,
 )
 
 from Utility import (
@@ -282,6 +287,20 @@ class ExplorationInterface(QMainWindow):
         self.show_summary.triggered.connect(self.create_summary)
 
         toolbar.addAction(self.show_summary)
+
+        self.save_button = QAction('Sauver partie', self)
+        self.save_button.setStatusTip('Sauver la partie')
+        self.save_button.triggered.connect(self.save_game)
+        toolbar.addAction(self.save_button)
+
+    def save_game(self):
+        path_file,sucess = QInputDialog.getText(
+            self,
+            'Sauver la partie',
+            'Entrer le chemin du fichier',
+        )
+        if sucess :
+            ExplorationSave.write_save(path_fichier=path_file)
 
     def create_summary(self):
         if self.window_summary_hidden:

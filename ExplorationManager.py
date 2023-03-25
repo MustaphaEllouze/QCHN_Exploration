@@ -29,6 +29,10 @@ from ExplorationGame import (
     ExplorationGame,
 )
 
+from ExplorationSave import (
+    ExplorationSave,
+)
+
 from HexagonalMap import (
     WidgetHexMap,
 )
@@ -123,9 +127,13 @@ class ExplorationGameManager:
 
         # Widgets de droite - Boutons temps
         self.button_recorver_1hour.clicked.connect(lambda x :self.managed_game.time.go_back_hours(1))
+        self.button_recorver_1hour.clicked.connect(lambda :ExplorationSave.log_action('hour',(-1,)))
         self.button_recorver_15mn.clicked.connect (lambda x :self.managed_game.time.go_back_minutes(15))
+        self.button_recorver_15mn.clicked.connect (lambda :ExplorationSave.log_action('minu',(-15,)))
         self.button_pass_15mn.clicked.connect     (lambda x :self.managed_game.time.pass_minutes(15))
+        self.button_pass_15mn.clicked.connect     (lambda :ExplorationSave.log_action('minu',(15,)))
         self.button_pass_1hour.clicked.connect    (lambda x :self.managed_game.time.pass_hours(1))
+        self.button_pass_1hour.clicked.connect    (lambda :ExplorationSave.log_action('hour',(1,)))
 
         self.button_recorver_1hour.clicked.connect(self.update_managed_widgets)
         self.button_recorver_15mn.clicked.connect (self.update_managed_widgets)
@@ -150,9 +158,6 @@ class ExplorationGameManager:
         # ---------- Autres paramètres
         self.revealed_hexes = []
         self.visited_hexes = []
-
-        # ---------- Définition du fichier de sauvegarde
-        self.save_log = []
 
     def retrace_visited(
             self
@@ -243,6 +248,9 @@ class ExplorationGameManager:
                 if hex_coord not in self.revealed_hexes and self.managed_game.terrain_at_coord(hex_coord).visibility_range>1 : 
                     self.reveal_hex(hex_coord,secondary_pen=True)
         self.retrace_visited()
+
+        # Log 
+        ExplorationSave.log_action('go',direction)
     
     def change_carac_of_character(
             self,

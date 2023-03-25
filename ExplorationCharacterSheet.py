@@ -18,6 +18,10 @@ from ExplorationCharacters import (
     ExplorationCharacter,
 )
 
+from ExplorationSave import (
+    ExplorationSave,
+)
+
 from PySide6.QtCore import (
     Qt,
 )
@@ -92,22 +96,29 @@ class ProgressBarExtended(QWidget):
         self.unfreeze_but.clicked.connect(lambda x : self.unfreeze_but.setDisabled(True))
         self.unfreeze_but.clicked.connect(lambda x : self.freeze_but.setEnabled(True))
 
-        self.freeze_but.clicked.connect(partial(character.set_freeze_state_carac,name_cara,True))
-        self.unfreeze_but.clicked.connect(partial(character.set_freeze_state_carac,name_cara,False))
-
-        
         self.add_car.clicked.connect(lambda x : self.character.change_carac(1,name_cara))
         self.add_car.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
+        self.add_car.clicked.connect(lambda : ExplorationSave.log_action('cara',(character.name,name_cara,1)))
+
         self.sub_car.clicked.connect(lambda x : self.character.consume_car_or_shield(1,name_cara))
         self.sub_car.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
         self.sub_car.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
+        self.sub_car.clicked.connect(lambda : ExplorationSave.log_action('cara',(character.name,name_cara,-1)))
+
         self.add_shield.clicked.connect(lambda x : self.character.change_shield(1,name_cara))
         self.add_shield.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
+        self.add_shield.clicked.connect(lambda : ExplorationSave.log_action('shi',(character.name,name_cara,1)))
+
         self.sub_shield.clicked.connect(lambda x : self.character.change_shield(-1,name_cara))
         self.sub_shield.clicked.connect(lambda x : self.progress_bar.set_shield_value(character.get_value_of_shield(name_cara)))
         self.sub_shield.clicked.connect(lambda x : self.progress_bar.set_current_value(character.get_value_of_cara(name_cara)))
+        self.sub_shield.clicked.connect(lambda : ExplorationSave.log_action('shi',(character.name,name_cara,-1)))
+
         self.freeze_but.clicked.connect(partial(self.character.set_freeze_state_carac,name_cara,True))
+        self.freeze_but.clicked.connect(lambda : ExplorationSave.log_action('freeze',(character.name,name_cara)))
+
         self.unfreeze_but.clicked.connect(partial(self.character.set_freeze_state_carac,name_cara,False))
+        self.unfreeze_but.clicked.connect(lambda : ExplorationSave.log_action('unfreeze',(character.name,name_cara)))
 
         self.add_car.setFixedWidth(50)
         self.sub_car.setFixedWidth(50)
@@ -142,8 +153,11 @@ class ExplorationCharacterSheet(QWidget):
         
         self.freeze_but = QPushButton('Freeze')
         self.freeze_but.clicked.connect(partial(character.set_freeze_state,True))
+        self.freeze_but.clicked.connect(lambda : ExplorationSave.log_action('freeze_all',(character.name,)))
+
         self.unfreeze_but = QPushButton('Unfreeze')
         self.unfreeze_but.clicked.connect(partial(character.set_freeze_state,False))
+        self.unfreeze_but.clicked.connect(lambda : ExplorationSave.log_action('unfreeze_all',(character.name,)))
         
         self.freeze_but.clicked.connect(lambda x : self.freeze_but.setDisabled(True))
         self.freeze_but.clicked.connect(lambda x : self.unfreeze_but.setEnabled(True))
