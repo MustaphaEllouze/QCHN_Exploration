@@ -336,9 +336,9 @@ class ExplorationInterface(QMainWindow):
                         elif fonction == 'unfreeze_all':
                             ExplorationCharacter.CHARACTERS[arguments[0]].set_freeze_state(freeze_state=False)
                         elif fonction == 'hour':
-                            self.game_manager.managed_game.time.pass_hours(*arguments)
+                            self.game_manager.managed_game.time.pass_hours(int(arguments[0]))
                         elif fonction == 'minu':
-                            self.game_manager.managed_game.time.pass_minutes(*arguments)
+                            self.game_manager.managed_game.time.pass_minutes(int(arguments[0]))
                         elif fonction == 'go':
                             self.game_manager.go_to_direction(*arguments)
                 ExplorationSave.write_mode = True
