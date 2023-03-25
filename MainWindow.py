@@ -95,11 +95,17 @@ class ExplorationInterface(QMainWindow):
         # ------ PARAMETRES GENERAUX ----
         self.width_layoutv1 = 525
         self.width_layoutv3 = 300
-        self.mini_height = max(
-                taille_v_view,
-                self.width_layoutv1+5*height_progress_bar+300,
+        self.mini_height = min(
+                max(
+                    taille_v_view,
+                    self.width_layoutv1+5*height_progress_bar+300,
+                ),
+                1000,
             )
-        self.mini_width = self.width_layoutv1+taille_h_view+self.width_layoutv3+50
+        self.mini_width = min(
+            self.width_layoutv1+taille_h_view+self.width_layoutv3+50,
+            1750
+        )
         self.resize(QSize(self.mini_width,self.mini_height))
         self.setMinimumHeight(self.mini_height)
         self.setMinimumWidth(self.mini_width)

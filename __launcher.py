@@ -40,7 +40,11 @@ window = ExplorationInterface(
             map=map1,
             group=GROUP1,
             starting_point=(0,0),
-            corresponding_map_point=(7,7),
+            corresponding_map_point=(25,25),
+            taille_h_scene=5000,
+            taille_v_scene=5000,
+            taille_h_view=2500,
+            taille_v_view=2500,
             couleur=couleur
         )
 window._begin_game()
