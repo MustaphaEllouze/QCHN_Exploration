@@ -63,6 +63,8 @@ class ExplorationGame:
 
         self.current_point=target_hex
 
+        return target_hex
+
 
 if __name__ == '__main__':
     from ExplorationMaps_input import map1

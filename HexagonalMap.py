@@ -27,6 +27,9 @@ from Geometry import (
 class WidgetHexMap(QWidget):
     """Widget de carte hexagonale
     """
+
+    cursor_path = 'images\\others\\star_cursor.png'
+
     def __init__(
             self,
             taille_h_scene=480,
@@ -108,6 +111,9 @@ class WidgetHexMap(QWidget):
                 centre=Point(*self.centres[coord]),
                 rayon=taille_hexa
             )
+        
+        # --- Contient le curseur "en cours"
+        self._cursor = None
     
     def draw_hexs(self,secondary_pen=False):
         if secondary_pen:
@@ -148,6 +154,18 @@ class WidgetHexMap(QWidget):
         )
         image_placed = self.scene.addPixmap(pixmap)
         image_placed.setPos(p)
+
+        return image_placed
+    
+    def draw_cursor(
+            self,
+            coord:tuple
+    ):
+        if not self._cursor is None :
+            self.scene.removeItem(self._cursor)
+            
+        curs = self.draw_image_inside_hex(coord=coord,image_path=WidgetHexMap.cursor_path)
+        self._cursor = curs
     
     def zoom_in(self):
         self.view.scale(1.1,1.1)

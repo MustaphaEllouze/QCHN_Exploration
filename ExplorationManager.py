@@ -232,6 +232,13 @@ class ExplorationGameManager:
             for hex_coord in self.managed_game.map.visibility[self.managed_game.current_point]:
                 if hex_coord not in self.revealed_hexes : self.reveal_hex(hex_coord,secondary_pen=True)
         self.retrace_visited()
+        
+        coord_widget = (
+        self.managed_game.starting_point[0]+self.decalage_x,
+        self.managed_game.starting_point[1]+self.decalage_y
+        )
+
+        self.managed_hex_map.draw_cursor(coord_widget)
     
     def go_to_direction(
             self,
@@ -239,7 +246,8 @@ class ExplorationGameManager:
     ):
         assert direction in ['N','S','NE','NW','SE','SW']
 
-        self.managed_game.go_to_direction(direction=direction)
+        target_hex = self.managed_game.go_to_direction(direction=direction)
+
         self.visited_hexes.append(self.managed_game.current_point)
         self.reveal_hex(self.managed_game.current_point)
         # Pour voir ce qu'il y a autour
@@ -252,6 +260,13 @@ class ExplorationGameManager:
                 if hex_coord not in self.revealed_hexes and self.managed_game.terrain_at_coord(hex_coord).visibility_range>1 : 
                     self.reveal_hex(hex_coord,secondary_pen=True)
         self.retrace_visited()
+
+        # Curseur 
+        coord_widget = (
+        target_hex[0]+self.decalage_x,
+        target_hex[1]+self.decalage_y
+        )
+        self.managed_hex_map.draw_cursor(coord_widget)
 
         # Log 
         ExplorationSave.log_action('go',(direction,))
