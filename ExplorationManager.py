@@ -151,6 +151,9 @@ class ExplorationGameManager:
         self.revealed_hexes = []
         self.visited_hexes = []
 
+        # ---------- Définition du fichier de sauvegarde
+        self.save_log = []
+
     def retrace_visited(
             self
     ):
@@ -189,9 +192,6 @@ class ExplorationGameManager:
 
         # Les boutons de direction 
         self.freeze_direction_buttons()
-
-    def freeze_direction_buttons(self):
-        pass
     
     def reveal_hex(
             self,
