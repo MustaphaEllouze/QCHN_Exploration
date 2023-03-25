@@ -268,6 +268,12 @@ class ExplorationGameManager:
             for hex_coord in self.managed_game.map.visibility[self.managed_game.current_point]:
                 if hex_coord not in self.revealed_hexes and self.managed_game.terrain_at_coord(hex_coord).visibility_range>1 : 
                     self.reveal_hex(hex_coord,secondary_pen=True)
+                if (
+                    (hex_coord not in self.revealed_hexes) 
+                    and (not self.managed_game.place_at_coord(hex_coord) is None)
+                    and self.managed_game.place_at_coord(hex_coord).detect_distance>1
+                ):
+                    self.reveal_hex(hex_coord,secondary_pen=True)
         self.retrace_visited()
 
         # Curseur 

@@ -365,6 +365,11 @@ class ExplorationMap :
             for visible_from_hex in self.neighbours_at_range_X(coord,range=hex.visibility_range):
                 self.visibility[visible_from_hex].append(coord)
         
+        # --- Construction avec les places, selon le même principe
+        for coord,place in self.places.items():
+            for visible_from_hex in self.neighbours_at_range_X(coord,range=place.detect_distance):
+                self.visibility[visible_from_hex].append(coord)
+        
 if __name__ == '__main__':
     map = ExplorationMap(
         name='Scenario1',
