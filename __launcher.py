@@ -17,7 +17,7 @@ from ExplorationMaps_input import (
 )
 
 from Characters_input import (
-    GROUP1,
+    GROUP1,GROUP1_SMALL
 )
 
 from Utility import (
@@ -38,7 +38,7 @@ else:
 
 window = ExplorationInterface(
             map=map2,
-            group=GROUP1,
+            group=GROUP1_SMALL,
             starting_point=(0,0),
             corresponding_map_point=(25,25),
             taille_h_scene=5000,

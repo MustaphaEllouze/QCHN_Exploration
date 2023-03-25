@@ -83,6 +83,15 @@ GROUP1 = ExplorationGroup(
     ]
 )
 
+GROUP1_SMALL = ExplorationGroup(
+    name='GROUPE 1',
+    exploration_characters=[
+        VIKRAM,
+        PENNE,
+        BLURP,
+    ]
+)
+
 if __name__ == '__main__':
     c_to_check = CHEESY_SWING
     print(c_to_check.name,
