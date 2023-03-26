@@ -109,3 +109,109 @@ cara | Blurp FATIGUE -1
 cara | Blurp FATIGUE -1
 cara | Blurp THIRST -1
 cara | Blurp THIRST -1
+minu | 15
+minu | 15
+cara | Blurp THIRST 1
+go | S
+go | SE
+cara | Blurp FROST -1
+cara | Vikram FROST -1
+cara | Penne FROST -1
+cara | Blurp MAGIC -1
+cara | Blurp MAGIC -1
+go | SW
+minu | -15
+minu | -15
+cara | Penne MAGIC -1
+cara | Penne MAGIC -1
+cara | Penne MAGIC -1
+cara | Blurp MAGIC -1
+cara | Blurp MAGIC -1
+cara | Blurp MAGIC -1
+cara | Vikram MAGIC -1
+cara | Vikram MAGIC -1
+cara | Blurp MAGIC -1
+cara | Blurp MAGIC -1
+cara | Blurp MAGIC -1
+cara | Blurp MAGIC -1
+cara | Blurp MAGIC -1
+cara | Blurp MAGIC -1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+go | N
+cara | Penne FATIGUE 1
+cara | Penne FATIGUE 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+go | N
+minu | 15
+minu | 15
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp MAGIC 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram MAGIC 1
+cara | Vikram MAGIC 1
+cara | Vikram MAGIC 1
+cara | Vikram MAGIC 1
+cara | Vikram MAGIC 1
+cara | Vikram MAGIC 1
+cara | Penne FATIGUE 1
+cara | Penne FATIGUE 1
+cara | Penne FATIGUE 1
+cara | Penne FATIGUE 1
+cara | Penne FATIGUE 1
+cara | Penne FATIGUE 1
+cara | Penne MAGIC 1
+cara | Penne MAGIC 1
+cara | Penne MAGIC 1
+cara | Penne MAGIC 1
