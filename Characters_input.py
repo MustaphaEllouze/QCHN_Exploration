@@ -72,6 +72,54 @@ CHEESY_SWING = ExplorationCharacter(
     base_wisdwom=12,
 )
 
+SKRELV = ExplorationCharacter(
+    name='Skrelv',
+    race=Race.murissian,
+    classe=Class.monk_DEX_CON,
+    base_constitution=12,
+    base_intelligence=7,
+    base_dexterity=17,
+    base_charisma=11,
+    base_strength=12,
+    base_wisdwom=9,
+)
+
+AL = ExplorationCharacter(
+    name='Al',
+    race=Race.saurian,
+    classe=Class.shaman,
+    base_constitution=11,
+    base_intelligence=11,
+    base_dexterity=13,
+    base_charisma=11,
+    base_strength=8,
+    base_wisdwom=16,
+)
+
+SPIRAL = ExplorationCharacter(
+    name='Spiral',
+    race=Race.saurian,
+    classe=Class.rogue_CHR,
+    base_constitution=13,
+    base_intelligence=14,
+    base_dexterity=8,
+    base_charisma=14,
+    base_strength=12,
+    base_wisdwom=14,
+)
+
+YOUPLABOUM = ExplorationCharacter(
+    name='Youplaboum',
+    race=Race.aven_WIS,
+    classe=Class.rogue_CHR,
+    base_constitution=10,
+    base_intelligence=12,
+    base_dexterity=15,
+    base_charisma=12,
+    base_strength=9,
+    base_wisdwom=12,
+)
+
 GROUP1 = ExplorationGroup(
     name='GROUPE 1',
     exploration_characters=[
@@ -83,6 +131,7 @@ GROUP1 = ExplorationGroup(
     ]
 )
 
+
 GROUP1_SMALL = ExplorationGroup(
     name='GROUPE 1',
     exploration_characters=[
@@ -92,8 +141,27 @@ GROUP1_SMALL = ExplorationGroup(
     ]
 )
 
+GROUP2 = ExplorationGroup(
+    name='GROUPE 2',
+    exploration_characters=[
+        SKRELV,
+        YOUPLABOUM,
+        SPIRAL,
+        AL,
+    ]
+)
+
+GROUP2_SMALL = ExplorationGroup(
+    name='GROUPE 2',
+    exploration_characters=[
+        YOUPLABOUM,
+        SPIRAL,
+        AL,
+    ]
+)
+
 if __name__ == '__main__':
-    c_to_check = CHEESY_SWING
+    c_to_check = YOUPLABOUM
     print(c_to_check.name,
           c_to_check.CON,
           c_to_check.INT,

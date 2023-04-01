@@ -60,6 +60,7 @@ class ExplorationGameManager:
         ExplorationTerrain.sea          : 'images\\hex_images\\sea_clean.png',
         ExplorationPlace.village        : 'images\\others\\village_cursor.png',
         ExplorationPlace.cristal        : 'images\\others\\cristal_cursor.png',
+        ExplorationPlace.cave           : 'images\\others\\cave_cursor.png',
     }
 
     def __init__(

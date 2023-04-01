@@ -17,7 +17,7 @@ from ExplorationMaps_input import (
 )
 
 from Characters_input import (
-    GROUP1,GROUP1_SMALL
+    GROUP1,GROUP1_SMALL,GROUP2,GROUP2_SMALL,
 )
 
 from Utility import (
@@ -36,17 +36,32 @@ if darktheme :
 else:
     couleur = QColor('black')
 
-window = ExplorationInterface(
-            map=map2,
-            group=GROUP1_SMALL,
-            starting_point=(0,0),
-            corresponding_map_point=(25,25),
-            taille_h_scene=5000,
-            taille_v_scene=5000,
-            taille_h_view=2500,
-            taille_v_view=2500,
-            couleur=couleur
-        )
+groupe1 = False
+
+if groupe1 : 
+    window = ExplorationInterface(
+                map=map2,
+                group=GROUP1_SMALL,
+                starting_point=(0,0),
+                corresponding_map_point=(25,25),
+                taille_h_scene=5000,
+                taille_v_scene=5000,
+                taille_h_view=2500,
+                taille_v_view=2500,
+                couleur=couleur
+            )
+else:
+    window = ExplorationInterface(
+                map=map1,
+                group=GROUP2_SMALL,
+                starting_point=(0,0),
+                corresponding_map_point=(25,25),
+                taille_h_scene=5000,
+                taille_v_scene=5000,
+                taille_h_view=2500,
+                taille_v_view=2500,
+                couleur=couleur
+            )
 window._begin_game()
 window.show()
 app.exec()
