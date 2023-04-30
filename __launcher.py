@@ -36,7 +36,7 @@ if darktheme :
 else:
     couleur = QColor('black')
 
-groupe1 = False
+groupe1 = True
 
 if groupe1 : 
     window = ExplorationInterface(
