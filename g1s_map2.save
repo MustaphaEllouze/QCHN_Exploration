@@ -235,3 +235,157 @@ minu | -15
 hour | 1
 hour | 1
 hour | 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+cara | Vikram FROST 1
+cara | Penne FROST 1
+cara | Blurp FROST 1
+go | SE
+minu | 15
+minu | 15
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Blurp FATIGUE 1
+cara | Vikram THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+go | SE
+go | NE
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+shi | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+go | SE
+go | NE
+go | SE
+go | SE
+go | NE
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+go | N
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+cara | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+cara | Penne FATIGUE 1
+cara | Penne FATIGUE 1
+cara | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+cara | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+go | NE
+go | NE
+cara | Vikram FROST -1
+cara | Penne FROST -1
+cara | Blurp FROST -1
+go | SE
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp MAGIC -1
+go | NE
+hour | 1
+hour | 1
