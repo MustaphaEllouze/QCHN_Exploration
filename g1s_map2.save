@@ -389,3 +389,117 @@ cara | Blurp MAGIC -1
 go | NE
 hour | 1
 hour | 1
+go | NW
+minu | 15
+minu | 15
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+cara | Vikram THIRST 1
+shi | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+minu | 15
+shi | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+shi | Vikram FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Blurp FATIGUE 1
+go | S
+go | S
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+go | S
+go | SW
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Penne HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Blurp HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+cara | Vikram HUNGER 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+hour | 1
+minu | 15
+cara | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+shi | Penne FATIGUE 1
+cara | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+shi | Vikram FATIGUE 1
+cara | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+shi | Blurp FATIGUE 1
+go | S
+freeze_all | Blurp
+freeze_all | Penne
+freeze_all | Vikram
+go | SW
+go | NE
+hour | -1
+hour | -1
+hour | -1
+unfreeze_all | Vikram
+unfreeze_all | Penne
+unfreeze_all | Blurp
+cara | Penne THIRST 1
+cara | Penne THIRST 1
+cara | Penne FROST 1
+cara | Vikram FROST 1
+cara | Blurp FROST 1
+go | S
+go | N
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
+cara | Blurp THIRST 1
